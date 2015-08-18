@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] dealing with timestamp (in-)accuracy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C47d68bb3.Enqbt6uDBDU1%2Bgya%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000127.html">
+   <LINK REL="Next"  HREF="000111.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] dealing with timestamp (in-)accuracy</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C47d68bb3.Enqbt6uDBDU1%2Bgya%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] dealing with timestamp (in-)accuracy">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Mar 11 14:40:03 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000127.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+        <LI>Next message: <A HREF="000111.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#110">[ date ]</a>
+              <a href="thread.html#110">[ thread ]</a>
+              <a href="subject.html#110">[ subject ]</a>
+              <a href="author.html#110">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> In create.c of star-1.5a87, line 281, it reads:
+</I>&gt;<i>
+</I>&gt;<i>    } else if (dumplevel &gt; 0) {
+</I>&gt;<i>       if (info-&gt;f_mtime &gt; Newer.tv_sec) {
+</I>&gt;<i>          /* EMPTY */
+</I>&gt;<i>          ;
+</I>&gt;<i>       } else if (info-&gt;f_ctime &gt; Newer.tv_sec) {
+</I>&gt;<i>          if (dumpmeta)
+</I>&gt;<i>             info-&gt;f_xftype = XT_META;
+</I>&gt;<i>       } else {
+</I>&gt;<i>          return (FALSE);
+</I>&gt;<i>       }
+</I>&gt;<i>
+</I>&gt;<i> As far as I can see, this is the place where it is decided upon whether a 
+</I>&gt;<i> file will be included in the current dump, or if it may be assumed that it is 
+</I>&gt;<i> already included in a previous dump (and hence will not be included again). I 
+</I>&gt;<i> wonder whether the checks shouldn't be for greater *or* *equal*, i.e.:
+</I>&gt;<i>
+</I>&gt;<i>       if (info-&gt;f_mtime &gt;= Newer.tv_sec) {
+</I>&gt;<i>          /* EMPTY */
+</I>&gt;<i>          ;
+</I>&gt;<i>       } else if (info-&gt;f_ctime &gt;= Newer.tv_sec) {
+</I>
+This is not really correct as it could result in duplicate files in successive
+incrementals.
+
+Did you actually see missing files in incrementals?
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000127.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+	<LI>Next message: <A HREF="000111.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#110">[ date ]</a>
+              <a href="thread.html#110">[ thread ]</a>
+              <a href="subject.html#110">[ subject ]</a>
+              <a href="author.html#110">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

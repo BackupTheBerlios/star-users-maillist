@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] refuse to update certain files upon extraction
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C473b1fa9.iTApV35Ft4d9LlZn%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000078.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] refuse to update certain files upon extraction</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C473b1fa9.iTApV35Ft4d9LlZn%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] refuse to update certain files upon extraction">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov 14 17:17:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000078.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> What could star prevent from overwriting existing files when invoked like 
+</I>&gt;<i> that:
+</I>&gt;<i>
+</I>&gt;<i>    star -xpU f=archive.tar
+</I>&gt;<i>
+</I>&gt;<i> ?
+</I>&gt;<i>
+</I>&gt;<i> I did some incremental dumps, restored them in a different filesystem and 
+</I>&gt;<i> compared to the original one. Level 0 is no problem. On higher levels, 
+</I>&gt;<i> however, certain files are not updated and hence differ from the current 
+</I>&gt;<i> original. I checked the archives, and they contain the files in question in 
+</I>&gt;<i> the correct version. But they are not extracted over the existing, outdated 
+</I>&gt;<i> files! Neither when I try with -xpU, nor when I try with -xpU -restore. 
+</I>&gt;<i> Extracting into an empty directory works (that way I found out that the files 
+</I>&gt;<i> inside of the archive are the correct ones).
+</I>
+Star has been tested _very_ often and _very_ complete with incremental backups 
+and incremental restores. Since August 2004, more than 1000 incremental backups
+and retores have been performed on the Berlios file server. We typically have 
+~ 10 GB of changes per day and &gt; ~ 2000 of renamed/removed files + an unknown
+but large set of new files. Every day, a full compare is run between the 
+original filesystem and the copy.
+
+Since July 2005, no problem (except the directory timestamp problem from 
+September 2007), not a single problem could be found. 
+
+As star always writes an error message, you should start to run star from
+script(1) to fetch such messages....
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000078.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#79">[ date ]</a>
+              <a href="thread.html#79">[ thread ]</a>
+              <a href="subject.html#79">[ subject ]</a>
+              <a href="author.html#79">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

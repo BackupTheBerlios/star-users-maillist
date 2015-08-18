@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star tape I/O suggestion
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20tape%20I/O%20suggestion&In-Reply-To=%3C500a6fdadb4186b60c6ca432c98d2340.squirrel%40ssl-webmail-vh.clara.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000181.html">
+   <LINK REL="Next"  HREF="000183.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star tape I/O suggestion</H1>
+    <B>markk at clara.co.uk</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20tape%20I/O%20suggestion&In-Reply-To=%3C500a6fdadb4186b60c6ca432c98d2340.squirrel%40ssl-webmail-vh.clara.net%3E"
+       TITLE="[Star-users] star tape I/O suggestion">markk at clara.co.uk
+       </A><BR>
+    <I>Fri Mar  4 22:02:49 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000181.html">[Star-users] star tape I/O suggestion
+</A></li>
+        <LI>Next message: <A HREF="000183.html">[Star-users] Feature requests related to sparse files
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#182">[ date ]</a>
+              <a href="thread.html#182">[ thread ]</a>
+              <a href="subject.html#182">[ subject ]</a>
+              <a href="author.html#182">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Joerg Schilling wrote:
+&gt;&gt;<i> Yes, that was the point of my suggestion. Instead of writing one tape
+</I>&gt;&gt;<i> block at a time, if you set the tape drive to fixed-block mode by doing
+</I>&gt;&gt;<i> e.g.
+</I>&gt;&gt;<i>   mt -f /dev/nst0 setblk 32768
+</I>&gt;&gt;<i> you can then tell star to write in larger chunks, say bs=524288. In that
+</I>&gt;&gt;<i> case, each 512KB that star writes should (subject to the tape driver)
+</I>&gt;&gt;<i> get
+</I>&gt;&gt;<i> written to tape using one WRITE command of sixteen 32KB blocks.
+</I>&gt;<i>
+</I>&gt;<i> Try to avoid this, it creates tapes that cannot be read on all platforms
+</I>&gt;<i> and that need manual intervention on others.
+</I>&gt;<i>
+</I>&gt;&gt;<i> So there will be no interchange problems due to large tape block size,
+</I>&gt;&gt;<i> and no inefficiency from writing one small tape block at a time.
+</I>&gt;<i>
+</I>&gt;<i> See above, UNIX expects variable blocked tapes
+</I>
+I was under the impression that writing several blocks with one WRITE
+command (fixed-length block mode) writes exactly the same data to tape as
+several successive one-block writes (in fixed or variable block mode). In
+other words, that there's no such thing as a variable blocked tape or a
+fixed block tape, they are the same thing. And that any tape could later
+be read in variable-block mode.
+
+Could you explain a bit about what problems that can cause? Does it only
+apply to certain types of tape/drive? What manual intervention would be
+needed to read such a tape in variable-block mode?
+
+
+&gt;&gt;<i> So ideally, star would be told two things:
+</I>&gt;&gt;<i>  - the tape block size (bs= or blocks=)
+</I>&gt;&gt;<i>  - the maximum number of blocks in each I/O operation (or alternatively,
+</I>&gt;&gt;<i> the maximum I/O size)
+</I>&gt;&gt;<i> Then star would perform I/O in maxblocks*bs byte chunks, except the last
+</I>&gt;&gt;<i> write which could be a lower multiple of bs.
+</I>&gt;<i>
+</I>&gt;<i> See man page, star introduced -P in 1985.
+</I>
+I don't think -P would work like that. For variable-block mode, it should
+result in the last block being a multiple of 512 bytes (i.e. smaller than
+all the previous blocks that were written). For some purposes that's fine,
+but I'd want all blocks written to be the same length, so the file can be
+read in either fixed-block or variable-block mode.
+
+
+Mark
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000181.html">[Star-users] star tape I/O suggestion
+</A></li>
+	<LI>Next message: <A HREF="000183.html">[Star-users] Feature requests related to sparse files
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#182">[ date ]</a>
+              <a href="thread.html#182">[ thread ]</a>
+              <a href="subject.html#182">[ subject ]</a>
+              <a href="author.html#182">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

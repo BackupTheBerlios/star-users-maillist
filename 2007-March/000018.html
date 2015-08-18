@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%201.5a25%20%28x86_64-redhat-linux-gnu%29%3A%20diff%0A%20reports%20many%20different%20uname%2C%20gname&In-Reply-To=%3C46019eb1.3KEWxjK2S%2B1LTRL6%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000015.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%201.5a25%20%28x86_64-redhat-linux-gnu%29%3A%20diff%0A%20reports%20many%20different%20uname%2C%20gname&In-Reply-To=%3C46019eb1.3KEWxjK2S%2B1LTRL6%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Mar 21 22:08:01 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000015.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+        <LI>Next message: <A HREF="000019.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Marc Recht&#233; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">marc2 at rechte.fr</A>&gt; wrote:
+
+star 1.5a25 is extremely old!
+
+The recent version is 1.5a77.
+
+&gt;<i> We are doing our backup with star:
+</I>&gt;<i>  
+</I>&gt;<i>   star -c -v -time -acl H=exustar file=/dev/st0 \
+</I>&gt;<i>         -not pattern=\*/\.recycle/\* /home \
+</I>&gt;<i>         /root \
+</I>&gt;<i>         /etc \
+</I>&gt;<i>         /var \
+</I>&gt;<i>         1&gt;&gt;$lf.log 2&gt;&gt;$lf.err
+</I>
+
+I would not call this a &quot;backup&quot;, see star man page....
+
+&gt;<i> A verification is performed:
+</I>&gt;<i>   star -diff -v -C=/ file=/dev/st0 1&gt;&gt;$lf.log 2&gt;&gt;$lf.err
+</I>&gt;<i>  
+</I>&gt;<i> This is the outcome (drawn from $lf.err):
+</I>&gt;<i> star: 22101970 blocks + 0 bytes (total of 226324172800 bytes = 
+</I>&gt;<i> 221019700.00k).
+</I>&gt;<i> star: Total time 5318.958sec (41553 kBytes/sec)
+</I>&gt;<i> star: The following problems occurred during archive processing:
+</I>&gt;<i> star: Cannot: stat 0, open 0, read/write 0. Size changed 0.
+</I>&gt;<i> star: Missing links 0, Name too long 0, File too big 0, Not dumped 28.
+</I>								^^^^^^^^^
+								You did omit the
+								messages 
+related to this warning
+
+&gt;<i> star: Processed all possible files, despite earlier errors.
+</I>&gt;<i> diffopts=perm,type,nlink,uid,gid,uname,gname,size,data,rdev,hardlink,symlink,sparse,mtime,ctime,dir 
+</I>&gt;<i>
+</I>&gt;<i> star: WARNING: skipping leading '/' on filenames.
+</I>&gt;<i> star: 22101970 blocks + 0 bytes (total of 226324172800 bytes = 
+</I>&gt;<i> 221019700.00k).
+</I>
+See man page.....
+  
+&gt;<i> The verification stage reports more than 4000 errors of the following 
+</I>&gt;<i> type (out of  350000 files)
+</I>&gt;<i> home/commun/distribution/HP Laserjet 9050n/: different uname
+</I>&gt;<i>       0 drwxrws---  :rwx/ntusers Mar 16 10:25 2007 
+</I>&gt;<i> home/commun/distribution/HP Laserjet 9050n/
+</I>&gt;<i>       0 drwxrws---  root/ntusers Mar 16 10:25 2007 
+</I>&gt;<i> home/commun/distribution/HP Laserjet 9050n/
+</I>&gt;<i> var/www/icons/pie2.png: different uname
+</I>&gt;<i>     253 -rw-r--r--  root/rwx May 30 09:54 2001 var/www/icons/pie2.png
+</I>&gt;<i>     253 -rw-r--r--  :rw-/rwx May 30 09:54 2001 var/www/icons/pie2.png
+</I>&gt;<i> var/spool/mail/root: different uname,gname
+</I>&gt;<i>    7660 -rw-------  root/:--- Mar 10 08:25 2007 var/spool/mail/root
+</I>&gt;<i>    7660 -rw-------  :rw-/rwx Mar 10 08:25 2007 var/spool/mail/root
+</I>&gt;<i> var/spool/samba/: different gname
+</I>&gt;<i>       0 drwxrwxrwt  root/:--- Feb  8 18:07 2007 var/spool/samba/
+</I>&gt;<i>       0 drwxrwxrwt  root/rwx Feb  8 18:07 2007 var/spool/samba/
+</I>&gt;<i>     ...
+</I>&gt;<i>
+</I>&gt;<i> What could be the cause of the problem (please note the strange 
+</I>&gt;<i> user/group name reported) ?
+</I>
+Looks like a bug in the &quot;libc&quot; from your OS.
+
+I would recommend to compile a recent 1.5a77 on the machine you like to run
+star.... maybethis is just a self-incompatibility of different Linux versions.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000015.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+	<LI>Next message: <A HREF="000019.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

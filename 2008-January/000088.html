@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Error 0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C47834f0a.HXK2XUavCDhf8gZM%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000087.html">
+   <LINK REL="Next"  HREF="000093.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Error 0</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C47834f0a.HXK2XUavCDhf8gZM%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Error 0">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Jan  8 11:23:06 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000087.html">[Star-users] Error 0
+</A></li>
+        <LI>Next message: <A HREF="000093.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#88">[ date ]</a>
+              <a href="thread.html#88">[ thread ]</a>
+              <a href="subject.html#88">[ subject ]</a>
+              <a href="author.html#88">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Daniel Grund &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">publicdiscussion at dgrund.de</A>&gt; wrote:
+
+&gt;<i> Hi!
+</I>&gt;<i>
+</I>&gt;<i> I call star-1.5a87 like this:
+</I>&gt;<i>
+</I>&gt;<i> star c -silent -no-statistics -M -multivol new-volume-script=&quot;/usr/local/bin/yacdbak.cdrecord root 1 noburn&quot; VOLHDR=&quot;FreeBSD 7.0-RC1 2008-01-08 03:20+0100 Level 1&quot; -dump level=1 -dumpmeta tardumps=/var/db/yacdbak/root.snapshots -wtardumps -p -match-tree -tsize=66534 -no-fifo -nodump artype=e xustar -sparse file=/var/tmp/yacdbak.image fs-name=/ dumpdate=/var/tmp/timestamp -dodesc -not .snap -not lost+found -C=/.snap/backupmount .
+</I>
+First some notes:
+
+
+-	You are not using star correctly.
+
+	-	You use two -not arguments where one is sufficient
+
+	-	You use -not but no related pattern option
+
+-	it is _highly_ recommended _not_ to use options to tell star 
+	to scan only parts of the filesystem if in incremental mode
+	as this could result in inconsistent archives.
+
+-	You found a bug: star should not allow you to specify more than
+	one start directory.
+
+-	I recommend to first clean up the command line and check whether
+	the incorrect command line is the reason for the problem.
+
+
+&gt;<i> The output is:
+</I>&gt;<i>
+</I>&gt;<i> star: Error 0. Error moving extended header '././@PaxHeader'.
+</I>&gt;<i> Segmentation fault
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> What does that error message mean?
+</I>
+This cannot really happen as it would imply that star tries to create an 
+extended header with size &lt; 0.
+
+Without debugging, I cannot help. I need the information on what star
+tries to archive with size &lt; 0 and why star tries to do this.
+
+
+
+&gt;<i> I've already tried to unlimit core file size and to recompile with: 
+</I>&gt;<i> smake COPTX=-g LDOPTX=-g
+</I>&gt;<i>
+</I>&gt;<i> star still does not dump core.
+</I>
+Did you install star suid root and not call it as root?
+
+You will get help from the kernel people first. After the kernel is able again 
+to create a core file. 
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000087.html">[Star-users] Error 0
+</A></li>
+	<LI>Next message: <A HREF="000093.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#88">[ date ]</a>
+              <a href="thread.html#88">[ thread ]</a>
+              <a href="subject.html#88">[ subject ]</a>
+              <a href="author.html#88">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

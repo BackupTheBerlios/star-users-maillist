@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] error code for non-existent directory
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20error%20code%20for%20non-existent%20directory&In-Reply-To=%3C49ff036b.5ixna1pyU%2BOkANVy%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000161.html">
+   <LINK REL="Next"  HREF="000163.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] error code for non-existent directory</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20error%20code%20for%20non-existent%20directory&In-Reply-To=%3C49ff036b.5ixna1pyU%2BOkANVy%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] error code for non-existent directory">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon May  4 17:02:03 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000161.html">[Star-users] error code for non-existent directory
+</A></li>
+        <LI>Next message: <A HREF="000163.html">[Star-users] error code for non-existent directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#162">[ date ]</a>
+              <a href="thread.html#162">[ thread ]</a>
+              <a href="subject.html#162">[ subject ]</a>
+              <a href="author.html#162">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> Directories 'a' and 'b' both do not exist:
+</I>&gt;<i>
+</I>&gt;<i> $ star -c -diff -C a . b
+</I>&gt;<i> star: No such file or directory. Cannot change directory to 'a'.
+</I>&gt;<i> star: No such file or directory. Cannot change directory to 'b'.
+</I>&gt;<i> $ echo $?
+</I>&gt;<i> 2
+</I>&gt;<i>
+</I>&gt;<i> This looks okay.
+</I>&gt;<i>
+</I>&gt;<i> Now I create directory 'b'.
+</I>&gt;<i>
+</I>&gt;<i> $ star -c -diff -C a . b
+</I>&gt;<i> star: No such file or directory. Cannot change directory to 'a'.
+</I>&gt;<i> star: 0 blocks + 1024 bytes (total of 1024 bytes = 1.00k).
+</I>&gt;<i> $ echo $?
+</I>&gt;<i> 0
+</I>&gt;<i>
+</I>&gt;<i> Shouldn't this also return an error code != 0?
+</I>
+What star does is aligned with normal tar behavior. If a file from the arg list 
+cannot be archived, skip to the next one. This create an empty archive in your 
+case.
+
+I would need to add code to count the chdir errors ;-)
+
+&gt;<i> I also tried adding errctl='ABORT|ALL *', but this does not make 
+</I>&gt;<i> a difference.
+</I>
+I am planning to add a way to change the default behavior to skip the error
+to abort by using: errctl='ABORT|CHDIR *'
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg.schilling at fokus.fraunhofer.de</A> (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/private/">http://cdrecord.berlios.de/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000161.html">[Star-users] error code for non-existent directory
+</A></li>
+	<LI>Next message: <A HREF="000163.html">[Star-users] error code for non-existent directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#162">[ date ]</a>
+              <a href="thread.html#162">[ thread ]</a>
+              <a href="subject.html#162">[ subject ]</a>
+              <a href="author.html#162">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

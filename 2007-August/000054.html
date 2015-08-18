@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] wrong mtime after restore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20wrong%20mtime%20after%20restore&In-Reply-To=%3C46d57f72.YfbUnU61AMwrnUPQ%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000053.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] wrong mtime after restore</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20wrong%20mtime%20after%20restore&In-Reply-To=%3C46d57f72.YfbUnU61AMwrnUPQ%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] wrong mtime after restore">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Aug 29 16:15:14 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000053.html">[Star-users] wrong mtime after restore
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> (...)
+</I>&gt;<i> &gt; I did a second restore into a second directory. The backup comprises a level 
+</I>&gt;<i> &gt; 0, 1, 2 and 5 incremental. The restore of the levels 0 to 2 give the above 
+</I>&gt;<i> &gt; directory dates in the past, which presumably are correct. However the last 
+</I>&gt;<i> &gt; increment, level 5, gives that directory the *current* date. That was Aug 26 
+</I>&gt;<i> &gt; in my previous test, and now is Aug 28.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I also have a more concrete theory what could be the reason for this: the 
+</I>&gt;<i> &gt; directory contains a fifo (or named pipe; created with `mknod ... p'). This 
+</I>&gt;<i> &gt; fifo is frequently modified such that its mtime changes.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; However, I still was unable to reproduce the behavior of star described above 
+</I>&gt;<i> &gt; with a new incremental backup (using directories with fifos).
+</I>&gt;<i>
+</I>&gt;<i> It's actually easy. Create the fifo, make a, say, level 0 dump, then touch 
+</I>&gt;<i> the fifo, then do a, say, level 1 dump.
+</I>&gt;<i>
+</I>&gt;<i> Restoring the level 0 dump will give the directory containing the fifo its 
+</I>&gt;<i> correct date. However, restoring the level 1 dump (on top of the level 0 dump 
+</I>&gt;<i> of course) will give the directory in which the fifo is the *current* date.
+</I>
+Thank you!
+
+It seems that the fact that star is unlinking and restoring the file
+while the directory is missing in the incremental causes the problem.
+
+It seems that I would need to change the way star extracts non-plain files.
+
+Currently, star (as usual with -U) removes and re-rcreated the files.
+
+I would need to check for the same file type and the same inode number.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000053.html">[Star-users] wrong mtime after restore
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

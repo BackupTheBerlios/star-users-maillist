@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Recommended star command to mirror a data directory
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Recommended%20star%20command%20to%20mirror%20a%20data%20directory&In-Reply-To=%3C463b0189.zIPMSYs1KLuGVW5R%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000034.html">
+   <LINK REL="Next"  HREF="000036.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Recommended star command to mirror a data directory</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Recommended%20star%20command%20to%20mirror%20a%20data%20directory&In-Reply-To=%3C463b0189.zIPMSYs1KLuGVW5R%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Recommended star command to mirror a data directory">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri May  4 11:48:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000034.html">[Star-users] Recommended star command to mirror a data directory
+</A></li>
+        <LI>Next message: <A HREF="000036.html">[Star-users] Recommended star command to mirror a data directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE><A HREF="https://lists.berlios.de/mailman/listinfo/star-users">Sven.Hartrumpf at FernUni-Hagen.de</A> wrote:
+
+&gt;<i> Hi star users.
+</I>&gt;<i>
+</I>&gt;<i> What is your recommended star command to mirror a data directory
+</I>&gt;<i> in a LAN (between two different hard disks)?
+</I>
+There is no &quot;remote host to host&quot;  option for a star yet.
+You would need to use NFS or replace &quot;| star&quot; by &quot;| rsh star&quot;
+
+&gt;<i> Objectives (from more important to less important):
+</I>&gt;<i> 1. robustness (we talking about star, so this one is probably an easy one :-) )
+</I>
+I am running this on a daly base with Berlios and did not see a problem
+since May 2005.
+
+&gt;<i> 2. speed
+</I>
+Depends on your HW
+
+&gt;<i> 3. optional: recycling a previous backup (produced by an earlier star call)
+</I>
+???
+
+&gt;<i> The data amounts to around 80 GB with several million files;
+</I>&gt;<i> so tools like rsnapshot or rsync will break and
+</I>&gt;<i> star is one of the remaining alternatives.
+</I>
+
+Could you tell me something on those restrictions?
+Star has no restriction in handling incrementals.
+
+
+
+Level 0 initial copy:
+/*--------------------------------------------------------------------------*/
+#!/bin/sh
+
+PATH=$PATH:/opt/schily/bin
+export PATH
+
+umount /mnt
+fssnap -F  ufs -d /export/nfs
+rm /export/home/EXPORT-NFS.snap
+sync
+sleep 10
+echo &gt; /tmp/S.$$
+svcadm disable svc:/network/nfs/server
+mount -r `fssnap -F  ufs -o backing-store=/export/home/EXPORT-NFS.snap
+/export/nfs` /mnt
+svcadm enable svc:/network/nfs/server
+
+star bs=1m fs=256m -c -xdev -sparse -acl -link-dirs level=0 dumpdate=/tmp/S.$$ fs-name=/export/nfs -wtardumps tardumps=/etc/td-copy -C /mnt . | \
+star bs=1m fs=256m -xpU -no-fsync -restore -time -C /export/nfs2
+
+rm /tmp/S.$$
+/*--------------------------------------------------------------------------*/
+
+Level 1 cumulative incremental:
+/*--------------------------------------------------------------------------*/
+#!/bin/sh
+
+PATH=$PATH:/opt/schily/bin
+export PATH
+
+if [ -f /export/nfs2/star-lock ]; then
+        exit 0
+fi
+
+umount /mnt
+fssnap -F  ufs -d /export/nfs
+rm /export/home/EXPORT-NFS.snap
+sync
+sleep 10
+echo &gt; /tmp/S.$$
+svcadm disable svc:/network/nfs/server
+mount -r `fssnap -F  ufs -o backing-store=/export/home/EXPORT-NFS.snap
+/export/nfs` /mnt
+svcadm enable svc:/network/nfs/server
+
+star bs=1m fs=256m -c -xdev -sparse -acl -link-dirs level=1 -cumulative dumpdate=/tmp/S.$$ fs-name=/export/nfs -wtardumps tardumps=/etc/td-copy -C /mnt . | \
+star bs=1m fs=256m -xpU -no-fsync -restore -time -C /export/nfs2
+
+rm /tmp/S.$$
+/*--------------------------------------------------------------------------*/J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000034.html">[Star-users] Recommended star command to mirror a data directory
+</A></li>
+	<LI>Next message: <A HREF="000036.html">[Star-users] Recommended star command to mirror a data directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#35">[ date ]</a>
+              <a href="thread.html#35">[ thread ]</a>
+              <a href="subject.html#35">[ subject ]</a>
+              <a href="author.html#35">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

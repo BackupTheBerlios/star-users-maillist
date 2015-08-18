@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Default acl
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704100606w3b07258aka96424e9b406ec5e%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000028.html">
+   <LINK REL="Next"  HREF="000030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Default acl</H1>
+    <B>Mr X</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704100606w3b07258aka96424e9b406ec5e%40mail.gmail.com%3E"
+       TITLE="[Star-users] Default acl">narvalot at gmail.com
+       </A><BR>
+    <I>Tue Apr 10 15:06:37 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000028.html">[Star-users] Default acl
+</A></li>
+        <LI>Next message: <A HREF="000030.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I've made a little patch.
+
+acl_to_info() parser was expecting at least 4 lines from acl_to_text,
+for my test-case only 3 lines were returned for ACL_TYPE_DEFAULT.
+
+-xavier
+
+
+2007/4/10, Joerg Schilling &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">Joerg.Schilling at fokus.fraunhofer.de</A>&gt;:
+&gt;<i>
+</I>&gt;<i> &quot;Mr X&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">narvalot at gmail.com</A>&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Thanks you for taking a look at this.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; on this folder there's an added acl &quot;user:1001:rwx&quot; (which is saved
+</I>&gt;<i> &gt; correctly using star)
+</I>&gt;<i> &gt; -xavier
+</I>&gt;<i>
+</I>&gt;<i> The tar archive does not contain default ACL entries.
+</I>&gt;<i>
+</I>&gt;<i> As I currently have no access to a Linux system with working ACLs,
+</I>&gt;<i> I cannot debug this. Try to check acl_unix.c and find out why the
+</I>&gt;<i> code does not see default acls.
+</I>&gt;<i>
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353
+</I>&gt;<i> Berlin
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog:
+</I>&gt;<i> <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+</I>&gt;<i> URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A>
+</I>&gt;<i> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070410/74581077/attachment.html">https://lists.berlios.de/pipermail/star-users/attachments/20070410/74581077/attachment.html</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: star-1.5a78.patch
+Type: application/octet-stream
+Size: 428 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070410/74581077/attachment.obj">https://lists.berlios.de/pipermail/star-users/attachments/20070410/74581077/attachment.obj</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000028.html">[Star-users] Default acl
+</A></li>
+	<LI>Next message: <A HREF="000030.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

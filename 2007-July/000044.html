@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] empty archives
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C20070711175644.GI2126%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000043.html">
+   <LINK REL="Next"  HREF="000045.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] empty archives</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C20070711175644.GI2126%40enterprise.starfleet%3E"
+       TITLE="[Star-users] empty archives">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Jul 11 19:56:44 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000043.html">[Star-users] empty archives
+</A></li>
+        <LI>Next message: <A HREF="000045.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Joerg Schilling schreibt:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Maybe there was a misunderstanding here. The backup I was trying to restore 
+</I>&gt;<i> &gt; *was* created with VOLHDR=something, as it also appears in the output (see 
+</I>&gt;<i> &gt; above; 'Volhdr: level 4 of /fs/main/mount'). The error message is different 
+</I>&gt;<i> &gt; from what I got without volume header (see my original mail), but the restore 
+</I>&gt;<i> &gt; still cannot complete beyond the empty archive (without your tricks).
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The backup itself is unimportant; it stems from a test run. I wrote a little 
+</I>&gt;<i> &gt; test script to check how good Linux filesystem snapshots (using LVM, detailed 
+</I>&gt;<i> &gt; descriptions follow sometime) and star work on active filesystems. 
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; star version is 1.5a82.
+</I>&gt;<i> 
+</I>&gt;<i> Please test the new a83-pre2 version. It includes a workaround for extracting 
+</I>&gt;<i> incrementals after an incremental was lost and it now does always 
+</I>&gt;<i> add &quot;.&quot; in the incrementals.
+</I>
+The new `-force-restore' feature works well. It allowed me to restore my old 
+dumps (that I made for testing) properly.
+
+However, the second new feature is not yet functioning correctly. Empty dumps 
+*without* a volume header give
+
+  $ star t f= level-1.star 
+  ./ directory link to .
+
+Restoring such an empty dump gives
+
+  Validating this dump against restored filesystem...
+  Dump is valid, starting restore.
+  star: Archive contains directory './' without name list
+
+The exit code is 255. Attempts to restore higher-level dumps fail:
+
+  star: File exists. Cannot create 'star-lock', restore is already running.
+
+Deleting the lock file by hand and continuing using `-force-restore' works.
+
+Empty dumps *including* a volume header show the old behaviour; there seems 
+to be no `.' in them.
+
+Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070711/268be30f/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070711/268be30f/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000043.html">[Star-users] empty archives
+</A></li>
+	<LI>Next message: <A HREF="000045.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#44">[ date ]</a>
+              <a href="thread.html#44">[ thread ]</a>
+              <a href="subject.html#44">[ subject ]</a>
+              <a href="author.html#44">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

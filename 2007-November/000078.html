@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] refuse to update certain files upon extraction
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20071114151442.GE2068%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000079.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] refuse to update certain files upon extraction</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20071114151442.GE2068%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] refuse to update certain files upon extraction">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Nov 14 16:14:42 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000079.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>What could star prevent from overwriting existing files when invoked like 
+that:
+
+   star -xpU f=archive.tar
+
+?
+
+I did some incremental dumps, restored them in a different filesystem and 
+compared to the original one. Level 0 is no problem. On higher levels, 
+however, certain files are not updated and hence differ from the current 
+original. I checked the archives, and they contain the files in question in 
+the correct version. But they are not extracted over the existing, outdated 
+files! Neither when I try with -xpU, nor when I try with -xpU -restore. 
+Extracting into an empty directory works (that way I found out that the files 
+inside of the archive are the correct ones).
+
+I have not yet found a way to reproduce this. I am using 1.5a87, but I 
+already observed something like that with the previous version. Strange thing 
+is that this occurred kind of suddenly. The same setup used to work fine for 
+some time before. I switched from ReiserFS to EXT3 some time ago; that's the 
+only way in which the setup was changed significantly recently.
+
+Do you have an idea what could be behind this?
+
+I will also try to find a way reproducing this.
+
+Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 827 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20071114/74565063/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20071114/74565063/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000079.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#78">[ date ]</a>
+              <a href="thread.html#78">[ thread ]</a>
+              <a href="subject.html#78">[ subject ]</a>
+              <a href="author.html#78">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

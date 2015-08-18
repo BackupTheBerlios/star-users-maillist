@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] dealing with timestamp (in-)accuracy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C20080311152100.GD1788%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000110.html">
+   <LINK REL="Next"  HREF="000114.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] dealing with timestamp (in-)accuracy</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C20080311152100.GD1788%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] dealing with timestamp (in-)accuracy">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Tue Mar 11 16:21:01 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000110.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+        <LI>Next message: <A HREF="000114.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Joerg Schilling- from Tue 2008-03-11:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; In create.c of star-1.5a87, line 281, it reads:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;    } else if (dumplevel &gt; 0) {
+</I>&gt;<i> &gt;       if (info-&gt;f_mtime &gt; Newer.tv_sec) {
+</I>&gt;<i> &gt;          /* EMPTY */
+</I>&gt;<i> &gt;          ;
+</I>&gt;<i> &gt;       } else if (info-&gt;f_ctime &gt; Newer.tv_sec) {
+</I>&gt;<i> &gt;          if (dumpmeta)
+</I>&gt;<i> &gt;             info-&gt;f_xftype = XT_META;
+</I>&gt;<i> &gt;       } else {
+</I>&gt;<i> &gt;          return (FALSE);
+</I>&gt;<i> &gt;       }
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; As far as I can see, this is the place where it is decided upon whether a 
+</I>&gt;<i> &gt; file will be included in the current dump, or if it may be assumed that it is 
+</I>&gt;<i> &gt; already included in a previous dump (and hence will not be included again). I 
+</I>&gt;<i> &gt; wonder whether the checks shouldn't be for greater *or* *equal*, i.e.:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;       if (info-&gt;f_mtime &gt;= Newer.tv_sec) {
+</I>&gt;<i> &gt;          /* EMPTY */
+</I>&gt;<i> &gt;          ;
+</I>&gt;<i> &gt;       } else if (info-&gt;f_ctime &gt;= Newer.tv_sec) {
+</I>&gt;<i> 
+</I>&gt;<i> This is not really correct as it could result in duplicate files in successive
+</I>&gt;<i> incrementals.
+</I> 
+Yes. I wonder whether this is a problem. This could happen anyway when using 
+filesystem snapshots with the recommended procedure: 1) take a timestamp, 2) 
+take the snapshot, 3) do a dump with dumpdate=timestamp.
+
+&gt;<i> Did you actually see missing files in incrementals?
+</I>
+Yes. Please try the attached script. It will report FAIL with, I guess, 95% 
+probability, meaning that the file called `1' is not included in the level 
+one dump. When you insert a sleep statement at the place marked HERE, the 
+error probability decreases. With 1 second of sleep, I could not provoke an 
+error. With 0.9 seconds, it still might happen.
+
+It does not help to put sleep or sync statements between the touch statement 
+and the dump.
+
+Lasse
+-------------- next part --------------
+#!/bin/sh
+
+rm -fr src &amp;&amp;
+mkdir src &amp;&amp;
+rm tardumps &amp;&amp;
+for i in 0 1; do
+{
+	(cd src &amp;&amp; touch &quot;${i?}&quot;) &amp;&amp;
+	star -c -acl -link-dirs -xdev level=&quot;${i?}&quot; f=dump&quot;${i?}&quot;.tar \
+		-wtardumps tardumps=`pwd`/tardumps -C `pwd`/src .
+	# HERE
+} || exit &quot;$?&quot;
+done &amp;&amp;
+if star t f=dump1.tar | grep '^1'; then
+	echo OK
+else
+	echo FAIL
+	exit 1
+fi
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080311/a2c27401/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080311/a2c27401/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000110.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+	<LI>Next message: <A HREF="000114.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#111">[ date ]</a>
+              <a href="thread.html#111">[ thread ]</a>
+              <a href="subject.html#111">[ subject ]</a>
+              <a href="author.html#111">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

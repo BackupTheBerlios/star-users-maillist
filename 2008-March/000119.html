@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star and /dev/watchdog (exclusion of files)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20and%20/dev/watchdog%20%28exclusion%20of%20files%29&In-Reply-To=%3C47da53dc.lKb5VG4a65aP0v9J%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000118.html">
+   <LINK REL="Next"  HREF="000120.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star and /dev/watchdog (exclusion of files)</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20and%20/dev/watchdog%20%28exclusion%20of%20files%29&In-Reply-To=%3C47da53dc.lKb5VG4a65aP0v9J%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] star and /dev/watchdog (exclusion of files)">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Mar 14 11:30:52 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000118.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+        <LI>Next message: <A HREF="000120.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Wolfram Schlich &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lists at wolfram.schlich.org</A>&gt; wrote:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> some time ago (I don't remember the version of star I was using back
+</I>&gt;<i> then) I stumbled over an issue regarding the exclusion of files from
+</I>&gt;<i> being backed up by star.
+</I>&gt;<i>
+</I>&gt;<i> I am using the following command line arguments to exclude files from
+</I>&gt;<i> the backup:
+</I>&gt;<i>
+</I>&gt;<i> 	-not pattern='^/some/path/here/{%!/*}'
+</I>&gt;<i>
+</I>&gt;<i> This excludes everything *beyond* /some/path/here (the path itself
+</I>&gt;<i> is being backed up, but empty).
+</I>
+What you create here are two patterns:
+
+/some/path/here/%	(where % refers to an empty string)
+and
+/some/path/here//*
+
+What do you expect from the double slash?
+
+The pattern &quot;/some/path/here/*&quot; would include &quot;/some/path/here/&quot; and any
+nonempty replacement for &quot;*&quot;. Is this not what you intend?
+
+&gt;<i> So far, so good. Back then I tried this to exclude /dev/* like this:
+</I>&gt;<i>
+</I>&gt;<i> 	-not pattern='^/dev/{%!/*}'
+</I>&gt;<i>
+</I>&gt;<i> The problem with this was that star did in some way fiddle with the
+</I>&gt;<i> files beyond /dev/ -- the watchdog came alive because star somehow
+</I>&gt;<i> touched/opened it and thus it resetted the machine after the
+</I>&gt;<i> write-timeout expired (no write to the watchdog device after N
+</I>&gt;<i> seconds) :(
+</I>&gt;<i> Is there a way to *safely* exclude everything *beyond* a given
+</I>&gt;<i> directory but not the directory itself? By 'safely' I mean making
+</I>&gt;<i> star NOT touch anything beyond at all.
+</I>
+If this is on Linux, you basically are a victim of bad Linux kernel interface 
+definitions. See e.g. the paragraph for -xfflags in the section NOTES of the
+star man page. Do you use -xfflags?
+
+In general: star (the upper layer) does not understand the patterns and for 
+this reason cannot know whether a pattern that excludes a directory _also_ 
+excludes all files under that directory. For this reason, star still scans the 
+whole directory tree. Star however will only _open(2)_ _directories_ for this
+purpose except when you are on Linux and you did specify -xfflags.
+
+If you hit a driver with side-effects on open(2) (like a tape driver that 
+rewinds on open(2) or close(2)), you are lost on Linux. If a driver does not 
+honor O_NDELAY, other problems may occur.
+
+Where is your problem?
+
+
+
+
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000118.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+	<LI>Next message: <A HREF="000120.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

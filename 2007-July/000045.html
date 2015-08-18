@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] empty archives
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C46951bef.zeHd519VCCTr1wNp%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000044.html">
+   <LINK REL="Next"  HREF="000046.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] empty archives</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C46951bef.zeHd519VCCTr1wNp%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] empty archives">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Jul 11 20:05:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000044.html">[Star-users] empty archives
+</A></li>
+        <LI>Next message: <A HREF="000046.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> &gt; Please test the new a83-pre2 version. It includes a workaround for extracting 
+</I>&gt;<i> &gt; incrementals after an incremental was lost and it now does always 
+</I>&gt;<i> &gt; add &quot;.&quot; in the incrementals.
+</I>&gt;<i>
+</I>&gt;<i> The new `-force-restore' feature works well. It allowed me to restore my old 
+</I>&gt;<i> dumps (that I made for testing) properly.
+</I>
+It is there for some time, but I added new places to allow it to work.
+
+&gt;<i> However, the second new feature is not yet functioning correctly. Empty dumps 
+</I>&gt;<i> *without* a volume header give
+</I>&gt;<i>
+</I>&gt;<i>   $ star t f= level-1.star 
+</I>&gt;<i>   ./ directory link to .
+</I>
+Could you give me the exact command line xou used to create the archive?
+I cannot reproduce this.
+
+This looks as if your stat(2) did not report the directory type...
+or you did use -link-dirs and the archive was not really empty.
+
+
+&gt;<i> Restoring such an empty dump gives
+</I>&gt;<i>
+</I>&gt;<i>   Validating this dump against restored filesystem...
+</I>&gt;<i>   Dump is valid, starting restore.
+</I>&gt;<i>   star: Archive contains directory './' without name list
+</I>&gt;<i>
+</I>&gt;<i> The exit code is 255. Attempts to restore higher-level dumps fail:
+</I>&gt;<i>
+</I>&gt;<i>   star: File exists. Cannot create 'star-lock', restore is already running.
+</I>
+It may be that I did oversee some places where I should remove this file...
+
+
+&gt;<i> Deleting the lock file by hand and continuing using `-force-restore' works.
+</I>&gt;<i>
+</I>&gt;<i> Empty dumps *including* a volume header show the old behaviour; there seems 
+</I>&gt;<i> to be no `.' in them.
+</I>
+This is true, this is something I did oversee with my tests.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000044.html">[Star-users] empty archives
+</A></li>
+	<LI>Next message: <A HREF="000046.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#45">[ date ]</a>
+              <a href="thread.html#45">[ thread ]</a>
+              <a href="subject.html#45">[ subject ]</a>
+              <a href="author.html#45">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

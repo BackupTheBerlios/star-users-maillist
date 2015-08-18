@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] (no subject)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20%28no%20subject%29&In-Reply-To=%3C47e245ca.hpjYqR7R9mzIrWtY%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000140.html">
+   <LINK REL="Next"  HREF="000113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] (no subject)</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20%28no%20subject%29&In-Reply-To=%3C47e245ca.hpjYqR7R9mzIrWtY%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] (no subject)">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Mar 20 12:08:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000140.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+        <LI>Next message: <A HREF="000113.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#141">[ date ]</a>
+              <a href="thread.html#141">[ thread ]</a>
+              <a href="subject.html#141">[ subject ]</a>
+              <a href="author.html#141">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> &gt; My example from the man page
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;      echo &gt; /tmp/snapstamp
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;      mount -r `fssnap -F ufs -o \
+</I>&gt;<i> &gt;          backing-store=/var/tmp/EXPORT-NFS.snap /export/nfs` /mnt
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;      star -c -xdev -sparse -acl -link-dirs level=0 -wtardumps \
+</I>&gt;<i> &gt;          f=archive-name dumpdate=/tmp/snapstamp \
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; will also archive some files twice although not needed because  /tmp/snapstamp is
+</I>&gt;<i> &gt; older than the snapshot itself.
+</I>&gt;<i>
+</I>&gt;<i> Yes, and a sleep would have no effect here (save for the whole procedure 
+</I>&gt;<i> taking one second longer then necessary :-).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> By the way, this three-step-method (touch file, take fs snapshot, dump) can 
+</I>&gt;<i> in fact lead to a significant amount of data archived twice, at least on 
+</I>&gt;<i> Linux and under extreme conditions. I did tests once with blogbench running 
+</I>
+It may do even on Solaris, as it takes more than a minute to set up a snapshot
+for a big filesystem. If this is really a problem is hard to tell as fssnap(1) 
+first applies a write lock to the filesystem...
+
+&gt;<i> If one does that rsync-mirror-method I described earlier (keep a mirror of 
+</I>&gt;<i> the filesystem via rsync, use star on the mirror) this no longer is an issue.  
+</I>&gt;<i> For rsync works without timestamps, and star, in that case, can work without 
+</I>&gt;<i> dumpdate=..., because star can rely on the ctimes on the mirror; they are 
+</I>&gt;<i> updated by rsync. But since this method itself brings a significant space and 
+</I>&gt;<i> time overhead, it should be rarely prefered.
+</I>
+I have no problem with the backup method that is described in the star man page.
+It is run once every night on Berlios and we have approx. 10 GB data change and
+&gt;<i> 5000 changed files every day.
+</I>
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000140.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+	<LI>Next message: <A HREF="000113.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#141">[ date ]</a>
+              <a href="thread.html#141">[ thread ]</a>
+              <a href="subject.html#141">[ subject ]</a>
+              <a href="author.html#141">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

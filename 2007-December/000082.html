@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] unable to complete huge backup
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20unable%20to%20complete%20huge%20backup&In-Reply-To=%3C1197054103.10453.19.camel%40athene.bestsolution.at%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000081.html">
+   <LINK REL="Next"  HREF="000083.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] unable to complete huge backup</H1>
+    <B>Udo Rader</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20unable%20to%20complete%20huge%20backup&In-Reply-To=%3C1197054103.10453.19.camel%40athene.bestsolution.at%3E"
+       TITLE="[Star-users] unable to complete huge backup">udo.rader at bestsolution.at
+       </A><BR>
+    <I>Fri Dec  7 20:01:43 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000081.html">[Star-users] unable to complete huge backup
+</A></li>
+        <LI>Next message: <A HREF="000083.html">[Star-users] unable to complete huge backup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+On Fri, 2007-12-07 at 19:22 +0100, Joerg Schilling wrote:
+&gt;<i> Udo Rader &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">udo.rader at bestsolution.at</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I am quite lost with a somewhat huge backup (approx 120GB) that
+</I>&gt;<i> &gt; completes &quot;sometimes&quot; but hangs most of the time at some unpredictable
+</I>&gt;<i> &gt; point. 
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The backup is done this way:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; % star b=4096 errctl=&quot;WARN|GROW|SHRINK|OPEN|READ|READLINK|MISSLINK *&quot; -c
+</I>&gt;<i> &gt; -acl artype=exustar -f /dev/st0 ${BACKUPDIR} &gt;&gt;${LOGFILE} 2&gt;&amp;1
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; When I say &quot;hang&quot; it means that nothing is written to the tape any more
+</I>&gt;<i> &gt; but instead I see two star processes &quot;hanging&quot; around doing virtually
+</I>&gt;<i> &gt; nothing, both are in S state (=sleep) and stracing them does not show
+</I>&gt;<i> &gt; any activity.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Adding -vv to the star command above I saw that it hung on one arbitrary
+</I>&gt;<i> &gt; file.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Some stats:
+</I>&gt;<i> &gt; ???star 1.5a67
+</I>&gt;<i> &gt; debian etch, running on a 2.4.27-3-686-smp kernel
+</I>&gt;<i> &gt; Quantum DLT-V4 on a Adaptec AIC7892 Ultra160 SCSI Controller
+</I>&gt;<i> 
+</I>&gt;<i> This is an extremely old version (&gt; 2 years). Please upgrade to the
+</I>&gt;<i> recent 1.5a87 it contains a bug fix for a mutex problem with multi core systems.
+</I>
+Thanks for your response,
+
+Yes, I saw it when browsing the ftp server on berlios &amp; I am already
+trying to compile 1.5a87, what a shame that even debian unstable
+contains the same outdated version ...
+
+However, I am not 100% sure that compilation was successful because
+during compilation I saw lines like these:
+
+---------CUT---------
+% smake
+[...]
+smake: Couldn't make 'all'.
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/inc/avoffset.mk&quot;
+	==&gt; MAKING DEPENDENCIES &quot;avoffset.d&quot;
+smake: '.y' does not exist.
+
+[...]
+
+	==&gt; MAKING DEPENDENCIES &quot;cmpbytes.d&quot;
+In file included from cmpbytes.c:25:
+../include/schily/align.h:57:20: error: align.h: No such file or
+directory
+&#65279;---------CUT---------
+
+can those be ignored?
+
+Thanks!
+
+-- 
+B e s t S o l u t i o n . a t                        EDV Systemhaus GmbH
+------------------------------------------------------------------------
+udo rader              technischer leiter/CTO
+------------------------------------------------------------------------
+eduard-bodem-gasse 8/3    A-6020 innsbruck      phone    ++43 512 935834
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20071207/5db9af8c/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20071207/5db9af8c/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000081.html">[Star-users] unable to complete huge backup
+</A></li>
+	<LI>Next message: <A HREF="000083.html">[Star-users] unable to complete huge backup
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

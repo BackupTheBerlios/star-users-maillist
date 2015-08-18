@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Buffer overflow in name_to_tcb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C4df65acf.iN/8dozB1vemoJ49%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000186.html">
+   <LINK REL="Next"  HREF="000188.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Buffer overflow in name_to_tcb</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C4df65acf.iN/8dozB1vemoJ49%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Buffer overflow in name_to_tcb">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Mon Jun 13 20:45:35 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000186.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+        <LI>Next message: <A HREF="000188.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#187">[ date ]</a>
+              <a href="thread.html#187">[ thread ]</a>
+              <a href="subject.html#187">[ subject ]</a>
+              <a href="author.html#187">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> Compiled star with CFLAGS=&quot;-D_FORTIFY_SOURCE=2 -O2&quot; on GCC 4.5.3, 
+</I>&gt;<i> Glibc 2.13, Linux 2.6.39.1. Then created a file with a long name 
+</I>&gt;<i> (100 characters) and tried to pack it up:
+</I>&gt;<i>
+</I>&gt;<i> $ mkdir test
+</I>&gt;<i> $ cd test
+</I>&gt;<i> $ touch 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+</I>&gt;<i> $ star -c f=../test.tar .
+</I>&gt;<i> *** buffer overflow detected ***: /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star terminated
+</I>&gt;<i> ======= Backtrace: =========
+</I>&gt;<i> /usr/lib/libc.so.6(__fortify_fail+0x40)[0xb77a17d0]
+</I>&gt;<i> /usr/lib/libc.so.6(+0xe37ea)[0xb779f7ea]
+</I>&gt;<i> /usr/lib/libc.so.6(__strcpy_chk+0x3f)[0xb779eb3f]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8070c84]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x80610cf]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8061f71]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x806217e]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x804c14b]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8051b4b]
+</I>&gt;<i> /usr/lib/libc.so.6(__libc_start_main+0xe6)[0xb76d2de6]
+</I>&gt;<i> /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x804a591]
+</I>&gt;<i> [ ... snip ... ]
+</I>&gt;<i>
+</I>&gt;<i> I tracked this down to line 158 in longnames.c, i.e.,
+</I>&gt;<i>   strcpy(ptb-&gt;dbuf.t_name, name);
+</I>&gt;<i>
+</I>&gt;<i> A look in star.h tells that t_name is only NAMSIZ long, which is 100.
+</I>&gt;<i>
+</I>&gt;<i> So something is not going well here.
+</I>&gt;<i>
+</I>&gt;<i> The problem may have been there for a long time, but recent GCCs 
+</I>&gt;<i> appear to be more strict with FORTIFY_SOURCE. I recently switched 
+</I>&gt;<i> from 4.3.x to 4.5.x.
+</I>
+It seems that you are a victim of a C-compiler bug.
+
+There is nothing real that would allow you tp call that a buffer overflow as 
+it is 100% legal in the tar standard to put up to 100 chars into the t_name 
+array.
+
+In theory I could use strncpy but this would result in a noticable slowdown or 
+at least performance penalty.
+
+This is why star carefully fills up the tar header in the right order. 
+
+A major problem with recent GCCs is that they under some circumstances ignore 
+the C standard. The code fragment:
+
+	(void)write(STDERR_FILENO, &quot;test\n&quot;, 5);
+
+is not expected to create a warning. It however causes a non-avoidable warning 
+on revent Linux versions.
+
+Did you have a specific reason to use special compiler options?
+Array bound checking causes a slow down of the code.
+
+There is a trick to make over-picky compilers quiet......
+
+change strcpy(ptb-&gt;dbuf.t_name, name); to:
+
+	strcpy(ptb-&gt;ndbuf.t_name, name);
+
+and try again.....
+
+I expect that your compiler will detect more false buffer overflows, so you 
+would need to continue checking.
+
+BTW: would you be interested to write automated test cases?
+
+I recently wrote a test case that I currently use for SCCS, but I would like to 
+write a test suite for star too.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg.schilling at fokus.fraunhofer.de</A> (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/private/">http://cdrecord.berlios.de/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000186.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+	<LI>Next message: <A HREF="000188.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#187">[ date ]</a>
+              <a href="thread.html#187">[ thread ]</a>
+              <a href="subject.html#187">[ subject ]</a>
+              <a href="author.html#187">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

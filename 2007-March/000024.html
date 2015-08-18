@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%201.5a25%20%28x86_64-redhat-linux-gnu%29%3A%20diff%0A%20reports%20many%20different%20uname%2C%20gname&In-Reply-To=%3C4602BCB6.7060908%40rechte.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000020.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname</H1>
+    <B>Marc Recht&#233;</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%201.5a25%20%28x86_64-redhat-linux-gnu%29%3A%20diff%0A%20reports%20many%20different%20uname%2C%20gname&In-Reply-To=%3C4602BCB6.7060908%40rechte.fr%3E"
+       TITLE="[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname">marc2 at rechte.fr
+       </A><BR>
+    <I>Thu Mar 22 18:28:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000020.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>OK I dared to download and compile the a77 version.
+
+I read carefully the readme files concerning the gnu make warnings that 
+I got. Are they harmful ? I got some more messages at the end in mt.c 
+(see below).
+
+Can I just use /opt/schilly/bin/star in place of the Red Hat version or 
+do I need to install all the files at their original location ?
+
+Thanks
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">mrechte at serveur1.sassine.eu</A> star-1.5]$ make &gt; make.log
+                W A R N I N G   Messages like:
+
+gmake[2]: Entering directory `/tmp/cdrtools-2.01/libschily'
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/cvmod.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/dat.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fcons.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fdown.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fdup.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/ffileread.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/ffilewrite.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fgetline.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fgetstr.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/file_raise.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fileclose.d: No such file or 
+directory
+....
+
+are caused by a GNU make bug and not by the Schily makefile system.
+
+The related bug has been reported to the GNU make maintainers in 1998 but
+as the bug has not yet been fixed, it seems that GNU make is 
+unmaintained :-(
+A working highly portable make program is at <A HREF="ftp://ftp.berlios.de/pub/smake">ftp://ftp.berlios.de/pub/smake</A>
+RULES/rules1.top:239: incs/Dcc.x86_64-linux: Aucun fichier ou r&#233;pertoire 
+de ce type
+RULES/rules.cnf:54: incs/x86_64-linux-cc/Inull: Aucun fichier ou 
+r&#233;pertoire de ce type
+RULES/rules.cnf:55: incs/x86_64-linux-cc/rules.cnf: Aucun fichier ou 
+r&#233;pertoire de ce type
+                W A R N I N G   Messages like:
+
+gmake[2]: Entering directory `/tmp/cdrtools-2.01/libschily'
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/cvmod.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/dat.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fcons.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fdown.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fdup.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/ffileread.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/ffilewrite.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fgetline.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fgetstr.d: No such file or directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/file_raise.d: No such file or 
+directory
+../RULES/r-gmake.dep:76: OBJ/&lt;arch-dir&gt;/fileclose.d: No such file or 
+directory
+....
+
+are caused by a GNU make bug and not by the Schily makefile system.
+
+The related bug has been reported to the GNU make maintainers in 1998 but
+as the bug has not yet been fixed, it seems that GNU make is 
+unmaintained :-(
+A working highly portable make program is at <A HREF="ftp://ftp.berlios.de/pub/smake">ftp://ftp.berlios.de/pub/smake</A>
+../RULES/rules.ins:27: attention : &#233;crasement des commandes pour la 
+cible &#171; /opt/schily &#187;
+../RULES/rules.ins:22: attention : anciennes commandes ignor&#233;es pour la 
+cible &#171; /opt/schily &#187;
+../RULES/rules.ins:30: attention : &#233;crasement des commandes pour la 
+cible &#171; ../bins/x86_64-linux-cc &#187;
+../RULES/rules.ins:24: attention : anciennes commandes ignor&#233;es pour la 
+cible &#171; ../bins/x86_64-linux-cc &#187;
+Warning: Cannot scan stack on this environment.
+mt.c: In function `mtioctl':
+mt.c:587: attention : comparaison est toujours fausse en raison d'une 
+gamme limit&#233;e de type de donn&#233;es
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">mrechte at serveur1.sassine.eu</A> star-1.5]$
+
+
+
+&gt;<i> The latest version has a lot of workarounds for knowb Linux include file 
+</I>&gt;<i> problems and should compile out of the box.
+</I>&gt;<i>
+</I>&gt;<i> Anyway: a self compiles version cannot be worse than the version you are using 
+</I>&gt;<i> that seems to suffer from a libc interface problem.
+</I>&gt;<i>
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i>   
+</I>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000020.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Star-users] star 1.5a25 (x86_64-redhat-linux-gnu): diff reports many different uname, gname
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

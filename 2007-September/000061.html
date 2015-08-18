@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] timestamp(?) problems with incremental dumps
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C20070918223607.GB2219%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000070.html">
+   <LINK REL="Next"  HREF="000062.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] timestamp(?) problems with incremental dumps</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C20070918223607.GB2219%40enterprise.starfleet%3E"
+       TITLE="[Star-users] timestamp(?) problems with incremental dumps">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Sep 19 00:36:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000070.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+        <LI>Next message: <A HREF="000062.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Recently, I executed some of my tests for filesystem snapshots and incremental 
+dumps on a faster system than I usually do. Strangely, I observed some 
+problems. The scheme is always like that: take a snapshot, make an incremental 
+dump of it, then restore the dump on a different filesystem, and then compare 
+the restored version with the snapshot. There should be no differences (except 
+in ctime, atime and lmtime, and except for the 'star-symtable' and 
+'star-tmpdir' files).
+
+Up to now, this always was the case (except for the mtime bug with special 
+files, which is now fixed). Now, as I did test on the faster machine 
+(multi-core Xeon, Linux), things sometimes look differently:
+
+- A file is touched as a timestamp, the snapshot is created, then the dump is 
+  made with `dumpdate=' pointing to the timestamp file:
+
+   Type of this level 3  dump: full
+   Date of this level 3  dump: Thu Sep 13 18:44:40 2007
+   Date of last level 2  dump: Thu Sep 13 18:27:17 2007
+   star: 14266 blocks + 0 bytes (total of 146083840 bytes = 142660.00k).
+
+- The dump is restored to a different filesystem:
+
+   Dump record  level 3  dump: Thu Sep 13 18:44:40 2007 written
+   Validating this dump against restored filesystem...
+   Dump is valid, starting restore.
+   Removing all in 'star-tmpdir'.
+   star: 14266 blocks + 0 bytes (total of 146083840 bytes = 142660.00k).
+
+- Restored version and snapshot are compared:
+
+   diffopts=perm,type,nlink,uid,gid,uname,gname,size,data,rdev,hardlink,
+   symlink,sympath,sparse,mtime,dir,acl,xattr,fflags
+
+(...)
+   var/log/debug: different size,data,mtime
+      8568 -rw-r-----   1 root/adm Sep 13 18:27 2007 var/log/debug
+      8160 -rw-r-----   1 root/adm Sep 13 18:11 2007 var/log/debug
+
+The version of 18:27 is from the snapshot and the version of 18:11 is from the 
+restored version. Note that the level 2 dump is from 18:27:17 (see above).  
+Theory: during the level 3 dump, the file appeared to star as being older than 
+18:27:17, which meant that it was already included in the level 2 dump (but it 
+in fact was not). Hence it was not included in the level 3 dump and hence, on 
+restore, the old version (from 18:11) was not updated.
+
+This looks like typical behavior when the timestamp (later given to star with 
+`dumpdate=') is made *after* the snapshot is created. But that's not how I do 
+it. Maybe it has to do with accuracy? The times in /etc/tardumps seem to only 
+have the accuracy of one second. Then, `sleep 1' between timestamp and snapshot 
+should help. I am doing more tests; results are still to be expected.
+
+However, maybe you already have an idea what goes wrong here and where to look 
+for the cause.
+
+Regards, Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070919/b2831f16/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070919/b2831f16/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000070.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+	<LI>Next message: <A HREF="000062.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#61">[ date ]</a>
+              <a href="thread.html#61">[ thread ]</a>
+              <a href="subject.html#61">[ subject ]</a>
+              <a href="author.html#61">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

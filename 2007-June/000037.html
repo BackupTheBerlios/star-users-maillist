@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] missing files from incremental backups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20missing%20files%20from%20incremental%20backups&In-Reply-To=%3C20070622132514.GC2128%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000038.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] missing files from incremental backups</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20missing%20files%20from%20incremental%20backups&In-Reply-To=%3C20070622132514.GC2128%40enterprise.starfleet%3E"
+       TITLE="[Star-users] missing files from incremental backups">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Fri Jun 22 15:25:14 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000038.html">[Star-users] missing files from incremental backups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Experiment:
+
+One process repeatedly generates a random filename and then touches, removes 
+or writes a files by this name (which can result in an existing file to be 
+modified). In other words: we have a very simple simulation of an active 
+filesystem.
+
+While this goes on, incremental backups of levels 0 to 9 are done with the 
+following command:
+
+star -c -xdev -sparse -acl -link-dirs level=&quot;${level?}&quot; -wtardumps \
+  f=level-&quot;${level?}&quot;.star -C &quot;${mount?}&quot; .
+
+Then, the generating process is stopped and one final backup of level 10 is 
+made. Nothing modifies the filesystem during this.
+
+A copy of the backed-up filesystem is made using `cp -a' (from now on called 
+`the copy'), then the filesystem is deleted and restored with the command 
+from the manual page:
+
+cd /filestem-mount-point 
+star -xpU -restore f=...
+
+applied to files level-0.star up to level-10.star. During the restore, there 
+are several warnings like this one:
+
+star: WARNING: No new inode number for /alive/file_391
+
+Then the copy is compared to the restored filesystem.
+
+
+I expected that there will be more files on the restored filesystem than in 
+the copy. However, this was not the case -- which might not mean much. Forget 
+about it for now.
+
+What surprised me, however: after the restore, files were *missing* or had 
+*different* *content* compared to the copy. I do not see why this could not 
+be trivially prevented using timestamps.
+
+What am I overlooking?
+
+System is Linux 2.6.19.7 with an ext3 filesystem (Trustix 3.0.5).
+star is version 1.5a81.
+
+Thanks for an explanation.
+Lasse
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070622/1a300b08/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070622/1a300b08/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000038.html">[Star-users] missing files from incremental backups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#37">[ date ]</a>
+              <a href="thread.html#37">[ thread ]</a>
+              <a href="subject.html#37">[ subject ]</a>
+              <a href="author.html#37">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

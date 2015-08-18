@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] error code for non-existent directory
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20error%20code%20for%20non-existent%20directory&In-Reply-To=%3C20090506220424.GC2817%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000164.html">
+   <LINK REL="Next"  HREF="000166.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] error code for non-existent directory</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20error%20code%20for%20non-existent%20directory&In-Reply-To=%3C20090506220424.GC2817%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] error code for non-existent directory">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Thu May  7 00:04:24 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000164.html">[Star-users] error code for non-existent directory
+</A></li>
+        <LI>Next message: <A HREF="000166.html">[Star-users] error code for non-existent directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Joerg Schilling- from Wed 2009-05-06:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; * Message by -Joerg Schilling- from Mon 2009-05-04:
+</I>&gt;<i> &gt;  
+</I>&gt;<i> &gt; &gt; &gt; I also tried adding errctl='ABORT|ALL *', but this does not make 
+</I>&gt;<i> &gt; &gt; &gt; a difference.
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; I am planning to add a way to change the default behavior to skip the error
+</I>&gt;<i> &gt; &gt; to abort by using: errctl='ABORT|CHDIR *'
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This would be great.
+</I>&gt;<i> 
+</I>&gt;<i> Please test the latest <A HREF="ftp://ftp.berlios.de/pub/schily/">ftp://ftp.berlios.de/pub/schily/</A> and add the files from
+</I>&gt;<i> star-test.tar.bz2 before compiling
+</I>
+It won't compile here (Linux 2.6.27.21, Glibc 2.9, GCC 4.1.2):
+
+buffer.c: In function &#8216;changetape&#8217;:
+buffer.c:497: warning: ignoring return value of &#8216;system&#8217;, declared with attribute warn_unused_result
+buffer.c: In function &#8216;checkerrs&#8217;:
+buffer.c:1673: error: &#8216;struct star_stats&#8217; has no member named &#8216;s_chdir&#8217;
+buffer.c:1697: error: &#8216;struct star_stats&#8217; has no member named &#8216;s_chdir&#8217;
+smake: Operation not permitted. *** Code 1 from command line for target 'buffer.o'.
+smake: The following command caused the error:
+echo &quot;  ==&gt; COMPILING \&quot;buffer.o\&quot;&quot;; gcc   -O   -DSCHILY_BUILD -IOBJ/i686-linux-cc -I../incs/i686-linux-cc -I../include -I/usr/src/linux/include  -D_GNU_SOURCE -D__STAR__ -DSET_CTIME -DFIFO -DUSE_MMAP -DUSE_REMOTE -DUSE_RCMD_RSH -DUSE_LARGEFILES -DUSE_FIND -DUSE_ACL -DUSE_XATTR -DUSE_FFLAGS -DCOPY_LINKS_DELAYED -DSTAR_FAT -DSCHILY_PRINT  -c -o OBJ/i686-linux-cc/buffer.o buffer.c  
+smake: Couldn't make 'all'.
+smake: Leaving  'smake'[1] from directory '/fs/tmp/mount/tmp/schily-dist/star'
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20090507/e3bb8d8a/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20090507/e3bb8d8a/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000164.html">[Star-users] error code for non-existent directory
+</A></li>
+	<LI>Next message: <A HREF="000166.html">[Star-users] error code for non-existent directory
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

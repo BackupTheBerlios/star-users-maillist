@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] segfaults with gcc 4.2.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20segfaults%20with%20gcc%204.2.3&In-Reply-To=%3C20080303174009.GC2027%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000100.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] segfaults with gcc 4.2.3</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20segfaults%20with%20gcc%204.2.3&In-Reply-To=%3C20080303174009.GC2027%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] segfaults with gcc 4.2.3">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Mon Mar  3 18:40:09 CET 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000100.html">[Star-users] segfaults with gcc 4.2.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#99">[ date ]</a>
+              <a href="thread.html#99">[ thread ]</a>
+              <a href="subject.html#99">[ subject ]</a>
+              <a href="author.html#99">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Just for everyone's information: compiling star on newer gcc (I tested 
+version 4.2.3 on Linux) with any optimization flags other than -O0 may 
+result in segfaults in dump mode, like this:
+
+   kern.info: star[4067]: segfault at 087f3c74 eip 0807b104 esp bf9878ac error 4
+
+as well as this error:
+
+   star: Success. Error moving extended header '././@PaxHeader'.
+
+in restore mode.
+
+
+Compiling with
+
+   smake COPTX=-O0
+
+gives a working executable, however.
+
+
+Maybe something can be done about it from star's side; otherwise everyone is 
+advised not to use optimization with this gcc version.
+
+
+Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080303/4fdd30e7/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080303/4fdd30e7/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000100.html">[Star-users] segfaults with gcc 4.2.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#99">[ date ]</a>
+              <a href="thread.html#99">[ thread ]</a>
+              <a href="subject.html#99">[ subject ]</a>
+              <a href="author.html#99">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

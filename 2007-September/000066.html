@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] XATTR option does NOT work for chattr attributes
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20XATTR%20option%20does%20NOT%20work%20for%20chattr%20attributes&In-Reply-To=%3C46f3a58d.kFNZfNQ8hsoBMR8C%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000065.html">
+   <LINK REL="Next"  HREF="000067.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] XATTR option does NOT work for chattr attributes</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20XATTR%20option%20does%20NOT%20work%20for%20chattr%20attributes&In-Reply-To=%3C46f3a58d.kFNZfNQ8hsoBMR8C%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] XATTR option does NOT work for chattr attributes">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Fri Sep 21 13:05:49 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000065.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+        <LI>Next message: <A HREF="000067.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;Vincent Callanan&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">vincent at callanan.ie</A>&gt; wrote:
+
+&gt;<i> I have a make log which I tried to post but it was rejected as too big.
+</I>&gt;<i>
+</I>&gt;<i> Are you quite sure that chattr attributes are preserved on your solaris
+</I>&gt;<i> version?
+</I>&gt;<i> Is it possible that this is a Linux Kernel issue?
+</I>
+I do not yet support generic extended attributes as I like to find a way to 
+implement a OS independent format.
+
+Extended attributes have not been used in free Solaris versions until recently 
+(Trusted extensions for Solaris are now free).
+
+
+&gt;<i> It seems a bit crazy when many Linux distros support chattr attributes but
+</I>&gt;<i> there is no pre-packaged copy/archive utility that preserves them. I'm not
+</I>&gt;<i> too interested in chattr attributes in general but the immutable flag is
+</I>&gt;<i> very useful.
+</I>
+It seesmt that you are not talking about extended attributes but about file
+attributes. They are currently implemented ZFS to allow in kernel CIFS server.
+
+
+&gt;<i> Is it possible that this has something to do with XATTR namespaces?
+</I>&gt;<i> Perhaps star only support user namespace?
+</I>&gt;<i> Anyone know what namespace is used by chattr attributes?
+</I>
+Linux XATTR is a limited variant of extended attributes. It is not related to 
+file attributes.
+
+The Linux XATTR support is from the NSA and only present for courtesy. I 
+originately planned not to implement a linux specific archive format for 
+something that is more generic on Solaris.
+
+You seem to talk aout interference between setting XATTR and the &quot;immutable&quot; 
+file flag, right?
+
+It is questionable whether star should allow set XATTRs on files with the 
+immutable flag. If this happens while extracting files, it looks like a bug.
+
+But from the code, I would guess that this cannot happen as the XATTR 
+information is _before_ the file flag information inside the extended tar 
+header.
+
+So please give a better explanation of your problem.
+
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000065.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+	<LI>Next message: <A HREF="000067.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#66">[ date ]</a>
+              <a href="thread.html#66">[ thread ]</a>
+              <a href="subject.html#66">[ subject ]</a>
+              <a href="author.html#66">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

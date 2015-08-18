@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] newbie with star
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20newbie%20with%20star&In-Reply-To=%3C45CCAD80.8070704%40free.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] newbie with star</H1>
+    <B>arnaud</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20newbie%20with%20star&In-Reply-To=%3C45CCAD80.8070704%40free.fr%3E"
+       TITLE="[Star-users] newbie with star">pinguy at free.fr
+       </A><BR>
+    <I>Fri Feb  9 18:21:04 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000003.html">[Star-users] newbie with star
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Bonjour,
+
+I have a 250 Go XFS partition on a debian sarge : /MYVOL
+I have a dds4 tape drive (20Go/40Go).
+The 250 Go volume is a &quot;Samba&quot; share which look like this :
+
+MYVOL
+|<i>_folder1
+</I>|<i>_folder2
+</I>|<i>_folder3
+</I>   |_newfolder1
+   |_newfolder2
+     |_Star is a great thing.odt
+     |_folder with spaces in its name
+       |_document.odt
+|<i>_...
+</I>
+I would like to do that :
+
+1- Backup the entire volume saving ACL
+2- have a backup.log
+3- To be able to restora only one file or only one folder when my users 
+delete something.
+
+I have done that :
+
+1- #find /MYVOL -print | star -c artype=exustar -acl -multivol list=- 
+f=/dev/st0
+2- #rm -r /MYVOL/folder3/newfolder2
+3- If i try to restore only this folder i do :
+    #cd /MYVOL/folder3/
+    #star -xp -acl pat=MYVOL/newfolder2/\* f=/dev/st0
+
+what happens :
+
+MYVOL
+|<i>_folder1
+</I>|<i>_folder2
+</I>|<i>_folder3
+</I>   |_newfolder1
+   |_MYVOL
+     |_folder3
+       |_newfolder2
+         |_Star is a great thing.odt
+         |_folder with spaces in its name
+         |_document.odt
+|<i>_...
+</I>
+-what's wrong with my pattern ?
+-How can i restore only the file &quot;Star is a great thing.odt&quot; if it has 
+been deleted ?
+-How can i have a backup log ? i think i can do that : star -tv 
+f=/dev/st0 but it's not returning the result of the star command ?
+
+Thank you for your prog and sorry for my poor english.
+
+Pinguy
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000003.html">[Star-users] newbie with star
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

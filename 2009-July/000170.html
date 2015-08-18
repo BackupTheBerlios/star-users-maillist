@@ -1,0 +1,1760 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] schily-2009-07-06 won't compile with latest glibc
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2009-July/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20schily-2009-07-06%20won%27t%20compile%20with%20latest%20glibc&In-Reply-To=%3C20090722194635.GA1456%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000171.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] schily-2009-07-06 won't compile with latest glibc</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20schily-2009-07-06%20won%27t%20compile%20with%20latest%20glibc&In-Reply-To=%3C20090722194635.GA1456%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] schily-2009-07-06 won't compile with latest glibc">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Jul 22 21:46:35 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000171.html">[Star-users] schily-2009-07-06 won't compile with latest glibc
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#170">[ date ]</a>
+              <a href="thread.html#170">[ thread ]</a>
+              <a href="subject.html#170">[ subject ]</a>
+              <a href="author.html#170">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I say 'smake', and the process halts here:
+
+	==&gt; COMPILING &quot;inputc.o&quot;
+In file included from ../include/schily/wchar.h:49,
+                 from inputc.c:62:
+/usr/include/wchar.h:578: error: expected '=', ',', ';', 'asm' or '__attribute__' before '*' token
+/usr/include/wchar.h:585: error: expected ')' before '*' token
+
+More errors follow, the full output is attached.
+
+This is on Linux 2.6.27.x with Glibc 2.10.1.
+
+It works with Glibc 2.9.
+
+Any hints?
+-------------- next part --------------
+ ==&gt; MAKING SYMLINKS in ./RULES/
+Trying to find cc
+Found cc
+Creating empty 'incs/Dcc.i686-linux', using cc as default compiler
+	==&gt; MAKING DIRECTORY &quot;incs/i686-linux-cc/Inull&quot;
+	==&gt; CONFIGURING RULES &quot;incs/i686-linux-cc/rules.cnf&quot;
+creating cache ./config.cache
+checking host system type... i686-pc-linux-gnu
+checking if sh is bash... no
+checking if /bin/sh is bash... no
+checking whether sh -ce is broken... yes
+checking whether /bin/sh -ce is broken... no
+checking whether /bin/bosh is a working shell... no
+checking whether /opt/schily/bin/bosh is a working shell... no
+checking for object suffix... o
+checking for Cygwin environment... no
+checking for mingw32 environment... no
+checking for EMX/OS2 environment... no
+checking for executable suffix... no
+checking for executable calling suffix... no
+checking how to run the C preprocessor... cc -E
+checking if suncc/cc supports -m64... yes
+checking if HP cc supports -Ae... no
+checking if HP cc supports -O... no
+checking if HP cc supports -G... no
+checking for ranlib... ranlib
+checking whether make sets ${MAKE}... yes
+checking for ANSI C header files... yes
+checking for stdarg.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for float.h... yes
+checking for UNIX-98 compliant inttypes.h... yes
+checking for dirent.h that defines DIR... yes
+checking for opendir in -ldir... no
+checking whether stat file-mode macros are broken... no
+checking whether time.h and sys/time.h may both be included... yes
+checking for sys/wait.h that is POSIX.1 compatible... yes
+checking if select needs nonstd include files... no
+checking if sys/select.h is needed for select... no
+checking if sys/socket.h is needed for select... no
+checking for stdio.h... yes
+checking for varargs.h... no
+checking for stdarg.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for stddef.h... yes
+checking for string.h... (cached) yes
+checking for strings.h... yes
+checking for unistd.h... yes
+checking for fcntl.h... yes
+checking for sys/file.h... yes
+checking for getopt.h... yes
+checking for limits.h... yes
+checking for a.out.h... yes
+checking for aouthdr.h... no
+checking for elf.h... yes
+checking for sysexits.h... yes
+checking for malloc.h... yes
+checking for sgtty.h... yes
+checking for termios.h... yes
+checking for termio.h... yes
+checking for pwd.h... yes
+checking for grp.h... yes
+checking for sys/acl.h... no
+checking for acllib.h... no
+checking for acl/libacl.h... no
+checking for signal.h... yes
+checking for siginfo.h... no
+checking for sys/siginfo.h... no
+checking for ucontext.h... yes
+checking for shadow.h... yes
+checking for syslog.h... yes
+checking for sys/time.h... yes
+checking for sys/times.h... yes
+checking for utime.h... yes
+checking for sys/utime.h... no
+checking for sys/ioctl.h... yes
+checking for sys/filio.h... no
+checking for sys/param.h... yes
+checking for sys/systeminfo.h... no
+checking for sys/sysctl.h... yes
+checking for sys/syscall.h... yes
+checking for mach/machine.h... no
+checking for mntent.h... yes
+checking for sys/mntent.h... no
+checking for sys/mnttab.h... no
+checking for sys/mount.h... yes
+checking for wait.h... yes
+checking for sys/resource.h... yes
+checking for procfs.h... no
+checking for sys/procfs.h... yes
+checking for sys/utsname.h... yes
+checking for sys/priocntl.h... no
+checking for sys/rtpriocntl.h... no
+checking for sys/procset.h... no
+checking for sys/mtio.h... yes
+checking for sys/tape.h... no
+checking for sys/mman.h... yes
+checking for linux/pg.h... yes
+checking for camlib.h... no
+checking for sys/shm.h... yes
+checking for sys/ipc.h... yes
+checking for sys/dkio.h... no
+checking for sys/dklabel.h... no
+checking for sun/dkio.h... no
+checking for sun/dklabel.h... no
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for types.h... no
+checking for stat.h... no
+checking for sys/stypes.h... no
+checking for sys/filedesc.h... no
+checking for sys/acct.h... yes
+checking for poll.h... yes
+checking for sys/poll.h... yes
+checking for sys/select.h... yes
+checking for netdb.h... yes
+checking for sys/socket.h... yes
+checking for netinet/in.h... yes
+checking for stropts.h... yes
+checking for ieeefp.h... no
+checking for fp.h... no
+checking for values.h... yes
+checking for float.h... (cached) yes
+checking for arpa/inet.h... yes
+checking for bsd/dev/scsireg.h... no
+checking for sys/bsdtty.h... no
+checking for linux/types.h... yes
+checking for linux/gfp.h... no
+checking for asm/types.h... yes
+checking for OS.h... no
+checking for os2.h... no
+checking for os2me.h... no
+checking for ext2fs/ext2_fs.h... no
+checking for attr/xattr.h... no
+checking for crt_externs.h... no
+checking for fnmatch.h... yes
+checking for libintl.h... yes
+checking for locale.h... yes
+checking for langinfo.h... yes
+checking for nl_types.h... yes
+checking for wctype.h... yes
+checking for wchar.h... yes
+checking for iconv.h... yes
+checking for priv.h... no
+checking for exec_attr.h... no
+checking for secdb.h... no
+checking for direct.h... no
+checking for pthread.h... yes
+checking for thread.h... no
+checking for libgen.h... yes
+checking for dlfcn.h... yes
+checking for link.h... yes
+checking for dl.h... no
+checking for header file containing  major(), minor() and makedev()... sys/sysmacros.h
+checking bits in minor device number... 32
+checking whether bits in minor device numbers are non contiguous... yes
+checking for _filbuf()... no
+checking for __filbuf()... no
+checking for USG derived STDIO... no
+checking for errno definition in errno.h... yes
+checking for environ definition in unistd.h... yes
+checking for sys_siglist definition in signal.h... yes
+checking for working const... yes
+checking whether byte ordering is bigendian... no
+checking whether bitorder in bitfields is htol... no
+checking return type of signal handlers... void
+checking for uid_t in sys/types.h... yes
+checking type of array argument to getgroups... gid_t
+checking for type long long... yes
+checking for type __int64... no
+checking for type long double... yes
+checking for prototypes... yes
+checking if compiler allows dynamic arrays... yes
+checking for uid_t in sys/types.h... (cached) yes
+checking for size_t... yes
+checking for ssize_t... yes
+checking for ptrdiff_t... yes
+checking for pid_t... yes
+checking for off_t... yes
+checking for mode_t... yes
+checking for time_t... yes
+checking for caddr_t... yes
+checking for daddr_t... yes
+checking for dev_t... yes
+checking for major_t... no
+checking for minor_t... no
+checking for ino_t... yes
+checking for nlink_t... yes
+checking for blksize_t... yes
+checking for blkcnt_t... yes
+checking for clock_t... yes
+checking for socklen_t... yes
+checking for greg_t... no
+checking if stack_t is declared in signal.h... yes
+checking if siginfo_t is declared in signal.h... yes
+checking for u_char... yes
+checking for u_short... yes
+checking for u_int... yes
+checking for u_long... yes
+checking size of char... 1
+checking size of short int... 2
+checking size of int... 4
+checking size of long int... 4
+checking size of long long... 8
+checking size of __int64... 0
+checking size of char *... 4
+checking size of unsigned char... 1
+checking size of unsigned short int... 2
+checking size of unsigned int... 4
+checking size of unsigned long int... 4
+checking size of unsigned long long... 8
+checking size of unsigned __int64... 0
+checking size of unsigned char *... 4
+checking size of float... 4
+checking size of double... 8
+checking size of long double... 12
+checking size of size_t... 4
+checking size of ssize_t... 4
+checking size of ptrdiff_t... 4
+checking size of time_t... 4
+checking size of wchar... 4
+checking size of wchar_t... 4
+checking if char is unsigned... no
+checking if va_list is an array... no
+checking for struct timeval in time.h or sys/time.h... yes
+checking for struct timezone in time.h or sys/time.h... yes
+checking if struct mtget contains mt_type... yes
+checking if struct mtget contains mt_model... no
+checking if struct mtget contains mt_dsreg... yes
+checking if struct mtget contains mt_dsreg1... no
+checking if struct mtget contains mt_dsreg2... no
+checking if struct mtget contains mt_gstat... yes
+checking if struct mtget contains mt_erreg... yes
+checking if struct mtget contains mt_resid... yes
+checking if struct mtget contains mt_fileno... yes
+checking if struct mtget contains mt_blkno... yes
+checking if struct mtget contains mt_flags... no
+checking if struct mtget contains mt_bf... no
+checking if struct rusage is declared in sys/resource.h... yes
+checking if struct siginfo contains si_utime... no
+checking if struct sockaddr_storage is declared in socket.h... yes
+checking if an illegal declaration for union semun in sys/sem.h exists... no
+checking if union wait is declared in wait.h or sys/wait.h... yes
+checking if struct stat contains st_spare1... no
+checking if struct stat contains st_atimensec... no
+checking if struct stat contains st_atim.tv_nsec... yes
+checking if struct stat contains st_atim.st__tim.tv_nsec... no
+checking if struct stat contains st_atimespec.tv_nsec... no
+checking for st_blksize in struct stat... yes
+checking for st_blocks in struct stat... yes
+checking if struct stat contains st_fstype... no
+checking if struct stat contains st_aclcnt... no
+checking for st_rdev in struct stat... yes
+checking if struct stat contains st_flags... no
+checking if struct dirent contains d_ino... yes
+checking if DIR * contains dd_fd... no
+checking if struct utsname contains processor... no
+checking if struct utsname contains sysname_host... no
+checking if struct utsname contains release_host... no
+checking if struct utsname contains version_host... no
+checking whether iconv() uses const char **... no
+checking if stat is declared... yes
+checking if lstat is declared... yes
+checking for wait3 that fills in rusage... yes
+checking for mlock... yes
+checking for mlockall... yes
+checking for va_copy... yes
+checking for __va_copy... yes
+checking for working ecvt() ... yes
+checking for working fcvt() ... yes
+checking for working gcvt() ... yes
+checking for __dtoa... no
+checking for __dtoa that needs result ptr... no
+checking for unistd.h... (cached) yes
+checking for getpagesize... yes
+checking for mmap that needs ptr to size... no
+checking for unistd.h... (cached) yes
+checking for getpagesize... (cached) yes
+checking for working mmap... yes
+checking for unistd.h... (cached) yes
+checking for getpagesize... (cached) yes
+checking for mmap that needs ptr to size... (cached) no
+checking if mmap works to get shared memory... yes
+checking if shmget works to get shared memory... yes
+checking for working alloca.h... yes
+checking for alloca... yes
+checking if quotactl is an ioctl... no
+checking for file locking via fcntl... yes
+checking for uname... yes
+checking for vfork.h... no
+checking for working vfork... yes
+checking for sys_siglist... yes
+checking for BSD compliant getpgrp... no
+checking for BSD compliant setpgrp... no
+checking for C99 compliant isinf... yes
+checking for C99 compliant isnan... yes
+checking for sigsetjmp... yes
+checking for siglongjmp... yes
+checking for access... yes
+checking for eaccess... yes
+checking for euidaccess... yes
+checking for memchr... yes
+checking for memcpy... yes
+checking for memmove... yes
+checking for memset... yes
+checking for brk... yes
+checking for sbrk... yes
+checking for strerror... yes
+checking for nice... yes
+checking for flock... yes
+checking for lockf... yes
+checking for fchdir... yes
+checking for statvfs... yes
+checking for quotactl... yes
+checking for realpath... yes
+checking for resolvepath... no
+checking for dup... yes
+checking for dup2... yes
+checking for getcwd... yes
+checking for shmat... yes
+checking for semget... yes
+checking for lstat... yes
+checking for readlink... yes
+checking for symlink... yes
+checking for link... yes
+checking for rename... yes
+checking for mkfifo... yes
+checking for mknod... yes
+checking for setreuid... yes
+checking for setresuid... yes
+checking for seteuid... yes
+checking for setuid... yes
+checking for setregid... yes
+checking for setresgid... yes
+checking for setegid... yes
+checking for setgid... yes
+checking for getuid... yes
+checking for geteuid... yes
+checking for getgid... yes
+checking for getegid... yes
+checking for getpid... yes
+checking for getppid... yes
+checking for getpgid... yes
+checking for setpgid... yes
+checking for getsid... yes
+checking for setsid... yes
+checking for getpgrp... yes
+checking for setpgrp... yes
+checking for getspnam... yes
+checking for getspwnam... no
+checking for sync... yes
+checking for fsync... yes
+checking for fork... yes
+checking for wait... yes
+checking for wait4... yes
+checking for waitid... yes
+checking for waitpid... yes
+checking for getrusage... yes
+checking for getrlimit... yes
+checking for setrlimit... yes
+checking for ulimit... yes
+checking for execl... yes
+checking for execle... yes
+checking for execlp... yes
+checking for execv... yes
+checking for execve... yes
+checking for execvp... yes
+checking for getexecname... no
+checking for getprogname... no
+checking for setprogname... no
+checking for gethostid... yes
+checking for gethostname... yes
+checking for getdomainname... yes
+checking for getpagesize... (cached) yes
+checking for getdtablesize... yes
+checking for gettimeofday... yes
+checking for settimeofday... yes
+checking for time... yes
+checking for stime... yes
+checking for gethrtime... no
+checking for ftime... yes
+checking for tzset... yes
+checking for mktime... yes
+checking for gmtime... yes
+checking for localtime... yes
+checking for timegm... yes
+checking for timelocal... yes
+checking for ctime... yes
+checking for cftime... no
+checking for ascftime... no
+checking for strftime... yes
+checking for poll... yes
+checking for select... yes
+checking for isastream... yes
+checking for chown... yes
+checking for fchown... yes
+checking for lchown... yes
+checking for chmod... yes
+checking for fchmod... yes
+checking for lchmod... no
+checking for times... yes
+checking for utime... yes
+checking for utimes... yes
+checking for futimes... yes
+checking for lutimes... yes
+checking for ecvt_r... yes
+checking for fcvt_r... yes
+checking for gcvt_r... no
+checking for econvert... no
+checking for fconvert... no
+checking for gconvert... no
+checking for isinf... yes
+checking for isnan... yes
+checking for rand... yes
+checking for drand48... yes
+checking for strtol... yes
+checking for strtoll... yes
+checking for strtoul... yes
+checking for strtoull... yes
+checking for strtod... yes
+checking for setpriority... yes
+checking for DosSetPriority... no
+checking for DosAllocSharedMem... no
+checking for seekdir... yes
+checking for fdopendir... yes
+checking for openat... yes
+checking for fstatat... yes
+checking for fchownat... yes
+checking for futimesat... yes
+checking for renameat... yes
+checking for unlinkat... yes
+checking for attropen... no
+checking for __accessat... no
+checking for accessat... no
+checking for mkdirat... yes
+checking for faccessat... yes
+checking for fchmodat... yes
+checking for linkat... yes
+checking for mkfifoat... yes
+checking for mknodat... yes
+checking for readlinkat... yes
+checking for symlinkat... yes
+checking for popen... yes
+checking for pclose... yes
+checking for _popen... no
+checking for _pclose... no
+checking for strsignal... yes
+checking for str2sig... no
+checking for sig2str... no
+checking for kill... yes
+checking for killpg... yes
+checking for signal... yes
+checking for sigrelse... yes
+checking for sigprocmask... yes
+checking for sigsetmask... yes
+checking for sigset... yes
+checking for sigaltstack... yes
+checking for sleep... yes
+checking for usleep... yes
+checking for yield... no
+checking for tcgetattr... yes
+checking for tcsetattr... yes
+checking for tcgetpgrp... yes
+checking for tcsetpgrp... yes
+checking for putenv... yes
+checking for setenv... yes
+checking for snprintf... yes
+checking for strcasecmp... yes
+checking for strcat... yes
+checking for strncat... yes
+checking for strcmp... yes
+checking for strncmp... yes
+checking for strcpy... yes
+checking for strlcpy... no
+checking for strncpy... yes
+checking for strdup... yes
+checking for strlen... yes
+checking for strchr... yes
+checking for strrchr... yes
+checking for wcscat... yes
+checking for wcsncat... yes
+checking for wcscmp... yes
+checking for wcsncmp... yes
+checking for wcscpy... yes
+checking for wcslcpy... no
+checking for wcsncpy... yes
+checking for wcsdup... yes
+checking for wcslen... yes
+checking for wcschr... yes
+checking for wcsrchr... yes
+checking for wcwidth... yes
+checking for wcswidth... yes
+checking for wctype... yes
+checking for iswctype... yes
+checking for valloc... yes
+checking for madvise... yes
+checking for mktemp... yes
+checking for mkstemp... yes
+checking for chflags... no
+checking for fchflags... no
+checking for fflagstostr... no
+checking for strtofflags... no
+checking for fnmatch... yes
+checking for truncate... yes
+checking for ftruncate... yes
+checking for getppriv... no
+checking for setppriv... no
+checking for priv_set... no
+checking for setlocale... yes
+checking for localeconv... yes
+checking for nl_langinfo... yes
+checking for setbuf... yes
+checking for setvbuf... yes
+checking for clone_area... no
+checking for create_area... no
+checking for delete_area... no
+Checking for POSIX violations by the POSIX.1-2008 standard:
+checking for raw availability of fexecl... no
+checking for raw availability of fexecle... no
+checking for raw availability of fexecv... no
+checking for raw availability of fexecve... yes
+checking for raw availability of fspawnv... no
+checking for raw availability of fspawnl... no
+checking for raw availability of fspawnv_nowait... no
+checking for raw availability of getline... yes
+checking for raw availability of fgetline... no
+End of tests for POSIX violations by the POSIX.1-2008 standard.
+checking if dirfd is defined or function... yes
+checking if iswprint is defined or function... yes
+checking if we may not define our own malloc()... no
+checking for working extern long timezone ... yes
+checking if link() allows hard links on symlinks... yes
+checking if link() does not folow symlinks... yes
+checking for unistd.h... (cached) yes
+checking if access() does implement E_OK... no
+checking for fseeko()... yes
+checking for ftello()... yes
+checking for dlopen in -lc... no
+checking for dlopen in -ldl... yes
+checking for dlopen... yes
+checking for dlclose... yes
+checking for dlsym... yes
+checking for dlerror... yes
+checking for shl_load... no
+checking for shl_unload... no
+checking for shl_gethandle... no
+checking for LoadLibrary... no
+checking for FreeLibrary... no
+checking for GetProcAddress... no
+checking for rcmd in -lsocket... no
+checking for inet_ntoa in -lnsl... yes
+checking for rcmd... yes
+checking for socket... yes
+checking for socketpair... yes
+checking for getservbyname... yes
+checking for inet_ntoa... yes
+checking for getaddrinfo... yes
+checking for getnameinfo... yes
+checking for res_init in -lc... no
+checking for res_init in -lresolv... no
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... 64
+checking for _LARGE_FILES value needed for large files... no
+checking for _LARGEFILE_SOURCE value needed for large files... no
+checking if system supports Large Files at all... yes
+checking for crypt in -lc... no
+checking for crypt in -lcrypt... yes
+checking for crypt... yes
+checking for gettext in -lc... yes
+checking if gettext is defined or function... yes
+checking for iconv_open in -lc... no
+checking for iconv_open in -liconv... yes
+checking if iconv is defined or function... yes
+checking if iconv_open is defined or function... yes
+checking if iconv_close is defined or function... yes
+checking if libiconv is defined or function... yes
+checking if libiconv_open is defined or function... yes
+checking if libiconv_close is defined or function... yes
+checking for RBAC support
+checking for getuserattr in -lsecdb... no
+checking for getauthattr... no
+checking for getuserattr... no
+checking for getexecattr... no
+checking for getprofattr... no
+checking for gmatch() support
+checking for gmatch in -lgen... no
+checking for gmatch... no
+checking for thr_yield... no
+checking for pthread_create in -lpthread... yes
+checking for pthread_create... yes
+checking for pthread_kill... yes
+checking for pthread_mutex_lock... yes
+checking for pthread_cond_wait... yes
+checking for pthread_spin_lock... yes
+checking for clock_gettime in -lc... no
+checking for clock_gettime in -lrt... yes
+checking for clock_gettime... yes
+checking for clock_settime... yes
+checking for clock_getres... yes
+checking for sched_getparam... yes
+checking for sched_setparam... yes
+checking for sched_getscheduler... yes
+checking for sched_setscheduler... yes
+checking for sched_yield... yes
+checking for nanosleep... yes
+checking for /dev/tty... yes
+checking for /dev/null... yes
+checking for /dev/zero... yes
+checking if Linux include file linux/ext2_fs.h is broken... no
+checking if Linux include file /usr/src/linux/include/linux/ext2_fs.h is broken... no
+checking if Linux include file scsi/scsi.h is broken... no
+checking if Linux include file /usr/src/linux/include/scsi/scsi.h is broken... no
+checking if Linux include file scsi/sg.h is broken... no
+checking if Linux include file /usr/src/linux/include/scsi/sg.h is broken... no
+updating cache ./config.cache
+creating ./config.status
+creating rules.cnf
+creating xconfig.h
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/conf&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/inc&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/inc/align_test.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;align_test.d&quot;
+	==&gt; COMPILING &quot;align_test.o&quot;
+	==&gt; LINKING &quot;OBJ/i686-linux-cc/align_test&quot;
+	==&gt; GENERATING include file &quot;../incs/i686-linux-cc/align.h&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/inc/avoffset.mk&quot;
+	==&gt; MAKING DEPENDENCIES &quot;avoffset.d&quot;
+	==&gt; COMPILING &quot;avoffset.o&quot;
+	==&gt; LINKING &quot;OBJ/i686-linux-cc/avoffset&quot;
+	==&gt; GENERATING include file &quot;../incs/i686-linux-cc/avoffset.h&quot;
+Warning: Cannot scan stack on this environment.
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/include&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/include/schily&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libschily&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libschily/libschily.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cvmod.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;dat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcons.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdown.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ffileread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ffilewrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fgetline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fgetstr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file_getraise.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file_raise.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileclose.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileluopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filemopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filepos.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filereopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileseek.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filesize.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filestat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filewrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;flag.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;flush.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fpipe.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;niread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;niwrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;nixread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;nixwrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;openfd.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;peekc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcons64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdup64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileluopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filemopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filepos64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filereopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileseek64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filesize64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filestat64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;openfd64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoi.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoll.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoull.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;breakline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;checkerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;comerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcomerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpnullbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;eaccess.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;error.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fconv.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fexec.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fillbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findinpath.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fnmatch.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;format.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fstream.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getargs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getav0.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;geterrno.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getfp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getdomainname.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gethostid.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gethostname.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getpagesize.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getxnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gettnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getxtnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getperm.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gettimeofday.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;handlecond.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jsprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jssnprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jssprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;match.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchw.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchwl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;movebytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;mem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jmem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fjmem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;raisecond.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;rename.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;saveargs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;serrmsg.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;seterrno.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;setfp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;sleep.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;snprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;spawn.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcatl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strchr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;streql.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strlen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strlcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strrchr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;swabbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;usleep.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscatl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcschr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcseql.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcslen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcslcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsrchr.d&quot;
+	==&gt; MAKING DIRECTORY &quot;../libs/i686-linux-cc&quot;
+	==&gt; COMPILING &quot;cvmod.o&quot;
+	==&gt; COMPILING &quot;dat.o&quot;
+	==&gt; COMPILING &quot;fcons.o&quot;
+	==&gt; COMPILING &quot;fdown.o&quot;
+	==&gt; COMPILING &quot;fdup.o&quot;
+	==&gt; COMPILING &quot;ffileread.o&quot;
+	==&gt; COMPILING &quot;ffilewrite.o&quot;
+	==&gt; COMPILING &quot;fgetline.o&quot;
+	==&gt; COMPILING &quot;fgetstr.o&quot;
+	==&gt; COMPILING &quot;file_getraise.o&quot;
+	==&gt; COMPILING &quot;file_raise.o&quot;
+	==&gt; COMPILING &quot;fileclose.o&quot;
+	==&gt; COMPILING &quot;fileluopen.o&quot;
+	==&gt; COMPILING &quot;fileopen.o&quot;
+	==&gt; COMPILING &quot;filemopen.o&quot;
+	==&gt; COMPILING &quot;filepos.o&quot;
+	==&gt; COMPILING &quot;fileread.o&quot;
+	==&gt; COMPILING &quot;filereopen.o&quot;
+	==&gt; COMPILING &quot;fileseek.o&quot;
+	==&gt; COMPILING &quot;filesize.o&quot;
+	==&gt; COMPILING &quot;filestat.o&quot;
+	==&gt; COMPILING &quot;filewrite.o&quot;
+	==&gt; COMPILING &quot;flag.o&quot;
+	==&gt; COMPILING &quot;flush.o&quot;
+	==&gt; COMPILING &quot;fpipe.o&quot;
+	==&gt; COMPILING &quot;niread.o&quot;
+	==&gt; COMPILING &quot;niwrite.o&quot;
+	==&gt; COMPILING &quot;nixread.o&quot;
+	==&gt; COMPILING &quot;nixwrite.o&quot;
+	==&gt; COMPILING &quot;openfd.o&quot;
+	==&gt; COMPILING &quot;peekc.o&quot;
+	==&gt; COMPILING &quot;fcons64.o&quot;
+	==&gt; COMPILING &quot;fdup64.o&quot;
+	==&gt; COMPILING &quot;fileluopen64.o&quot;
+	==&gt; COMPILING &quot;fileopen64.o&quot;
+	==&gt; COMPILING &quot;filemopen64.o&quot;
+	==&gt; COMPILING &quot;filepos64.o&quot;
+	==&gt; COMPILING &quot;filereopen64.o&quot;
+	==&gt; COMPILING &quot;fileseek64.o&quot;
+	==&gt; COMPILING &quot;filesize64.o&quot;
+	==&gt; COMPILING &quot;filestat64.o&quot;
+	==&gt; COMPILING &quot;openfd64.o&quot;
+	==&gt; COMPILING &quot;astoi.o&quot;
+	==&gt; COMPILING &quot;astoll.o&quot;
+	==&gt; COMPILING &quot;astoull.o&quot;
+	==&gt; COMPILING &quot;breakline.o&quot;
+	==&gt; COMPILING &quot;checkerr.o&quot;
+	==&gt; COMPILING &quot;comerr.o&quot;
+	==&gt; COMPILING &quot;fcomerr.o&quot;
+	==&gt; COMPILING &quot;cmpbytes.o&quot;
+	==&gt; COMPILING &quot;cmpnullbytes.o&quot;
+	==&gt; COMPILING &quot;eaccess.o&quot;
+	==&gt; COMPILING &quot;error.o&quot;
+	==&gt; COMPILING &quot;fconv.o&quot;
+	==&gt; COMPILING &quot;fexec.o&quot;
+	==&gt; COMPILING &quot;fillbytes.o&quot;
+	==&gt; COMPILING &quot;findinpath.o&quot;
+	==&gt; COMPILING &quot;findbytes.o&quot;
+	==&gt; COMPILING &quot;findline.o&quot;
+	==&gt; COMPILING &quot;fnmatch.o&quot;
+	==&gt; COMPILING &quot;format.o&quot;
+format.c: In function 'format':
+format.c:465: warning: ignoring return value of 'gcvt', declared with attribute warn_unused_result
+	==&gt; COMPILING &quot;fstream.o&quot;
+	==&gt; COMPILING &quot;getargs.o&quot;
+	==&gt; COMPILING &quot;getav0.o&quot;
+	==&gt; COMPILING &quot;geterrno.o&quot;
+	==&gt; COMPILING &quot;getfp.o&quot;
+	==&gt; COMPILING &quot;getdomainname.o&quot;
+In file included from getdomainname.c:28:
+../include/schily/hostname.h:54:1: warning: &quot;HOST_NAME_MAX&quot; redefined
+In file included from /usr/include/bits/posix1_lim.h:157,
+                 from /usr/include/limits.h:145,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:122,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/syslimits.h:7,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:11,
+                 from /usr/include/sys/param.h:26,
+                 from ../include/schily/param.h:35,
+                 from ../include/schily/hostname.h:51,
+                 from getdomainname.c:28:
+/usr/include/bits/local_lim.h:94:1: warning: this is the location of the previous definition
+	==&gt; COMPILING &quot;gethostid.o&quot;
+	==&gt; COMPILING &quot;gethostname.o&quot;
+In file included from gethostname.c:28:
+../include/schily/hostname.h:54:1: warning: &quot;HOST_NAME_MAX&quot; redefined
+In file included from /usr/include/bits/posix1_lim.h:157,
+                 from /usr/include/limits.h:145,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:122,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/syslimits.h:7,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:11,
+                 from /usr/include/sys/param.h:26,
+                 from ../include/schily/param.h:35,
+                 from ../include/schily/hostname.h:51,
+                 from gethostname.c:28:
+/usr/include/bits/local_lim.h:94:1: warning: this is the location of the previous definition
+	==&gt; COMPILING &quot;getpagesize.o&quot;
+	==&gt; COMPILING &quot;getnum.o&quot;
+	==&gt; COMPILING &quot;getxnum.o&quot;
+	==&gt; COMPILING &quot;gettnum.o&quot;
+	==&gt; COMPILING &quot;getxtnum.o&quot;
+	==&gt; COMPILING &quot;getperm.o&quot;
+	==&gt; COMPILING &quot;gettimeofday.o&quot;
+	==&gt; COMPILING &quot;handlecond.o&quot;
+	==&gt; COMPILING &quot;jsprintf.o&quot;
+	==&gt; COMPILING &quot;jssnprintf.o&quot;
+	==&gt; COMPILING &quot;jssprintf.o&quot;
+	==&gt; COMPILING &quot;match.o&quot;
+	==&gt; COMPILING &quot;matchl.o&quot;
+	==&gt; COMPILING &quot;matchw.o&quot;
+	==&gt; COMPILING &quot;matchwl.o&quot;
+	==&gt; COMPILING &quot;movebytes.o&quot;
+	==&gt; COMPILING &quot;mem.o&quot;
+	==&gt; COMPILING &quot;jmem.o&quot;
+	==&gt; COMPILING &quot;fjmem.o&quot;
+	==&gt; COMPILING &quot;raisecond.o&quot;
+raisecond.c: In function 'raiseabort':
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+	==&gt; COMPILING &quot;rename.o&quot;
+	==&gt; COMPILING &quot;saveargs.o&quot;
+	==&gt; COMPILING &quot;serrmsg.o&quot;
+	==&gt; COMPILING &quot;seterrno.o&quot;
+	==&gt; COMPILING &quot;setfp.o&quot;
+	==&gt; COMPILING &quot;sleep.o&quot;
+	==&gt; COMPILING &quot;snprintf.o&quot;
+	==&gt; COMPILING &quot;spawn.o&quot;
+	==&gt; COMPILING &quot;strcat.o&quot;
+	==&gt; COMPILING &quot;strcatl.o&quot;
+	==&gt; COMPILING &quot;strchr.o&quot;
+	==&gt; COMPILING &quot;strcmp.o&quot;
+	==&gt; COMPILING &quot;strcpy.o&quot;
+	==&gt; COMPILING &quot;strdup.o&quot;
+	==&gt; COMPILING &quot;streql.o&quot;
+	==&gt; COMPILING &quot;strlen.o&quot;
+	==&gt; COMPILING &quot;strlcpy.o&quot;
+	==&gt; COMPILING &quot;strncat.o&quot;
+	==&gt; COMPILING &quot;strncmp.o&quot;
+	==&gt; COMPILING &quot;strncpy.o&quot;
+	==&gt; COMPILING &quot;strrchr.o&quot;
+	==&gt; COMPILING &quot;swabbytes.o&quot;
+	==&gt; COMPILING &quot;usleep.o&quot;
+	==&gt; COMPILING &quot;wcscat.o&quot;
+	==&gt; COMPILING &quot;wcscatl.o&quot;
+	==&gt; COMPILING &quot;wcschr.o&quot;
+	==&gt; COMPILING &quot;wcscmp.o&quot;
+	==&gt; COMPILING &quot;wcscpy.o&quot;
+	==&gt; COMPILING &quot;wcsdup.o&quot;
+	==&gt; COMPILING &quot;wcseql.o&quot;
+	==&gt; COMPILING &quot;wcslen.o&quot;
+	==&gt; COMPILING &quot;wcslcpy.o&quot;
+	==&gt; COMPILING &quot;wcsncat.o&quot;
+	==&gt; COMPILING &quot;wcsncmp.o&quot;
+	==&gt; COMPILING &quot;wcsncpy.o&quot;
+	==&gt; COMPILING &quot;wcsrchr.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libschily.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libschily.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libschily/libschily_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cvmod.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;dat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcons.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdown.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ffileread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ffilewrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fgetline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fgetstr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file_getraise.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file_raise.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileclose.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileluopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filemopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filepos.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filereopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileseek.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filesize.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filestat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filewrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;flag.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;flush.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fpipe.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;niread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;niwrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;nixread.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;nixwrite.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;openfd.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;peekc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcons64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fdup64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileluopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filemopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filepos64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filereopen64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileseek64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filesize64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;filestat64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;openfd64.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoi.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoll.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;astoull.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;breakline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;checkerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;comerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fcomerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpnullbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;eaccess.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;error.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fconv.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fexec.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fillbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findinpath.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;findline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fnmatch.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;format.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fstream.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getargs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getav0.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;geterrno.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getfp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getdomainname.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gethostid.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gethostname.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getpagesize.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getxnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gettnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getxtnum.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getperm.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gettimeofday.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;handlecond.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jsprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jssnprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jssprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;match.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchw.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;matchwl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;movebytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;mem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;jmem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fjmem.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;raisecond.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;rename.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;saveargs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;serrmsg.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;seterrno.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;setfp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;sleep.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;snprintf.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;spawn.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcatl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strchr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;streql.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strlen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strlcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strncpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strrchr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;swabbytes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;usleep.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscatl.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcschr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcscpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsdup.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcseql.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcslen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcslcpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncat.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncmp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsncpy.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;wcsrchr.d&quot;
+	==&gt; MAKING DIRECTORY &quot;../libs/i686-linux-cc/profiled&quot;
+	==&gt; COMPILING &quot;cvmod.o&quot;
+	==&gt; COMPILING &quot;dat.o&quot;
+	==&gt; COMPILING &quot;fcons.o&quot;
+	==&gt; COMPILING &quot;fdown.o&quot;
+	==&gt; COMPILING &quot;fdup.o&quot;
+	==&gt; COMPILING &quot;ffileread.o&quot;
+	==&gt; COMPILING &quot;ffilewrite.o&quot;
+	==&gt; COMPILING &quot;fgetline.o&quot;
+	==&gt; COMPILING &quot;fgetstr.o&quot;
+	==&gt; COMPILING &quot;file_getraise.o&quot;
+	==&gt; COMPILING &quot;file_raise.o&quot;
+	==&gt; COMPILING &quot;fileclose.o&quot;
+	==&gt; COMPILING &quot;fileluopen.o&quot;
+	==&gt; COMPILING &quot;fileopen.o&quot;
+	==&gt; COMPILING &quot;filemopen.o&quot;
+	==&gt; COMPILING &quot;filepos.o&quot;
+	==&gt; COMPILING &quot;fileread.o&quot;
+	==&gt; COMPILING &quot;filereopen.o&quot;
+	==&gt; COMPILING &quot;fileseek.o&quot;
+	==&gt; COMPILING &quot;filesize.o&quot;
+	==&gt; COMPILING &quot;filestat.o&quot;
+	==&gt; COMPILING &quot;filewrite.o&quot;
+	==&gt; COMPILING &quot;flag.o&quot;
+	==&gt; COMPILING &quot;flush.o&quot;
+	==&gt; COMPILING &quot;fpipe.o&quot;
+	==&gt; COMPILING &quot;niread.o&quot;
+	==&gt; COMPILING &quot;niwrite.o&quot;
+	==&gt; COMPILING &quot;nixread.o&quot;
+	==&gt; COMPILING &quot;nixwrite.o&quot;
+	==&gt; COMPILING &quot;openfd.o&quot;
+	==&gt; COMPILING &quot;peekc.o&quot;
+	==&gt; COMPILING &quot;fcons64.o&quot;
+	==&gt; COMPILING &quot;fdup64.o&quot;
+	==&gt; COMPILING &quot;fileluopen64.o&quot;
+	==&gt; COMPILING &quot;fileopen64.o&quot;
+	==&gt; COMPILING &quot;filemopen64.o&quot;
+	==&gt; COMPILING &quot;filepos64.o&quot;
+	==&gt; COMPILING &quot;filereopen64.o&quot;
+	==&gt; COMPILING &quot;fileseek64.o&quot;
+	==&gt; COMPILING &quot;filesize64.o&quot;
+	==&gt; COMPILING &quot;filestat64.o&quot;
+	==&gt; COMPILING &quot;openfd64.o&quot;
+	==&gt; COMPILING &quot;astoi.o&quot;
+	==&gt; COMPILING &quot;astoll.o&quot;
+	==&gt; COMPILING &quot;astoull.o&quot;
+	==&gt; COMPILING &quot;breakline.o&quot;
+	==&gt; COMPILING &quot;checkerr.o&quot;
+	==&gt; COMPILING &quot;comerr.o&quot;
+	==&gt; COMPILING &quot;fcomerr.o&quot;
+	==&gt; COMPILING &quot;cmpbytes.o&quot;
+	==&gt; COMPILING &quot;cmpnullbytes.o&quot;
+	==&gt; COMPILING &quot;eaccess.o&quot;
+	==&gt; COMPILING &quot;error.o&quot;
+	==&gt; COMPILING &quot;fconv.o&quot;
+	==&gt; COMPILING &quot;fexec.o&quot;
+	==&gt; COMPILING &quot;fillbytes.o&quot;
+	==&gt; COMPILING &quot;findinpath.o&quot;
+	==&gt; COMPILING &quot;findbytes.o&quot;
+	==&gt; COMPILING &quot;findline.o&quot;
+	==&gt; COMPILING &quot;fnmatch.o&quot;
+	==&gt; COMPILING &quot;format.o&quot;
+format.c: In function 'format':
+format.c:465: warning: ignoring return value of 'gcvt', declared with attribute warn_unused_result
+	==&gt; COMPILING &quot;fstream.o&quot;
+	==&gt; COMPILING &quot;getargs.o&quot;
+	==&gt; COMPILING &quot;getav0.o&quot;
+	==&gt; COMPILING &quot;geterrno.o&quot;
+	==&gt; COMPILING &quot;getfp.o&quot;
+	==&gt; COMPILING &quot;getdomainname.o&quot;
+In file included from getdomainname.c:28:
+../include/schily/hostname.h:54:1: warning: &quot;HOST_NAME_MAX&quot; redefined
+In file included from /usr/include/bits/posix1_lim.h:157,
+                 from /usr/include/limits.h:145,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:122,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/syslimits.h:7,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:11,
+                 from /usr/include/sys/param.h:26,
+                 from ../include/schily/param.h:35,
+                 from ../include/schily/hostname.h:51,
+                 from getdomainname.c:28:
+/usr/include/bits/local_lim.h:94:1: warning: this is the location of the previous definition
+	==&gt; COMPILING &quot;gethostid.o&quot;
+	==&gt; COMPILING &quot;gethostname.o&quot;
+In file included from gethostname.c:28:
+../include/schily/hostname.h:54:1: warning: &quot;HOST_NAME_MAX&quot; redefined
+In file included from /usr/include/bits/posix1_lim.h:157,
+                 from /usr/include/limits.h:145,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:122,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/syslimits.h:7,
+                 from /package/host/localhost/sepbuilt/gcc41-4.1.2-01-00/prefix/lib/gcc/i686-pc-linux-gnu/4.1.2/include/limits.h:11,
+                 from /usr/include/sys/param.h:26,
+                 from ../include/schily/param.h:35,
+                 from ../include/schily/hostname.h:51,
+                 from gethostname.c:28:
+/usr/include/bits/local_lim.h:94:1: warning: this is the location of the previous definition
+	==&gt; COMPILING &quot;getpagesize.o&quot;
+	==&gt; COMPILING &quot;getnum.o&quot;
+	==&gt; COMPILING &quot;getxnum.o&quot;
+	==&gt; COMPILING &quot;gettnum.o&quot;
+	==&gt; COMPILING &quot;getxtnum.o&quot;
+	==&gt; COMPILING &quot;getperm.o&quot;
+	==&gt; COMPILING &quot;gettimeofday.o&quot;
+	==&gt; COMPILING &quot;handlecond.o&quot;
+	==&gt; COMPILING &quot;jsprintf.o&quot;
+	==&gt; COMPILING &quot;jssnprintf.o&quot;
+	==&gt; COMPILING &quot;jssprintf.o&quot;
+	==&gt; COMPILING &quot;match.o&quot;
+	==&gt; COMPILING &quot;matchl.o&quot;
+	==&gt; COMPILING &quot;matchw.o&quot;
+	==&gt; COMPILING &quot;matchwl.o&quot;
+	==&gt; COMPILING &quot;movebytes.o&quot;
+	==&gt; COMPILING &quot;mem.o&quot;
+	==&gt; COMPILING &quot;jmem.o&quot;
+	==&gt; COMPILING &quot;fjmem.o&quot;
+	==&gt; COMPILING &quot;raisecond.o&quot;
+raisecond.c: In function 'raiseabort':
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+raisecond.c:169: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+	==&gt; COMPILING &quot;rename.o&quot;
+	==&gt; COMPILING &quot;saveargs.o&quot;
+	==&gt; COMPILING &quot;serrmsg.o&quot;
+	==&gt; COMPILING &quot;seterrno.o&quot;
+	==&gt; COMPILING &quot;setfp.o&quot;
+	==&gt; COMPILING &quot;sleep.o&quot;
+	==&gt; COMPILING &quot;snprintf.o&quot;
+	==&gt; COMPILING &quot;spawn.o&quot;
+	==&gt; COMPILING &quot;strcat.o&quot;
+	==&gt; COMPILING &quot;strcatl.o&quot;
+	==&gt; COMPILING &quot;strchr.o&quot;
+	==&gt; COMPILING &quot;strcmp.o&quot;
+	==&gt; COMPILING &quot;strcpy.o&quot;
+	==&gt; COMPILING &quot;strdup.o&quot;
+	==&gt; COMPILING &quot;streql.o&quot;
+	==&gt; COMPILING &quot;strlen.o&quot;
+	==&gt; COMPILING &quot;strlcpy.o&quot;
+	==&gt; COMPILING &quot;strncat.o&quot;
+	==&gt; COMPILING &quot;strncmp.o&quot;
+	==&gt; COMPILING &quot;strncpy.o&quot;
+	==&gt; COMPILING &quot;strrchr.o&quot;
+	==&gt; COMPILING &quot;swabbytes.o&quot;
+	==&gt; COMPILING &quot;usleep.o&quot;
+	==&gt; COMPILING &quot;wcscat.o&quot;
+	==&gt; COMPILING &quot;wcscatl.o&quot;
+	==&gt; COMPILING &quot;wcschr.o&quot;
+	==&gt; COMPILING &quot;wcscmp.o&quot;
+	==&gt; COMPILING &quot;wcscpy.o&quot;
+	==&gt; COMPILING &quot;wcsdup.o&quot;
+	==&gt; COMPILING &quot;wcseql.o&quot;
+	==&gt; COMPILING &quot;wcslen.o&quot;
+	==&gt; COMPILING &quot;wcslcpy.o&quot;
+	==&gt; COMPILING &quot;wcsncat.o&quot;
+	==&gt; COMPILING &quot;wcsncmp.o&quot;
+	==&gt; COMPILING &quot;wcsncpy.o&quot;
+	==&gt; COMPILING &quot;wcsrchr.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libschily.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libschily.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libschily/noshlschily.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libdeflt&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libdeflt/libdeflt.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;default.d&quot;
+	==&gt; COMPILING &quot;default.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libdeflt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libdeflt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libdeflt/libdeflt_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;default.d&quot;
+	==&gt; COMPILING &quot;default.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libdeflt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libdeflt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libdeflt/noshldeflt.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libscg&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscg/libscg.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsitransp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsihack.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsiopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scgsettarget.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsierrs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scgtimes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsihelp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;rdummy.d&quot;
+	==&gt; COMPILING &quot;scsitransp.o&quot;
+	==&gt; COMPILING &quot;scsihack.o&quot;
+	==&gt; COMPILING &quot;scsiopen.o&quot;
+	==&gt; COMPILING &quot;scgsettarget.o&quot;
+	==&gt; COMPILING &quot;scsierrs.o&quot;
+	==&gt; COMPILING &quot;scgtimes.o&quot;
+	==&gt; COMPILING &quot;scsihelp.o&quot;
+	==&gt; COMPILING &quot;rdummy.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libscg.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libscg.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscg/libscg_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsitransp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsihack.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsiopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scgsettarget.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsierrs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scgtimes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsihelp.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;rdummy.d&quot;
+	==&gt; COMPILING &quot;scsitransp.o&quot;
+	==&gt; COMPILING &quot;scsihack.o&quot;
+	==&gt; COMPILING &quot;scsiopen.o&quot;
+	==&gt; COMPILING &quot;scgsettarget.o&quot;
+	==&gt; COMPILING &quot;scsierrs.o&quot;
+	==&gt; COMPILING &quot;scgtimes.o&quot;
+	==&gt; COMPILING &quot;scsihelp.o&quot;
+	==&gt; COMPILING &quot;rdummy.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libscg.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libscg.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscg/noshlscg.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libscg/scg&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/lib&quot;
+NOTICE: Partial source (SRCROOT/lib) missing
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libcdrdeflt&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libcdrdeflt/libcdrdeflt.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cdrdeflt.d&quot;
+	==&gt; COMPILING &quot;cdrdeflt.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libcdrdeflt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libcdrdeflt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libcdrdeflt/libcdrdeflt_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cdrdeflt.d&quot;
+	==&gt; COMPILING &quot;cdrdeflt.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libcdrdeflt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libcdrdeflt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libcdrdeflt/noshlcdrdeflt.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libedc&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/libedc.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edc_ecc.d&quot;
+	==&gt; COMPILING &quot;edc_ecc.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libedc_ecc.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libedc_ecc.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/libedc_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edc_ecc.d&quot;
+	==&gt; COMPILING &quot;edc_ecc.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libedc_ecc.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libedc_ecc.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/libedc_dec.mk&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edc_ecc_dec.d&quot;
+	==&gt; COMPILING &quot;edc_ecc_dec.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libedc_ecc_dec.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libedc_ecc_dec.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/libedc_dec_p.mk&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edc_ecc_dec.d&quot;
+	==&gt; COMPILING &quot;edc_ecc_dec.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libedc_ecc_dec.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libedc_ecc_dec.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/noshledc.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libedc/noshledc_dec.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libfile&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfile/libfile.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;apprentice.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;softmagic.d&quot;
+	==&gt; COMPILING &quot;file.o&quot;
+	==&gt; COMPILING &quot;apprentice.o&quot;
+	==&gt; COMPILING &quot;softmagic.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libfile.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libfile.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfile/libfile_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;apprentice.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;softmagic.d&quot;
+	==&gt; COMPILING &quot;file.o&quot;
+	==&gt; COMPILING &quot;apprentice.o&quot;
+	==&gt; COMPILING &quot;softmagic.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libfile.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libfile.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfile/noshlfile.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libfind&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfind/libfind.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;walk.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fetchdir.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpdir.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_misc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_list.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_main.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;idcache.d&quot;
+	==&gt; COMPILING &quot;find.o&quot;
+	==&gt; COMPILING &quot;walk.o&quot;
+	==&gt; COMPILING &quot;fetchdir.o&quot;
+	==&gt; COMPILING &quot;cmpdir.o&quot;
+	==&gt; COMPILING &quot;find_misc.o&quot;
+	==&gt; COMPILING &quot;find_list.o&quot;
+	==&gt; COMPILING &quot;find_main.o&quot;
+	==&gt; COMPILING &quot;idcache.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libfind.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libfind.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfind/libfind_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;walk.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fetchdir.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;cmpdir.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_misc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_list.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;find_main.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;idcache.d&quot;
+	==&gt; COMPILING &quot;find.o&quot;
+	==&gt; COMPILING &quot;walk.o&quot;
+	==&gt; COMPILING &quot;fetchdir.o&quot;
+	==&gt; COMPILING &quot;cmpdir.o&quot;
+	==&gt; COMPILING &quot;find_misc.o&quot;
+	==&gt; COMPILING &quot;find_list.o&quot;
+	==&gt; COMPILING &quot;find_main.o&quot;
+	==&gt; COMPILING &quot;idcache.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libfind.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libfind.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libfind/noshlfind.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libgetopt&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libgetopt/libgetopt.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;getopt.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;opt_data.d&quot;
+	==&gt; COMPILING &quot;getopt.o&quot;
+getopt.c: In function 'getopt':
+getopt.c:266: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+getopt.c:317: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+getopt.c:331: warning: ignoring return value of 'write', declared with attribute warn_unused_result
+	==&gt; COMPILING &quot;opt_data.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libgetopt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libgetopt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libhfs_iso&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libhfs_iso/libhfs.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;data.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;block.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;low.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;btree.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;node.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;record.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;volume.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;hfs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gdata.d&quot;
+	==&gt; COMPILING &quot;data.o&quot;
+	==&gt; COMPILING &quot;block.o&quot;
+	==&gt; COMPILING &quot;low.o&quot;
+	==&gt; COMPILING &quot;file.o&quot;
+	==&gt; COMPILING &quot;btree.o&quot;
+	==&gt; COMPILING &quot;node.o&quot;
+	==&gt; COMPILING &quot;record.o&quot;
+	==&gt; COMPILING &quot;volume.o&quot;
+	==&gt; COMPILING &quot;hfs.o&quot;
+	==&gt; COMPILING &quot;gdata.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libhfs.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libhfs.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libhfs_iso/libhfs_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;data.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;block.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;low.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;file.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;btree.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;node.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;record.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;volume.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;hfs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gdata.d&quot;
+	==&gt; COMPILING &quot;data.o&quot;
+	==&gt; COMPILING &quot;block.o&quot;
+	==&gt; COMPILING &quot;low.o&quot;
+	==&gt; COMPILING &quot;file.o&quot;
+	==&gt; COMPILING &quot;btree.o&quot;
+	==&gt; COMPILING &quot;node.o&quot;
+	==&gt; COMPILING &quot;record.o&quot;
+	==&gt; COMPILING &quot;volume.o&quot;
+	==&gt; COMPILING &quot;hfs.o&quot;
+	==&gt; COMPILING &quot;gdata.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libhfs.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libhfs.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libhfs_iso/noshlhfs.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libmdigest&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libmdigest/mdigest.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;md4.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;md5.d&quot;
+	==&gt; COMPILING &quot;md4.o&quot;
+	==&gt; COMPILING &quot;md5.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libmdigest.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libmdigest.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libmdigest/mdigest_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;md4.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;md5.d&quot;
+	==&gt; COMPILING &quot;md4.o&quot;
+	==&gt; COMPILING &quot;md5.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libmdigest.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libmdigest.a&quot;
+NOTICE: Partial source (SRCROOT/libmdigest/nomshldigest.mk) missing
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libparanoia&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libparanoia/paranoia.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;isort.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;overlap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;p_block.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;paranoia.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;pmalloc.d&quot;
+	==&gt; COMPILING &quot;gap.o&quot;
+	==&gt; COMPILING &quot;isort.o&quot;
+	==&gt; COMPILING &quot;overlap.o&quot;
+	==&gt; COMPILING &quot;p_block.o&quot;
+	==&gt; COMPILING &quot;paranoia.o&quot;
+paranoia.c: In function 'i_silence_match':
+paranoia.c:1201: warning: not protecting local variables: variable length buffer
+paranoia.c: In function 'i_stage2':
+paranoia.c:2233: warning: not protecting local variables: variable length buffer
+	==&gt; COMPILING &quot;pmalloc.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libparanoia.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libparanoia.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libparanoia/paranoia_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;gap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;isort.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;overlap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;p_block.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;paranoia.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;pmalloc.d&quot;
+	==&gt; COMPILING &quot;gap.o&quot;
+	==&gt; COMPILING &quot;isort.o&quot;
+	==&gt; COMPILING &quot;overlap.o&quot;
+	==&gt; COMPILING &quot;p_block.o&quot;
+	==&gt; COMPILING &quot;paranoia.o&quot;
+paranoia.c: In function 'i_silence_match':
+paranoia.c:1201: warning: not protecting local variables: variable length buffer
+paranoia.c: In function 'i_stage2':
+paranoia.c:2233: warning: not protecting local variables: variable length buffer
+	==&gt; COMPILING &quot;pmalloc.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libparanoia.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libparanoia.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libparanoia/noshlparanoia.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/librmt&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librmt/librmt.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;remote.d&quot;
+	==&gt; COMPILING &quot;remote.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/librmt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/librmt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librmt/librmt_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;remote.d&quot;
+	==&gt; COMPILING &quot;remote.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/librmt.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/librmt.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librmt/noshlrmt.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/librscg&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librscg/librscg.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsi-remote.d&quot;
+	==&gt; COMPILING &quot;scsi-remote.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/librscg.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/librscg.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librscg/librscg_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;scsi-remote.d&quot;
+	==&gt; COMPILING &quot;scsi-remote.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/librscg.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/librscg.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/librscg/noshlrscg.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libscgcmd&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscgcmd/libscgcmd.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;buffer.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;inquiry.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;modes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;modesense.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;read.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;readcap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ready.d&quot;
+	==&gt; COMPILING &quot;buffer.o&quot;
+	==&gt; COMPILING &quot;inquiry.o&quot;
+	==&gt; COMPILING &quot;modes.o&quot;
+	==&gt; COMPILING &quot;modesense.o&quot;
+	==&gt; COMPILING &quot;read.o&quot;
+	==&gt; COMPILING &quot;readcap.o&quot;
+	==&gt; COMPILING &quot;ready.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/libscgcmd.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/libscgcmd.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscgcmd/libscgcmd_p.mk&quot;
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc/profiled&quot;
+	==&gt; MAKING DEPENDENCIES &quot;buffer.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;inquiry.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;modes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;modesense.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;read.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;readcap.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ready.d&quot;
+	==&gt; COMPILING &quot;buffer.o&quot;
+	==&gt; COMPILING &quot;inquiry.o&quot;
+	==&gt; COMPILING &quot;modes.o&quot;
+	==&gt; COMPILING &quot;modesense.o&quot;
+	==&gt; COMPILING &quot;read.o&quot;
+	==&gt; COMPILING &quot;readcap.o&quot;
+	==&gt; COMPILING &quot;ready.o&quot;
+	==&gt; ARCHIVING  &quot;../libs/i686-linux-cc/profiled/libscgcmd.a&quot;
+	==&gt; RANDOMIZING ARCHIVE &quot;../libs/i686-linux-cc/profiled/libscgcmd.a&quot;
+	==&gt; MAKING &quot;all&quot; ON SUBCOMPONENT &quot;SRCROOT/libscgcmd/noshlscgcmd.mk&quot;
+	==&gt; NO shared libs on this platform (yet)
+	==&gt; MAKING &quot;all&quot; ON SUBDIRECTORY &quot;SRCROOT/libshedit&quot;
+	==&gt; MAKING SYMLINKS in .
+	==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edit.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;inputc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;expand.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;node.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;map.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strsubs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;str.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ttymodes.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fprint.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;error.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fgetline.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fileopen.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;fio.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;comerr.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;edit.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;inputc.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;expand.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;node.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;map.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;strsubs.d&quot;
+	==&gt; MAKING DEPENDENCIES &quot;ttymodes.d&quot;
+	==&gt; COMPILING &quot;edit.o&quot;
+	==&gt; COMPILING &quot;inputc.o&quot;
+In file included from ../include/schily/wchar.h:49,
+                 from inputc.c:62:
+/usr/include/wchar.h:578: error: expected '=', ',', ';', 'asm' or '__attribute__' before '*' token
+/usr/include/wchar.h:585: error: expected ')' before '*' token
+/usr/include/wchar.h:592: error: expected ')' before '*' token
+/usr/include/wchar.h:610: error: expected ')' before '*' token
+/usr/include/wchar.h:633: error: expected ')' before '*' token
+/usr/include/wchar.h:687: error: expected ')' before '*' token
+/usr/include/wchar.h:743: error: expected ')' before '*' token
+/usr/include/wchar.h:744: error: expected ')' before '*' token
+/usr/include/wchar.h:757: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:758: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:773: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:780: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:787: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:799: error: expected ')' before '*' token
+/usr/include/wchar.h:808: error: expected ')' before '*' token
+/usr/include/wchar.h:816: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:825: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:836: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/wchar.h:845: error: expected declaration specifiers or '...' before '__FILE'
+In file included from /usr/include/wchar.h:882,
+                 from ../include/schily/wchar.h:49,
+                 from inputc.c:62:
+/usr/include/bits/wchar2.h:326: error: expected ')' before '*' token
+/usr/include/bits/wchar2.h:330: error: expected ')' before '*' token
+/usr/include/bits/wchar2.h:363: error: expected ')' before '*' token
+/usr/include/bits/wchar2.h:372: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:373: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:376: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:383: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h: In function 'fgetws':
+/usr/include/bits/wchar2.h:389: error: '__stream' undeclared (first use in this function)
+/usr/include/bits/wchar2.h:389: error: (Each undeclared identifier is reported only once
+/usr/include/bits/wchar2.h:389: error: for each function it appears in.)
+/usr/include/bits/wchar2.h:389: error: too many arguments to function '__fgetws_chk'
+/usr/include/bits/wchar2.h:393: error: too many arguments to function '__fgetws_chk_warn'
+/usr/include/bits/wchar2.h:395: error: too many arguments to function '__fgetws_alias'
+/usr/include/bits/wchar2.h: At top level:
+/usr/include/bits/wchar2.h:400: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:402: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:406: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h:414: error: expected declaration specifiers or '...' before '__FILE'
+/usr/include/bits/wchar2.h: In function 'fgetws_unlocked':
+/usr/include/bits/wchar2.h:420: error: '__stream' undeclared (first use in this function)
+/usr/include/bits/wchar2.h:420: error: too many arguments to function '__fgetws_unlocked_chk'
+/usr/include/bits/wchar2.h:424: error: too many arguments to function '__fgetws_unlocked_chk_warn'
+/usr/include/bits/wchar2.h:426: error: too many arguments to function '__fgetws_unlocked_alias'
+inputc.c: In function 'towcs':
+inputc.c:290: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+inputc.c:294: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+inputc.c:310: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+inputc.c:314: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+inputc.c: In function '_nextwc':
+inputc.c:525: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+inputc.c:534: warning: ignoring return value of 'mbtowc', declared with attribute warn_unused_result
+smake: Operation not permitted. *** Code 1 from command line for target 'inputc.o'.
+smake: The following command caused the error:
+echo &quot;	==&gt; COMPILING \&quot;inputc.o\&quot;&quot;; gcc   -O   -DSCHILY_BUILD -IOBJ/i686-linux-cc -I../incs/i686-linux-cc -I../include -I/usr/src/linux/include  -D_GNU_SOURCE -DBSH			 -DUSE_LARGEFILES	 -DINTERACTIVE		 -DDO_SUID		 -DVFORK			 -DOLD_PWORD		 -DFAST_MALLOC		 -DTESTMAIL		 -DBOURNE -DLIB -Iinclude  -c -o OBJ/i686-linux-cc/inputc.o inputc.c  
+smake: Couldn't make 'all'.
+smake: Leaving  'smake'[1] from directory '/home/snyder/schily-2009-07-06/libshedit'
+smake: Default commandline target: 'all'
+smake: Doing                       exit(1)
+smake: Operation not permitted. *** Code 1 from command line for target 'all'.
+smake: The following command caused the error:
+list=&quot;&quot;;							\
+	if [ -d TARGETS -a -f TARGETS/__slot ]; then				\
+		list=`echo TARGETS/[0-9][0-9]* | sed -e 's;TARGETS/[0-9][0-9];;g' | sed -e 's;!@!;/;g'`;\
+	fi;									\
+	for DIR in ${list} ;							\
+	do									\
+		(								\
+		echo &quot;	==&gt; MAKING \&quot;all\&quot; ON SUBDIRECTORY \&quot;SRCROOT/$DIR\&quot;&quot;;\
+		if [ -d ./$DIR -a -r ./$DIR/Makefile ] ; then			\
+			cd ./$DIR &amp;&amp; &quot;smake&quot;  XARCH=i686-linux-cc DIRNAME=SRCROOT/$DIR all;		\
+		else								\
+			echo &quot;NOTICE: Partial source (SRCROOT/$DIR) missing&quot;;\
+		fi								\
+		);								\
+	done
+smake: Couldn't make 'all'.
+...sh conf/cc-config.sh cc cc incs/Dcc.i686-linux
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20090722/bf0a6557/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20090722/bf0a6557/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000171.html">[Star-users] schily-2009-07-06 won't compile with latest glibc
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#170">[ date ]</a>
+              <a href="thread.html#170">[ thread ]</a>
+              <a href="subject.html#170">[ subject ]</a>
+              <a href="author.html#170">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] E13 - Permission Denied as root or whoever
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20E13%20-%20Permission%20Denied%20as%20root%20or%20whoever&In-Reply-To=%3C5b638a940706290528t9c08e90n4753614db2b38235%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000040.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] E13 - Permission Denied as root or whoever</H1>
+    <B>The Loeki</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20E13%20-%20Permission%20Denied%20as%20root%20or%20whoever&In-Reply-To=%3C5b638a940706290528t9c08e90n4753614db2b38235%40mail.gmail.com%3E"
+       TITLE="[Star-users] E13 - Permission Denied as root or whoever">the.loeki at gmail.com
+       </A><BR>
+    <I>Fri Jun 29 14:28:42 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000040.html">[Star-users] empty archives
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi all!
+
+We're using Solaris 10u3 11/06 on an UltraSPARC
+ It has a DDS4 tape device attached to it, which I want to publish to other
+servers as well.
+
+I figured I'd use Schily's rmt for access to it's tape device.
+After some hassle setting up the server, I continued to receive
+/opt/csw/bin/sdd: Permission denied. Remote status(open): 13 'Permission
+denied'.
+
+So I figured I'd try on a SSH terminal to figure this stuff out.
+As root, consider the following output:
+
+# /usr/sbin/rmt
+O/dev/rmt/0hn
+S
+A3
+
+&lt;&lt;SNIP&gt;&gt;
+Seems regular, right?
+Now it's star's rmt's turn:
+
+# /opt/csw/sbin/rmt
+O/dev/rmt/0hn
+S
+E13
+Permission denied
+
+!?
+Does anybody have any idea why exactly this is? Remember, this is not as
+user or with interruption from rsh or rlogin or whatever...
+
+I'd be happy with any ideas :-)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070629/7c759ca5/attachment.html">https://lists.berlios.de/pipermail/star-users/attachments/20070629/7c759ca5/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000040.html">[Star-users] empty archives
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

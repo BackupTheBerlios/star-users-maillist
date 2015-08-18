@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] dealing with timestamp (in-)accuracy
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C20080306122236.GA2448%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000116.html">
+   <LINK REL="Next"  HREF="000107.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] dealing with timestamp (in-)accuracy</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20dealing%20with%20timestamp%20%28in-%29accuracy&In-Reply-To=%3C20080306122236.GA2448%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] dealing with timestamp (in-)accuracy">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Thu Mar  6 13:22:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000116.html">[Star-users] segfaults with gcc 4.2.3
+</A></li>
+        <LI>Next message: <A HREF="000107.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>In create.c of star-1.5a87, line 281, it reads:
+
+   } else if (dumplevel &gt; 0) {
+      if (info-&gt;f_mtime &gt; Newer.tv_sec) {
+         /* EMPTY */
+         ;
+      } else if (info-&gt;f_ctime &gt; Newer.tv_sec) {
+         if (dumpmeta)
+            info-&gt;f_xftype = XT_META;
+      } else {
+         return (FALSE);
+      }
+
+As far as I can see, this is the place where it is decided upon whether a 
+file will be included in the current dump, or if it may be assumed that it is 
+already included in a previous dump (and hence will not be included again). I 
+wonder whether the checks shouldn't be for greater *or* *equal*, i.e.:
+
+      if (info-&gt;f_mtime &gt;= Newer.tv_sec) {
+         /* EMPTY */
+         ;
+      } else if (info-&gt;f_ctime &gt;= Newer.tv_sec) {
+
+If 'tv_sec' means what I guess it means, namely seconds, then this is 
+necessary, because (on Linux) it is no problem to sequentially create 
+hundreds of files that have the same time if measured with an accuracy of 
+seconds. (In fact, the unit of one second seems to be the accuracy of Linux 
+file times.)
+
+
+Further down, it reads:
+
+   } else if (Newer.tv_sec &amp;&amp; (Ctime ? info-&gt;f_ctime:info-&gt;f_mtime) &lt;=
+                        Newer.tv_sec) {
+
+Maybe it should be '&gt;' here, i.e.:
+
+   } else if (Newer.tv_sec &amp;&amp; (Ctime ? info-&gt;f_ctime:info-&gt;f_mtime) &gt;
+                        Newer.tv_sec) {
+
+but I am not so sure about that (since I am not sure what this statement is 
+for).
+
+
+Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080306/923c49aa/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080306/923c49aa/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000116.html">[Star-users] segfaults with gcc 4.2.3
+</A></li>
+	<LI>Next message: <A HREF="000107.html">[Star-users] dealing with timestamp (in-)accuracy
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

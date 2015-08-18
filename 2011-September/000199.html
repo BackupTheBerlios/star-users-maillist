@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Buffer overflow in name_to_tcb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110904180521.GA4647%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000200.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Buffer overflow in name_to_tcb</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110904180521.GA4647%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] Buffer overflow in name_to_tcb">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Sun Sep  4 20:05:21 CEST 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000200.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#199">[ date ]</a>
+              <a href="thread.html#199">[ thread ]</a>
+              <a href="subject.html#199">[ subject ]</a>
+              <a href="author.html#199">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Lasse Kliemann- from Wed 2011-07-06:
+&gt;<i> * Message by -Joerg Schilling- from Wed 2011-06-15:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; &gt; &gt; There is a trick to make over-picky compilers quiet......
+</I>&gt;<i> &gt; &gt; &gt; 
+</I>&gt;<i> &gt; &gt; &gt; change strcpy(ptb-&gt;dbuf.t_name, name); to:
+</I>&gt;<i> &gt; &gt; &gt; 
+</I>&gt;<i> &gt; &gt; &gt; 	strcpy(ptb-&gt;ndbuf.t_name, name);
+</I>&gt;<i> &gt; &gt; &gt; 
+</I>&gt;<i> &gt; &gt; &gt; and try again.....
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; This works.
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; Is it intended as a permanent fix?
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; This is seen as a workaround as an intentionally wrong data structure variant 
+</I>&gt;<i> &gt; cannot be seen as a fix.
+</I>&gt;<i> 
+</I>&gt;<i> I see the workaround has been incorporated into 2011-06-22.
+</I>&gt;<i> 
+</I>&gt;<i> I have compiled that version with my usual CFLAGS including
+</I>&gt;<i> 
+</I>&gt;<i>   -fstack-protector-all -D_FORTIFY_SOURCE=2
+</I>&gt;<i> 
+</I>&gt;<i> There were no more problems, although I pushed a dozen TB through 
+</I>&gt;<i> star the last days.
+</I>
+I ran into another problem today. A filename of length 100 inside 
+a directory triggers the bound check, when invoked like so:
+
+star -c d/0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+
+I tracked it down to line 201 in longnames.c. Probably line 199 
+is an issue too. Could the same workaround be applied here? I 
+tried that, and it seems to work, but I am not sure.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 836 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20110904/09ab4b92/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20110904/09ab4b92/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000200.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#199">[ date ]</a>
+              <a href="thread.html#199">[ thread ]</a>
+              <a href="subject.html#199">[ subject ]</a>
+              <a href="author.html#199">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

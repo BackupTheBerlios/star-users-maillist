@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] wrong mtime after restore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20wrong%20mtime%20after%20restore&In-Reply-To=%3C20070914101524.GE2582%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000056.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] wrong mtime after restore</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20wrong%20mtime%20after%20restore&In-Reply-To=%3C20070914101524.GE2582%40enterprise.starfleet%3E"
+       TITLE="[Star-users] wrong mtime after restore">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Fri Sep 14 12:15:26 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000056.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Joerg Schilling writes:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; (...)
+</I>&gt;<i> &gt; &gt; I did a second restore into a second directory. The backup comprises a level 
+</I>&gt;<i> &gt; &gt; 0, 1, 2 and 5 incremental. The restore of the levels 0 to 2 give the above 
+</I>&gt;<i> &gt; &gt; directory dates in the past, which presumably are correct. However the last 
+</I>&gt;<i> &gt; &gt; increment, level 5, gives that directory the *current* date. That was Aug 26 
+</I>&gt;<i> &gt; &gt; in my previous test, and now is Aug 28.
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; I also have a more concrete theory what could be the reason for this: the 
+</I>&gt;<i> &gt; &gt; directory contains a fifo (or named pipe; created with `mknod ... p'). This 
+</I>&gt;<i> &gt; &gt; fifo is frequently modified such that its mtime changes.
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; However, I still was unable to reproduce the behavior of star described above 
+</I>&gt;<i> &gt; &gt; with a new incremental backup (using directories with fifos).
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; It's actually easy. Create the fifo, make a, say, level 0 dump, then touch 
+</I>&gt;<i> &gt; the fifo, then do a, say, level 1 dump.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Restoring the level 0 dump will give the directory containing the fifo its 
+</I>&gt;<i> &gt; correct date. However, restoring the level 1 dump (on top of the level 0 dump 
+</I>&gt;<i> &gt; of course) will give the directory in which the fifo is the *current* date.
+</I>&gt;<i> 
+</I>&gt;<i> Thank you!
+</I>&gt;<i> 
+</I>&gt;<i> It seems that the fact that star is unlinking and restoring the file
+</I>&gt;<i> while the directory is missing in the incremental causes the problem.
+</I>&gt;<i> 
+</I>&gt;<i> It seems that I would need to change the way star extracts non-plain files.
+</I>&gt;<i> 
+</I>&gt;<i> Currently, star (as usual with -U) removes and re-rcreated the files.
+</I>&gt;<i> 
+</I>&gt;<i> I would need to check for the same file type and the same inode number.
+</I>
+Version 1.5a85 corrects the problem; I tested it. Thanks for the fix.
+
+I will do more real-world tests. If they show any anomaly, I will report.
+
+Lasse
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070914/c2622ab3/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070914/c2622ab3/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000056.html">[Star-users] XATTR option does NOT work for chattr attributes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#55">[ date ]</a>
+              <a href="thread.html#55">[ thread ]</a>
+              <a href="subject.html#55">[ subject ]</a>
+              <a href="author.html#55">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

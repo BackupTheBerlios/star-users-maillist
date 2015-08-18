@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star issue when creating archives
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20issue%20when%20creating%20archives&In-Reply-To=%3C21d597f95e126aa677e76f2ba2a415ad.squirrel%40ssl-webmail-vh.clara.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000176.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star issue when creating archives</H1>
+    <B>markk at clara.co.uk</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20issue%20when%20creating%20archives&In-Reply-To=%3C21d597f95e126aa677e76f2ba2a415ad.squirrel%40ssl-webmail-vh.clara.net%3E"
+       TITLE="[Star-users] star issue when creating archives">markk at clara.co.uk
+       </A><BR>
+    <I>Tue Mar  1 19:22:58 CET 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000176.html">[Star-users] star tape I/O suggestion
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I'm writing to report a possible star bug/issue/misfeature. (I'm using
+star 1.5 on Linux.)
+
+When creating an archive which is a normal file, if the archive file
+already exists it is silently overwritten, but the file length is not
+changed. So stale/old data remains at the end of the archive when the
+amount of data written is less than the old archive length.
+
+By comparison, GNU tar also overwrites the file silently, but truncates it
+so no stale data remains at the end.
+
+I think it would be preferable to by default print a message saying the
+archive already exists and exit. If the user overrides that, star should
+truncate the (existing) archive file so no previous data remains.
+
+To demonstrate the problem, try this (where file1 and file2 are any files):
+  star -v -c f=archive.tar file1 file2
+  ls -l archive.tar
+  star -v -c f=archive.tar file2
+  ls -l archive.tar
+  star -v -t f=archive.tar
+
+Compare with doing:
+  tar -vcf gnu_archive.tar file1 file2
+  ls -l gnu_archive.tar
+  tar -vcf gnu_archive.tar file2
+  ls -l gnu_archive.tar
+  tar -vtf gnu_archive.tar
+
+
+Mark
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000176.html">[Star-users] star tape I/O suggestion
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

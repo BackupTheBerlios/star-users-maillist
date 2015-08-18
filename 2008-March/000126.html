@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] refuse to update certain files upon extraction
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C47dfd593.ku8axIkn0xfFv0q4%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000106.html">
+   <LINK REL="Next"  HREF="000128.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] refuse to update certain files upon extraction</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C47dfd593.ku8axIkn0xfFv0q4%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] refuse to update certain files upon extraction">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Mar 18 15:45:39 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000106.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+        <LI>Next message: <A HREF="000128.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> * Message by -Lasse Kliemann- from Sun 2008-03-09:
+</I>&gt;<i>  
+</I>&gt;<i> &gt; There was no error message (tried -vv, but not -debug). Some time passed 
+</I>&gt;<i> &gt; since, and I do not have those files anymore. But I found a way to reproduce 
+</I>&gt;<i> &gt; this, or at least something similar. How to do this is slightly complicated, 
+</I>&gt;<i> &gt; and I do not understand it fully myself, so I go right to the results. There 
+</I>&gt;<i> &gt; is a level 0 dump and a level 1 dump, and a file F that changed between the 
+</I>&gt;<i> &gt; dumps. If the level 1 dump is extracted with 'star -xpU', then the file F is 
+</I>&gt;<i> &gt; restored to the state it was when the dump was taken. However, if the two 
+</I>&gt;<i> &gt; dumps are extracted onto each other with 'star -xpU -restore', mysteriously F 
+</I>&gt;<i> &gt; is made a hardlink to some other file, and hence of course is not restored to 
+</I>&gt;<i> &gt; its correct state.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Now, the dumps are taken off from a Linux LVM filesystem snapshot. As you 
+</I>&gt;<i> &gt; know, I already discovered irregularities with those (but could not yet
+</I>&gt;<i> &gt; investigate it further satisfactorily due to time constraints). Would you 
+</I>&gt;<i> &gt; suggest that the above problem is caused by a faulty filesystem snapshot 
+</I>&gt;<i> &gt; implementation, or might this be a problem in star? You may inspect the 
+</I>&gt;<i> &gt; tarfiles if you wish, it's just about 2 MB; I uploaded them to 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; <A HREF="http://unix.plastictree.net/tmp/20080309/dump0.tar">http://unix.plastictree.net/tmp/20080309/dump0.tar</A>
+</I>&gt;<i> &gt; <A HREF="http://unix.plastictree.net/tmp/20080309/dump1.tar">http://unix.plastictree.net/tmp/20080309/dump1.tar</A>
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The file to look out for is `send-backup-test/supervise/pid'. It is made a 
+</I>&gt;<i> &gt; hardlink to `send-backup-test/log/supervise/pid' upon restore as described 
+</I>&gt;<i> &gt; above.
+</I>
+Well, I was afraid that there might have been a problem in star short time 
+before star-1.5 final will be released. Fortunately it is not a star bug....
+
+The problem is a Linux kernel bug.
+
+Any other backup tool (like e.g. dump/restore) will run into the same problem
+as Linux did not update the timestamp from the directory 
+&quot;send-backup-test/log/supervise/&quot;.
+
+You need to send a bug-report against Linux and get a fix for this problem....
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000106.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+	<LI>Next message: <A HREF="000128.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

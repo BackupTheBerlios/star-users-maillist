@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] refuse to update certain files upon extraction
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20080309214556.GK2723%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000104.html">
+   <LINK REL="Next"  HREF="000126.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] refuse to update certain files upon extraction</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20080309214556.GK2723%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] refuse to update certain files upon extraction">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Sun Mar  9 22:45:57 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000104.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+        <LI>Next message: <A HREF="000126.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Lasse Kliemann- from Sun 2008-03-09:
+ 
+&gt;<i> There was no error message (tried -vv, but not -debug). Some time passed 
+</I>&gt;<i> since, and I do not have those files anymore. But I found a way to reproduce 
+</I>&gt;<i> this, or at least something similar. How to do this is slightly complicated, 
+</I>&gt;<i> and I do not understand it fully myself, so I go right to the results. There 
+</I>&gt;<i> is a level 0 dump and a level 1 dump, and a file F that changed between the 
+</I>&gt;<i> dumps. If the level 1 dump is extracted with 'star -xpU', then the file F is 
+</I>&gt;<i> restored to the state it was when the dump was taken. However, if the two 
+</I>&gt;<i> dumps are extracted onto each other with 'star -xpU -restore', mysteriously F 
+</I>&gt;<i> is made a hardlink to some other file, and hence of course is not restored to 
+</I>&gt;<i> its correct state.
+</I>&gt;<i> 
+</I>&gt;<i> Now, the dumps are taken off from a Linux LVM filesystem snapshot. As you 
+</I>&gt;<i> know, I already discovered irregularities with those (but could not yet
+</I>&gt;<i> investigate it further satisfactorily due to time constraints). Would you 
+</I>&gt;<i> suggest that the above problem is caused by a faulty filesystem snapshot 
+</I>&gt;<i> implementation, or might this be a problem in star? You may inspect the 
+</I>&gt;<i> tarfiles if you wish, it's just about 2 MB; I uploaded them to 
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="http://unix.plastictree.net/tmp/20080309/dump0.tar">http://unix.plastictree.net/tmp/20080309/dump0.tar</A>
+</I>&gt;<i> <A HREF="http://unix.plastictree.net/tmp/20080309/dump1.tar">http://unix.plastictree.net/tmp/20080309/dump1.tar</A>
+</I>&gt;<i> 
+</I>&gt;<i> The file to look out for is `send-backup-test/supervise/pid'. It is made a 
+</I>&gt;<i> hardlink to `send-backup-test/log/supervise/pid' upon restore as described 
+</I>&gt;<i> above.
+</I>
+I've tracked this thing down further, and now I have a simple way to 
+reproduce this, and it doesn't even involve snapshots. Attached is a small 
+program rename.c. Assume that this program is available under the command 
+name `rename'. 
+
+1. Take some empty filesystem (or an empty directory; this works with partial 
+   dumps roughly as well, skip the mount steps below in that case).
+
+   Let i=0.
+
+2. Mount that filesystem read-write.
+
+2. cd into the filesystem and call rename with two random parameters, e.g.:
+
+  rename $RANDOM $RANDOM
+
+3. Leave the filesystem and remount it read-only. Take a level i dump. I 
+always use '-c -acl -link-dirs -xdev -wtardumps'.
+
+4. i=i+1. Goto 2 if i &lt; 3.
+
+Now, I have three dumps: level 0, level 1, and level 2. I restore them onto 
+an empty filesystem and compare with the original. Most likely, the result 
+will be something like this:
+
+  a: different nlink,data,mtime
+  x: different mtime
+  sub/: different mtime
+  sub/b: different nlink,hardlink,mtime
+
+A closer inspection will most likely reveal that `a' and `sub/b' have the 
+same inode.
+
+I've tested this on recent Linux with ext2, ext3, xfs, and reiserfs. 
+
+I've also tested it on SunOS 5.10, but only for the case of partial dumps 
+(don't have root access to Solaris machines). There is also one special thing 
+about Solaris: the call to rename must happen directly after taking the dump.  
+Inserting a 'sleep 1' after the dump seems to be enough to circumvent the 
+problem on Solaris (at least for partial dumps). (By the way, I've found more 
+problems with such 'rapid' dumps, which I will describe separately.)
+
+Star version is 1.5a87.
+
+I hope there is a way to track this down to its source and fix it. If you 
+need more information, please ask.
+
+Lasse
+
+-------------- next part --------------
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/stat.h&gt;
+
+int main(int argc, char** argv) {
+	int fd;
+
+	fd = open(&quot;x&quot;, O_WRONLY | O_NDELAY | O_TRUNC | O_CREAT, 0644);	
+	write(fd, &quot;x&quot;, 1);
+	close(fd);
+
+	fd = open(&quot;new&quot;, O_WRONLY | O_NDELAY | O_TRUNC | O_CREAT, 0644);
+	write(fd, argv[1], 3);
+	close(fd);
+	rename(&quot;new&quot;, &quot;a&quot;);
+
+	mkdir(&quot;sub&quot;, S_IRWXU);
+	fd = open(&quot;new&quot;, O_WRONLY | O_NDELAY | O_TRUNC | O_CREAT, 0644);	
+	write(fd, argv[2], 3);
+	close(fd);
+	rename(&quot;new&quot;, &quot;sub/b&quot;);
+
+	return 0;
+}
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080309/dbb5fd0d/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080309/dbb5fd0d/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000104.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+	<LI>Next message: <A HREF="000126.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

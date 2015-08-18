@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Corrupt Tar Files
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Corrupt%20Tar%20Files&In-Reply-To=%3C49121de6./JGlqR6xXCjvQ48v%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000143.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Corrupt Tar Files</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Corrupt%20Tar%20Files&In-Reply-To=%3C49121de6./JGlqR6xXCjvQ48v%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Corrupt Tar Files">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Nov  5 23:27:50 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000143.html">[Star-users] Corrupt Tar Files
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#144">[ date ]</a>
+              <a href="thread.html#144">[ thread ]</a>
+              <a href="subject.html#144">[ subject ]</a>
+              <a href="author.html#144">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;Alan.Hall&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">Alan.Hall at noaa.gov</A>&gt; wrote:
+
+&gt;<i> I have a tar archive that is erring with:
+</I>&gt;<i>
+</I>&gt;<i> star: Tar file too small (amount: 0 bytes).
+</I>&gt;<i> star: Unexpected EOF on input.
+</I>&gt;<i> star: Cannot recover from error - exiting.
+</I>&gt;<i> star: 19 blocks + 5120 bytes (total of 199680 bytes = 195.00k).
+</I>&gt;<i>
+</I>&gt;<i> It seems I have used star to read past problems, but am having trouble 
+</I>&gt;<i> with this particular tar file.
+</I>&gt;<i> I have placed the tar file on my anonymous ftp server at:
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="ftp://ftp.ncdc.noaa.gov/pub/download/KLCH20050916.tar.Z">ftp://ftp.ncdc.noaa.gov/pub/download/KLCH20050916.tar.Z</A>
+</I>&gt;<i>
+</I>&gt;<i> This is very important data to the Climate community and I have several 
+</I>&gt;<i> files with this problem from this day.  Any help would be greatly 
+</I>&gt;<i> appreciated.
+</I>
+You have corrupted compressed inout data:
+
+gzip: stdin: corrupt input.
+sdd: Read  390 records + 464 bytes (total of 200144 bytes = 195.45k).
+sdd: Wrote 0 records + 0 bytes (total of 0 bytes = 0.00k).
+
+You would need to try recovery programs for the compressed data.
+
+If you are able to recover, you may run star -i on the uncompressed recovered 
+data to skip over the bad parts.
+
+BTW: this is an lzw compressed gnutar archive.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/private/">http://cdrecord.berlios.de/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000143.html">[Star-users] Corrupt Tar Files
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#144">[ date ]</a>
+              <a href="thread.html#144">[ thread ]</a>
+              <a href="subject.html#144">[ subject ]</a>
+              <a href="author.html#144">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

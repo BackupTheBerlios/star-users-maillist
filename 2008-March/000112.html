@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] timestamp(?) problems with incremental dumps
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C47d6af3d.zGHVloiqb9Zozd3F%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000105.html">
+   <LINK REL="Next"  HREF="000123.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] timestamp(?) problems with incremental dumps</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C47d6af3d.zGHVloiqb9Zozd3F%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] timestamp(?) problems with incremental dumps">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Mar 11 17:11:41 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000105.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+        <LI>Next message: <A HREF="000123.html">[Star-users] comparison of star and rsync methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> But I tried something else, maybe it's interesting:
+</I>&gt;<i>
+</I>&gt;<i> - Filesystem A is busy, take snapshot S from it.
+</I>&gt;<i> - Synchronize filesystem B with S using 'rsync -axH --inplace'.
+</I>&gt;<i> - Remount B read-only.
+</I>&gt;<i> - Take an incremental dump from B.
+</I>&gt;<i> - Restore the incremental dump(s) taken this way to a filesystem C.
+</I>&gt;<i> - Compare the contents of S with C using diffopts=\!ctime,\!lmtime,\!atime.
+</I>&gt;<i> - Release S.
+</I>&gt;<i> - Start over after some time.
+</I>&gt;<i>
+</I>&gt;<i> So, in B we keep a kind of &quot;mirror&quot; of A, which has the advantage that we can 
+</I>&gt;<i> mount it read-only and that it is not a snapshot. B is not changed between 
+</I>&gt;<i> iterations; all we do with it is one run of rsync before each dump. (With 
+</I>&gt;<i> rsync 3.0.0 a patch [1] is suggested for this.)
+</I>
+Could you tell us how the speed of a rsync call and an incremental star 
+dump/restore compare? Which is faster and what is the difference?
+
+
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000105.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+	<LI>Next message: <A HREF="000123.html">[Star-users] comparison of star and rsync methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

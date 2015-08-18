@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] empty archives
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C46961ba2.P%2BsKvZrPPMcEmVCz%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   <LINK REL="Next"  HREF="000048.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] empty archives</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20empty%20archives&In-Reply-To=%3C46961ba2.P%2BsKvZrPPMcEmVCz%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] empty archives">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jul 12 14:16:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[Star-users] empty archives
+</A></li>
+        <LI>Next message: <A HREF="000048.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> &gt; &gt;   $ star t f= level-1.star 
+</I>&gt;<i> &gt; &gt;   ./ directory link to .
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Could you give me the exact command line xou used to create the archive?
+</I>&gt;<i> &gt; I cannot reproduce this.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; This looks as if your stat(2) did not report the directory type...
+</I>&gt;<i> &gt; or you did use -link-dirs and the archive was not really empty.
+</I>&gt;<i>
+</I>&gt;<i> It seems to be related to -link-dirs. Here is an example:
+</I>&gt;<i>
+</I>&gt;<i>   # mount
+</I>&gt;<i>   [...]
+</I>&gt;<i>   /dev/mapper/vg--hda3-main on /fs/main/mount type reiserfs (rw,nosuid,noatime)
+</I>&gt;<i>
+</I>&gt;<i>   # find /fs/main/mount 
+</I>&gt;<i>   /fs/main/mount
+</I>&gt;<i>   /fs/main/mount/x
+</I>&gt;<i>
+</I>&gt;<i> So, this is the contents of the filesystem (`x' is a regular 
+</I>&gt;<i> file), and no process will be changing this filesystem during 
+</I>&gt;<i> the following.
+</I>&gt;<i>
+</I>&gt;<i>   # star -c -xdev -sparse -acl -link-dirs level=0 -wtardumps f=level-0.star -C /fs/main/mount .
+</I>&gt;<i>   Type of this level 0  dump: full
+</I>&gt;<i>   Date of this level 0  dump: Wed Jul 11 20:50:05 2007
+</I>&gt;<i>   Date of last level 0  dump: the epoch
+</I>&gt;<i>   star: 1 blocks + 0 bytes (total of 10240 bytes = 10.00k).
+</I>&gt;<i>   Dump record  level 0  dump: Wed Jul 11 20:50:05 2007 written
+</I>&gt;<i>
+</I>&gt;<i>   # star t f= level-0.star 
+</I>&gt;<i>   ./
+</I>&gt;<i>   x
+</I>&gt;<i>   star: 1 blocks + 0 bytes (total of 10240 bytes = 10.00k).
+</I>&gt;<i>
+</I>&gt;<i> So far as expected (by me).
+</I>
+The reason is that altough &quot;.&quot; was too old to make it into the archive, it made 
+it into the hardlink cache. Any second attempt to archive &quot;.&quot; will make it a 
+hardlink if -link-dirs is used. The workaround for this problem only would be 
+simple. The workaround for the fact that the current test version does not 
+force to archive &quot;.&quot; in case that VOLHDR=xx has been used needs a new idea...
+
+Maybe, I already have it.
+
+But I am not sure when I will be able to hack this, give me some days.
+
+
+
+
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[Star-users] empty archives
+</A></li>
+	<LI>Next message: <A HREF="000048.html">[Star-users] empty archives
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

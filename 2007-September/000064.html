@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] timestamp(?) problems with incremental dumps
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C20070919113031.GB2109%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000062.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] timestamp(?) problems with incremental dumps</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C20070919113031.GB2109%40enterprise.starfleet%3E"
+       TITLE="[Star-users] timestamp(?) problems with incremental dumps">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Sep 19 13:30:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000062.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Joerg Schilling writes:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>
+&gt;<i> &gt;    Type of this level 3  dump: full
+</I>&gt;<i> &gt;    Date of this level 3  dump: Thu Sep 13 18:44:40 2007
+</I>&gt;<i> &gt;    Date of last level 2  dump: Thu Sep 13 18:27:17 2007
+</I>&gt;<i> &gt;    star: 14266 blocks + 0 bytes (total of 146083840 bytes = 142660.00k).
+</I>
+&gt;<i> &gt; (...)
+</I>&gt;<i> &gt;    var/log/debug: different size,data,mtime
+</I>&gt;<i> &gt;       8568 -rw-r-----   1 root/adm Sep 13 18:27 2007 var/log/debug
+</I>&gt;<i> &gt;       8160 -rw-r-----   1 root/adm Sep 13 18:11 2007 var/log/debug
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; The version of 18:27 is from the snapshot and the version of 18:11 is from the 
+</I>&gt;<i> &gt; restored version. Note that the level 2 dump is from 18:27:17 (see above).  
+</I>&gt;<i> &gt; Theory: during the level 3 dump, the file appeared to star as being older than 
+</I>&gt;<i> &gt; 18:27:17, which meant that it was already included in the level 2 dump (but it 
+</I>&gt;<i> &gt; in fact was not). Hence it was not included in the level 3 dump and hence, on 
+</I>&gt;<i> &gt; restore, the old version (from 18:11) was not updated.
+</I>&gt;<i> 
+</I>&gt;<i> How does the file look on the snapshot?
+</I>&gt;<i> 
+</I>&gt;<i> The problem may be that the filesystem does not sync meta data fast enough.
+</I> 
+To determine this, I must take a look at the file in question on the snapshot 
+which was used for the level 2 dump. I will do so in the next tests.
+
+If this is the case, should a `sync' between touching the timestamp and 
+creating the snapshot help? (Well, it depends on the sync implementation and 
+the filesystem, I guess.)
+
+ 
+&gt;<i> &gt; This looks like typical behavior when the timestamp (later given to star with 
+</I>&gt;<i> &gt; `dumpdate=') is made *after* the snapshot is created. But that's not how I do 
+</I>&gt;<i> &gt; it. Maybe it has to do with accuracy? The times in /etc/tardumps seem to only 
+</I>&gt;<i> &gt; have the accuracy of one second. Then, `sleep 1' between timestamp and snapshot 
+</I>&gt;<i> &gt; should help. I am doing more tests; results are still to be expected.
+</I>&gt;<i> 
+</I>&gt;<i> The timestamp on /etc/tardumps is using a one microsecond granularity.
+</I>&gt;<i> 
+</I>&gt;<i> If your filesystem does not give a granularity better than one second, this is a
+</I>&gt;<i> problem of the filesystem.
+</I>
+The entries here look all like this:
+
+root              13 1190157291.000000 Wed Sep 19 01:14:51 2007
+
+It's always zeros after the period. I tried on Solaris, and there the time 
+looks like: 1190194893.331676
+
+Hence this seems to be Linux- (specifically ext3-)related.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070919/ed5c5add/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070919/ed5c5add/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000062.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#64">[ date ]</a>
+              <a href="thread.html#64">[ thread ]</a>
+              <a href="subject.html#64">[ subject ]</a>
+              <a href="author.html#64">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

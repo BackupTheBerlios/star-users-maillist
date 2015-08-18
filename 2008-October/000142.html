@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] -copy mode and patterns
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20-copy%20mode%20and%20patterns&In-Reply-To=%3C20081030164628.GF2056%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] -copy mode and patterns</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20-copy%20mode%20and%20patterns&In-Reply-To=%3C20081030164628.GF2056%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] -copy mode and patterns">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Thu Oct 30 17:46:28 CET 2008</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>One can use the following to copy all files matching pattern 
+'*.txt' from the subtree rooted at 'src' to the subtree rooted at 
+'dst':
+
+   star -c -C src . | star -x -C dst pat=&quot;*.txt&quot;
+
+It is crucial that the 'pat=...' is placed _after_ the '-C ...'.
+
+Now, the following will _not_ work in the same way:
+
+   star -copy pat=&quot;*.txt&quot; -C src . dst
+
+It will place a file 'src/foo.txt' in the current directory 
+instead of placing it into 'dst'. This seems to be the same 
+result as when doing a modification of the first construction:
+
+   star -c -C src . | star -x pat=&quot;*.txt&quot; -C dst
+
+My question: is there a way to invoke '-copy' mode such that it 
+will have the same results as the first construction, where 
+'pat=...' is placed after '-C'?
+
+
+General comment: Having a compact form of expressing &quot;copy all 
+files matching pattern ...&quot; would be nice. It's also not so easy 
+when using Rsync. One has to do something like this:
+
+   rsync -a --include &quot;*.txt&quot; --include &quot;*/&quot; --exclude &quot;*&quot; src/ dst
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20081030/b6ae931e/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20081030/b6ae931e/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

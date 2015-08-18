@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] STAR hangs on multi volume partial dump
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20STAR%20hangs%20on%20multi%20volume%20partial%20dump&In-Reply-To=%3C45eac967.OzEU3Ge3OtX8UUQb%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000008.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] STAR hangs on multi volume partial dump</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20STAR%20hangs%20on%20multi%20volume%20partial%20dump&In-Reply-To=%3C45eac967.OzEU3Ge3OtX8UUQb%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] STAR hangs on multi volume partial dump">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Sun Mar  4 14:28:07 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000008.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;Felix E. Klee&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">felix.klee at inka.de</A>&gt; wrote:
+
+&gt;<i> Occasionally, star hangs when running a multi volume partial dump.  Any
+</I>&gt;<i> idea what may be the reason for the problem?
+</I>&gt;<i>
+</I>&gt;<i> Note that I didn't yet try out star-1.5a77-pre3.tar.bz2.  Should I try
+</I>&gt;<i> it?
+</I>
+For a report please use the latest source.
+
+&gt;<i> Let me know what additional info you need.
+</I>&gt;<i>
+</I>&gt;<i> Details:
+</I>&gt;<i>
+</I>&gt;<i> * The last lines that I see on screen when star hangs (I've waited for
+</I>&gt;<i>   several hours and it didn't resume):
+</I>&gt;<i>
+</I>&gt;<i>   [...]
+</I>&gt;<i>   a    9228 -rw-------   1 root/root Feb 27 11:05 2006 home/felix/.thumb
+</I>&gt;<i>   nails/normal/c3601936dc7f568f4ce50ccc169f16bb.png
+</I>&gt;<i>   a    9074 -rw-------Switching to volume 4.
+</I>&gt;<i>   _
+</I>&gt;<i>
+</I>&gt;<i> * According to &quot;top&quot;, while hanging, star uses around 95% CPU resources
+</I>&gt;<i>   and around 2.4% of RAM.  A snapshot of top's output:
+</I>&gt;<i>
+</I>&gt;<i>   [...]
+</I>&gt;<i>     PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+</I>&gt;<i>   14948 root      25   0 28664  24m 8660 R 99.2  2.4 148:22.37 star               
+</I>&gt;<i>   [...]
+</I>
+Strange!
+
+Could you try to find out where it loops.
+
+It should be possible to run a &quot;gcore&quot; on the process and then check with a 
+debugger.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000008.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#9">[ date ]</a>
+              <a href="thread.html#9">[ thread ]</a>
+              <a href="subject.html#9">[ subject ]</a>
+              <a href="author.html#9">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

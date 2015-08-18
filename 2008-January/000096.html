@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Error 0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C478f7c9a.pkpIAp1wv6VX3VMd%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   <LINK REL="Next"  HREF="000097.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Error 0</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C478f7c9a.pkpIAp1wv6VX3VMd%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Error 0">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Jan 17 17:04:42 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[Star-users] Error 0
+</A></li>
+        <LI>Next message: <A HREF="000097.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Daniel Grund &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">publicdiscussion at dgrund.de</A>&gt; wrote:
+
+&gt;<i> On 08.01.2008 11:23, Joerg Schilling wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; &gt; I call star-1.5a87 like this:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; star c -silent -no-statistics -M -multivol new-volume-script=&quot;/usr/local/bin/yacdbak.cdrecord root 1 noburn&quot; VOLHDR=&quot;FreeBSD 7.0-RC1 2008-01-08 03:20+0100 Level 1&quot; -dump level=1 -dumpmeta tardumps=/var/db/yacdbak/root.snapshots -wtardumps -p -match-tree -tsize=66534 -no-fifo -nodump artype=e xustar -sparse file=/var/tmp/yacdbak.image fs-name=/ dumpdate=/var/tmp/timestamp -dodesc -not .snap -not lost+found -C=/.snap/backupmount .
+</I>&gt;<i>
+</I>&gt;<i> &gt; -	You are not using star correctly.
+</I>&gt;<i>
+</I>&gt;<i> &gt; - You found a bug: star should not allow you to specify more than
+</I>&gt;<i> &gt;   one start directory.
+</I>&gt;<i>
+</I>&gt;<i> &gt; -	I recommend to first clean up the command line and check whether
+</I>&gt;<i> &gt; 	the incorrect command line is the reason for the problem.
+</I>&gt;<i>
+</I>&gt;<i> Tweaking the command line did not help. I called star under gdb:
+</I>&gt;<i>
+</I>&gt;<i> Starting program: /usr/local/bin/star -c -silent -no-statistics -M -multivol new-volume-script=&quot;/root/bin/yacdbak/bin/yacdbak.cdrecord root 1 noburn&quot; VOLHDR=&quot;FreeBSD 7.0-RC1 2008-01-08 14:17+0100 Level 1&quot; -dump level=1 -dumpmeta tardumps=/var/db/yacdbak/root.snapshots -wtardumps -p -match-tree -tsize=133068 -no-fifo -nodump artype=exustar -sparse file=/tmp/secure/yacdbak.image fs-name=/ dumpdate=/tmp/secure/timestamp -dodesc -not pattern=.snap -C &quot;/.snap/backupmount&quot; .
+</I>&gt;<i> Type of this level 1P dump: partial
+</I>&gt;<i> Date of this level 1P dump: Tue Jan  8 14:17:16 2008
+</I>&gt;<i> Date of last level 0P dump: Fri Nov 30 16:44:31 2007
+</I>&gt;<i> /usr/local/bin/star: Error 0. Error moving extended header '././@PaxHeader'.
+</I>&gt;<i>
+</I>&gt;<i> Program received signal SIGSEGV, Segmentation fault.
+</I>&gt;<i> movebytes (fromv=0x28300000, tov=0x28205800, cnt=10240) at movebytes.c:57
+</I>&gt;<i> 57                                              DO8 (*tol++ = *froml++);
+</I>&gt;<i> (gdb) bt
+</I>&gt;<i> #0  movebytes (fromv=0x28300000, tov=0x28205800, cnt=10240) at movebytes.c:57
+</I>
+This is a completely different view than with your last mail.
+
+The last mail makes me belive that there was a cal to move_to_arch() with a 
+negative size. Now I see 10240.
+
+&gt;<i> #1  0x0806dc13 in move_to_arch (move=0xbfbf2a48, p=0x28205800 &quot;&quot;, amount=10240)
+</I>&gt;<i>     at movearch.c:74
+</I>&gt;<i> #2  0x0805d851 in cr_file (info=0xbfbf2c54, func=0x806dbe0 &lt;move_to_arch&gt;,
+</I>&gt;<i>     arg=0xbfbf2a48, amt=10240, text=0x808ac95 &quot;moving extended header&quot;) at create.c:1321
+</I>&gt;<i> #3  0x080588f8 in write_xhdr (type=Variable &quot;type&quot; is not available.
+</I>&gt;<i> ) at xheader.c:344
+</I>&gt;<i> #4  0x0805917c in info_to_xhdr (info=0xbfbf53b4, ptb=0xbfbf3208) at xheader.c:549
+</I>&gt;<i> #5  0x08053fbe in put_tcb (ptb=0xbfbf3208, info=0xbfbf53b4) at header.c:1098
+</I>&gt;<i> #6  0x0805edf4 in createi (
+</I>&gt;<i>     sname=0xbfbf4fb3 &quot;usr/local/lib/perl5/site_perl/5.8.8/mach/auto&quot;,
+</I>
+How many file name entries has this directory?
+
+
+&gt;<i>     name=0xbfbf4fb3 &quot;usr/local/lib/perl5/site_perl/5.8.8/mach/auto&quot;, namlen=45,
+</I>&gt;<i>     info=0xbfbf53b4, last=0xbfbf546c) at create.c:1520
+</I>&gt;<i> #7  0x0805f237 in createi (sname=0xbfbf62f3 &quot;usr/local/lib/perl5/site_perl/5.8.8/mach&quot;,
+</I>&gt;<i>     name=0xbfbf62f3 &quot;usr/local/lib/perl5/site_perl/5.8.8/mach&quot;, namlen=41,
+</I>&gt;<i>     info=0xbfbf66f4, last=0xbfbf67ac) at create.c:1639
+</I>&gt;<i> #8  0x0805f237 in createi (sname=0xbfbf7633 &quot;usr/local/lib/perl5/site_perl/5.8.8&quot;,
+</I>&gt;<i>     name=0xbfbf7633 &quot;usr/local/lib/perl5/site_perl/5.8.8&quot;, namlen=36, info=0xbfbf7a34,
+</I>&gt;<i>     last=0xbfbf7aec) at create.c:1639
+</I>&gt;<i> #9  0x0805f237 in createi (sname=0xbfbf8973 &quot;usr/local/lib/perl5/site_perl&quot;,
+</I>&gt;<i>     name=0xbfbf8973 &quot;usr/local/lib/perl5/site_perl&quot;, namlen=30, info=0xbfbf8d74,
+</I>&gt;<i>     last=0xbfbf8e2c) at create.c:1639
+</I>&gt;<i> #10 0x0805f237 in createi (sname=0xbfbf9cb3 &quot;usr/local/lib/perl5&quot;,
+</I>&gt;<i>     name=0xbfbf9cb3 &quot;usr/local/lib/perl5&quot;, namlen=20, info=0xbfbfa0b4, last=0xbfbfa16c)
+</I>&gt;<i>     at create.c:1639
+</I>&gt;<i> #11 0x0805f237 in createi (sname=0xbfbfaff3 &quot;usr/local/lib&quot;,
+</I>&gt;<i>     name=0xbfbfaff3 &quot;usr/local/lib&quot;, namlen=14, info=0xbfbfb3f4, last=0xbfbfb4ac)
+</I>&gt;<i>     at create.c:1639
+</I>&gt;<i> #12 0x0805f237 in createi (sname=0xbfbfc333 &quot;usr/local&quot;, name=0xbfbfc333 &quot;usr/local&quot;,
+</I>&gt;<i>     namlen=10, info=0xbfbfc734, last=0xbfbfc7ec) at create.c:1639
+</I>&gt;<i> #13 0x0805f237 in createi (sname=0xbfbfd675 &quot;usr&quot;, name=0xbfbfd675 &quot;usr&quot;, namlen=4,
+</I>&gt;<i>     info=0xbfbfda74, last=0xbfbfdb2c) at create.c:1639
+</I>&gt;<i> #14 0x0805f237 in createi (sname=0xbfbfe8a4 &quot;.&quot;, name=0xbfbfe8a4 &quot;.&quot;, namlen=2,
+</I>&gt;<i>     info=0xbfbfe178, last=0x0) at create.c:1639
+</I>&gt;<i> #15 0x0805fb63 in create (name=0xbfbfe8a4 &quot;.&quot;, Hflag=0, forceadd=1) at create.c:465
+</I>&gt;<i> #16 0x0804bdd6 in star_create (ac=1, av=0xbfbfe5b8) at star_fat.c:766
+</I>&gt;<i> #17 0x08051751 in main (ac=0, av=0x0) at star_fat.c:537
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> The command line does not seem to cause the problem.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I recompiled star again with smake COPTX=&quot;-ggdb -O0&quot; LOPTX=-ggdb and
+</I>&gt;<i> the sigsegv went away. Previously I had let smake choose the
+</I>&gt;<i> optimization level itself. No CLFAGS was set in the shell or in
+</I>&gt;<i> /etc/make.conf.
+</I>&gt;<i>
+</I>&gt;<i> Could star be incompatible with this gcc:
+</I>&gt;<i>
+</I>&gt;<i> gcc (GCC) 4.2.1 20070719  [FreeBSD]
+</I>
+Star works correctly with many c-compilers. It may be that you found a bug in 
+your version of gcc. Bugs in the optimizer are not uncommon...
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[Star-users] Error 0
+</A></li>
+	<LI>Next message: <A HREF="000097.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#96">[ date ]</a>
+              <a href="thread.html#96">[ thread ]</a>
+              <a href="subject.html#96">[ subject ]</a>
+              <a href="author.html#96">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

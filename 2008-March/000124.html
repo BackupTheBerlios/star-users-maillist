@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] comparison of star and rsync methods
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20comparison%20of%20star%20and%20rsync%20methods&In-Reply-To=%3C47DABDB9.7080901%40futuresource.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000123.html">
+   <LINK REL="Next"  HREF="000118.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] comparison of star and rsync methods</H1>
+    <B>Les Mikesell</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20comparison%20of%20star%20and%20rsync%20methods&In-Reply-To=%3C47DABDB9.7080901%40futuresource.com%3E"
+       TITLE="[Star-users] comparison of star and rsync methods">les at futuresource.com
+       </A><BR>
+    <I>Fri Mar 14 19:02:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000123.html">[Star-users] comparison of star and rsync methods
+</A></li>
+        <LI>Next message: <A HREF="000118.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann wrote:
+&gt;<i>  
+</I>&gt;<i> So the real competitors are 'rsync S --&gt; V' and 'star S' (hoping that the 
+</I>&gt;<i> problems with the latter can be resolved). Clearly, star is faster than 
+</I>&gt;<i> rsync; the star runs only take about 60% of the time of the rsync runs.
+</I>
+I think your results with rsync will vary with the number of files in 
+the run, and with -H also with the number of hard links.  Rsync will 
+read the entire directory contents with a certain amount of RAM overhead 
+per file before starting.  If you have a few big files, that's not a 
+problem - with a lot of tiny files it can be noticeable.  I think the 
+very latest version may start the comparison before the full directory 
+load completes, at least when running over a network, though.
+
+&gt;<i> The 
+</I>&gt;<i> big structural difference is that with rsync, one has the backup in a 
+</I>&gt;<i> filesystem instead of in a single file (or in few files with incremental 
+</I>&gt;<i> dumps). This can be an advantage if one often has to access particular files 
+</I>&gt;<i> in the backup. It can also be a disadvantage if one wishes to write the 
+</I>&gt;<i> backup to some external medium or push it over the network.
+</I>
+Actually the way rsync works can be a big advantage when writing over a 
+network that is slow compared to the disks.  You can use the -z option 
+for compression, and it will walk through the file doing block checksum 
+compares with the existing remote copy, sending only the changed parts 
+for the remote to assemble.
+
+-- 
+   Les Mikesell
+    <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lesmikesell at gmail.com</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000123.html">[Star-users] comparison of star and rsync methods
+</A></li>
+	<LI>Next message: <A HREF="000118.html">[Star-users] star and /dev/watchdog (exclusion of files)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

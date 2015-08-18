@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Problem compiling star on Debian squeeze
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E04840B.3020900%40prompt.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000196.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Problem compiling star on Debian squeeze</H1>
+    <B>Ruud Baart</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E04840B.3020900%40prompt.nl%3E"
+       TITLE="[Star-users] Problem compiling star on Debian squeeze">r.j.baart at prompt.nl
+       </A><BR>
+    <I>Fri Jun 24 14:33:15 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000196.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#197">[ date ]</a>
+              <a href="thread.html#197">[ thread ]</a>
+              <a href="subject.html#197">[ subject ]</a>
+              <a href="author.html#197">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>With the hints you gave me I solved the problem. I had only one 
+libschily library on the server. That one must be the problem. So I 
+removed the complete /opt/schily directorystructure and started all over.
+
+I unpacked schily-2011-06-22.tar.bz2 and executed &quot;make&quot;. Then I 
+switched to smake and did a &quot;make install&quot;, next I switched to ../star 
+and &quot;smake install&quot;. Both packages are now compiled and installed. 
+Tonight the first backup with the freshly compiled star.
+
+Thanks for your help.
+
+Op 24-6-2011 13:32, Joerg Schilling schreef:
+&gt;<i> Ruud Baart&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">r.j.baart at prompt.nl</A>&gt;  wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i> Thanks again. I downloaded the latest collection and compiled a new
+</I>&gt;&gt;<i> version of star without problems.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I tried to compile a new version of smake  but that fails. It is not a
+</I>&gt;&gt;<i> big issue for me because &quot;Smake release 1.2.1 (i686-pc-linux-gnu)&quot; works
+</I>&gt;&gt;<i> for me. But perhaps you like to know this failure.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at dolphy</A>:/usr/local/src/schily-2011-06-22/smake# /opt/schily/bin/smake
+</I>&gt;&gt;<i>           ==&gt;  MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;make.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;archconf.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;readfile.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;parse.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;update.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;rules.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  MAKING DEPENDENCIES &quot;memory.d&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;make.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;archconf.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;readfile.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;parse.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;update.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;rules.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  COMPILING &quot;memory.o&quot;
+</I>&gt;&gt;<i>           ==&gt;  LINKING &quot;OBJ/i686-linux-cc/smake&quot;
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/make.o: In function `main':
+</I>&gt;&gt;<i> make.c:(.text+0x2559): undefined reference to `searchfileinpath'
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/update.o: In function `exp_var':
+</I>&gt;&gt;<i> update.c:(.text+0x1e45): undefined reference to `strlcpy'
+</I>&gt;&gt;<i> update.c:(.text+0x1fea): undefined reference to `strlcpy'
+</I>&gt;&gt;<i> update.c:(.text+0x217e): undefined reference to `strlcpy'
+</I>&gt;&gt;<i> update.c:(.text+0x21d2): undefined reference to `strlcpy'
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/update.o: In function `make':
+</I>&gt;&gt;<i> update.c:(.text+0x2bba): undefined reference to `strlcpy'
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/update.o:update.c:(.text+0x2bff): more undefined
+</I>&gt;&gt;<i> references to `strlcpy' follow
+</I>&gt;&gt;<i> collect2: ld returned 1 exit status
+</I>&gt;&gt;<i> /opt/schily/bin/smake: Operation not permitted. *** Code 1 from command
+</I>&gt;&gt;<i> line for target 'OBJ/i686-linux-cc/smake'.
+</I>&gt;&gt;<i> /opt/schily/bin/smake: The following command caused the error:
+</I>&gt;&gt;<i> echo &quot;  ==&gt;  LINKING \&quot;OBJ/i686-linux-cc/smake\&quot;&quot;; gcc -o
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/smake OBJ/i686-linux-cc/make.o
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/archconf.o OBJ/i686-linux-cc/readfile.o
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/parse.o OBJ/i686-linux-cc/update.o
+</I>&gt;&gt;<i> OBJ/i686-linux-cc/rules.o OBJ/i686-linux-cc/memory.o
+</I>&gt;&gt;<i> -L../libs/i686-linux-cc -L../libs/i686-linux-cc  -L/opt/schily/lib
+</I>&gt;&gt;<i> -Wl,-R/opt/schily/lib -Wl,-R/opt/schily/lib  -lschily
+</I>&gt;&gt;<i> /opt/schily/bin/smake: Couldn't make 'all'.
+</I>&gt;<i> Given the fact that these symbols are of course part of libschily, you most
+</I>&gt;<i> likely did set up a LD* environment variable that prevents ld from working
+</I>&gt;<i> correctly.
+</I>&gt;<i>
+</I>&gt;<i> It seems tht you try to link against an older version of libschly in
+</I>&gt;<i> /opt/schily/lib even though  -L../libs/i686-linux-cc should be first in ld's
+</I>&gt;<i> search path.
+</I>&gt;<i>
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i>
+</I>
+-- 
+Regards,
+
+Ruud Baart
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000196.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#197">[ date ]</a>
+              <a href="thread.html#197">[ thread ]</a>
+              <a href="subject.html#197">[ subject ]</a>
+              <a href="author.html#197">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

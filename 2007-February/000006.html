@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Warning
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Warning&In-Reply-To=%3C45E5B4DD.24956.4D53987C%40R.J.Baart.Prompt.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000005.html">
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Warning</H1>
+    <B>Ruud Baart</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Warning&In-Reply-To=%3C45E5B4DD.24956.4D53987C%40R.J.Baart.Prompt.nl%3E"
+       TITLE="[Star-users] Warning">R.J.Baart at Prompt.nl
+       </A><BR>
+    <I>Wed Feb 28 16:59:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000005.html">[Star-users] Warning
+</A></li>
+        <LI>Next message: <A HREF="000007.html">[Star-users] Warning
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tape is written with:
+
+/bin/star VOLHDR=&quot;hrst-ux4.hrst.in.aoc:20070216-01:30&quot;  -c -v -sparse 
+artype=exustar -acl -xattr -fifo bs=1M fs=144m -time -fifostats 
+f=/dev/st0 ./home/hrst ...
+
+Restore is done with:
+star xfv /dev/st0 -fifo bs=1M fs=144m -acl -pattern=&quot;${files}&quot;
+
+I did not use &quot;artype=exustar&quot; with the restore. Is that perhaps the 
+problem? I can't check this because customer has changed tapes.
+
+
+&gt;<i> &quot;Ruud Baart&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">R.J.Baart at Prompt.nl</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; What is the meaning and significance of the following warning?
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;     star: Syntax error in extended header: non digit in len.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; We get this message when we try to restore files on a debian etch
+</I>&gt;<i> &gt; Linux system with star version 1.5a67. Tape is written with an Sony
+</I>&gt;<i> &gt; AIT3 streamer and the restore is with a Sony AIT5 streamer.
+</I>&gt;<i> 
+</I>&gt;<i> How has the tape be written?
+</I>&gt;<i> 
+</I>&gt;<i> BTW: star-1.5a67 is extremely old.
+</I>&gt;<i> 
+</I>&gt;<i> Please upgrade to a recent version.
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="ftp://ftp.berlios.de/pub/star/alpha/">ftp://ftp.berlios.de/pub/star/alpha/</A>
+</I>&gt;<i> 
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i>  EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353
+</I>&gt;<i>  Berlin
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog:
+</I>&gt;<i>        <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+</I>&gt;<i>  URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A>
+</I>&gt;<i>  <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+</I>&gt;<i> _______________________________________________
+</I>&gt;<i> Star-users mailing list
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">Star-users at lists.berlios.de</A>
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">https://lists.berlios.de/mailman/listinfo/star-users</A>
+</I>
+
+Met vriendelijke groet/Regards,
+Ruud Baart
+
+Prompt, Kerkstraat 173
+5261 CW Vught, Netherlands
+Tel: +31 73 6567041
+<A HREF="http://www.prompt.nl">http://www.prompt.nl</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000005.html">[Star-users] Warning
+</A></li>
+	<LI>Next message: <A HREF="000007.html">[Star-users] Warning
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

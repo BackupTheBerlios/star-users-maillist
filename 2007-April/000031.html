@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Default acl
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704110527m28f4b43yb652e7e2eb92bb53%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Default acl</H1>
+    <B>Mr X</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704110527m28f4b43yb652e7e2eb92bb53%40mail.gmail.com%3E"
+       TITLE="[Star-users] Default acl">narvalot at gmail.com
+       </A><BR>
+    <I>Wed Apr 11 14:27:02 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">[Star-users] Default acl
+</A></li>
+        <LI>Next message: <A HREF="000032.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+if there's no default acl, entries = 1 : text[0]=0;
+
+if I put default acl (setfacl -d -m u::rwx folder)
+default:user::rwx
+default:group::r-x
+default:other::r-x
+
+entries = 3
+- acl_to_info() : not calling acl_add_ids, default acl aren't saved w/o the
+patch.
+
+if I add another default acl, setfacl -d -m mask::rwx folder
+default:user::rwx
+default:group::r-x
+default:mask::rwx
+default:other::r-x
+
+entries = 4
+- acl_to_info() : calls acl_add_ids, as it's more than 3 (star w/o patch).
+
+
+I'm able to backup/restore using star with patch applied.
+
+-xavier
+
+2007/4/11, Joerg Schilling &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">Joerg.Schilling at fokus.fraunhofer.de</A>&gt;:
+&gt;<i>
+</I>&gt;<i> &quot;Mr X&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">narvalot at gmail.com</A>&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt; Hello,
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; I've made a little patch.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; acl_to_info() parser was expecting at least 4 lines from acl_to_text,
+</I>&gt;<i> &gt; for my test-case only 3 lines were returned for ACL_TYPE_DEFAULT.
+</I>&gt;<i>
+</I>&gt;<i> Strange, the original code is from the author of the Linux ACL code.....
+</I>&gt;<i>
+</I>&gt;<i> Does it now work correctly for you?
+</I>&gt;<i>
+</I>&gt;<i> What happens in case thatre are no default ACLs? What number do you get
+</I>&gt;<i> then
+</I>&gt;<i> from the function?
+</I>&gt;<i>
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353
+</I>&gt;<i> Berlin
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)
+</I>&gt;<i>        <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog:
+</I>&gt;<i> <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+</I>&gt;<i> URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A>
+</I>&gt;<i> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070411/bb9d72e7/attachment.html">https://lists.berlios.de/pipermail/star-users/attachments/20070411/bb9d72e7/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">[Star-users] Default acl
+</A></li>
+	<LI>Next message: <A HREF="000032.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

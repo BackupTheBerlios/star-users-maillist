@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] diff segfaults with 2009-01-05
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20diff%20segfaults%20with%202009-01-05&In-Reply-To=%3C49f05e4a.%2BRWP6QWD8t2Jt%2BnE%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000156.html">
+   <LINK REL="Next"  HREF="000160.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] diff segfaults with 2009-01-05</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20diff%20segfaults%20with%202009-01-05&In-Reply-To=%3C49f05e4a.%2BRWP6QWD8t2Jt%2BnE%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] diff segfaults with 2009-01-05">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Apr 23 14:25:46 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000156.html">[Star-users] diff segfaults with 2009-01-05
+</A></li>
+        <LI>Next message: <A HREF="000160.html">[Star-users] diff segfaults with 2009-01-05
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#159">[ date ]</a>
+              <a href="thread.html#159">[ thread ]</a>
+              <a href="subject.html#159">[ subject ]</a>
+              <a href="author.html#159">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> Using schily-dist pre5 and gcc 4.1.2 on Linux 2.6.27.21.
+</I>&gt;<i>
+</I>&gt;<i> $ smake COPTX=-O0 CFLAGS=-O0
+</I>&gt;<i>
+</I>&gt;<i> $ ./star/OBJ/i686-linux-cc/star -version
+</I>&gt;<i> star: star 1.5 (i686-pc-linux-gnu)
+</I>&gt;<i> Options: find fflags remote
+</I>&gt;<i>
+</I>&gt;<i> $ ./star/OBJ/i686-linux-cc/star -c -diff -C a b c
+</I>&gt;<i> Segmentation fault
+</I>&gt;<i>
+</I>&gt;<i> It's the same with several other recent versions.
+</I>
+Thank you for the report, please apply this patch:
+
+
+------- buffer.c -------
+--- /tmp/sccs.ziaqjg	Do Apr 23 14:24:48 2009
++++ buffer.c	Do Apr 23 14:13:44 2009
+@@ -319,7 +319,7 @@
+ 			}
+ 		}
+ 	}
+-	if (isatty(fdown(tarf)))
++	if (tarf != (FILE *)NULL &amp;&amp; isatty(fdown(tarf)))
+ 		comerrno(EX_BAD, &quot;Archive cannot be a tty.\n&quot;);
+ 	if (!isremote &amp;&amp; (!nullout || (uflag || rflag)) &amp;&amp;
+ 	    tarf != (FILE *)NULL) {
+
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg.schilling at fokus.fraunhofer.de</A> (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/private/">http://cdrecord.berlios.de/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000156.html">[Star-users] diff segfaults with 2009-01-05
+</A></li>
+	<LI>Next message: <A HREF="000160.html">[Star-users] diff segfaults with 2009-01-05
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#159">[ date ]</a>
+              <a href="thread.html#159">[ thread ]</a>
+              <a href="subject.html#159">[ subject ]</a>
+              <a href="author.html#159">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

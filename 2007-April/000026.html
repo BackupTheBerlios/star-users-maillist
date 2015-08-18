@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Default acl
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704091213t2c10eea5vde7f9922bbe5ab35%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   <LINK REL="Next"  HREF="000028.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Default acl</H1>
+    <B>Mr X</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Default%20acl&In-Reply-To=%3Ca05294380704091213t2c10eea5vde7f9922bbe5ab35%40mail.gmail.com%3E"
+       TITLE="[Star-users] Default acl">narvalot at gmail.com
+       </A><BR>
+    <I>Mon Apr  9 21:13:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[Star-users] ACL mask not preserved properly
+</A></li>
+        <LI>Next message: <A HREF="000028.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+I'm unable to backup &quot;default acl&quot; using star.
+
+--- sample of a little test:
+
+$ mkdir folder ; setfacl -d -m u::rwx folder
+
+$ getfacl folder
+
+# file: folder
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+default:user::rwx
+default:group::r-x
+default:other::r-x
+
+$ star -Hexustar -acl -c f=test ./folder/
+
+$ mkdir out ; cd out
+
+$ star -acl -x f=../test
+
+$ getfacl folder
+# file: folder
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+Output of getfacl on the restored folder isn't what I expected...
+
+A quick description of my current setup:
+- Debian 3.1, with kernel 2.6.18 i686
+- filesystem is reiserfs 3.6 with mount option : user_xattr,acl
+- star version is 1.5a67
+
+Is there a way to save &quot;default acl&quot; using star ?
+
+Best regards,
+xavier
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070409/cacc3791/attachment.html">https://lists.berlios.de/pipermail/star-users/attachments/20070409/cacc3791/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[Star-users] ACL mask not preserved properly
+</A></li>
+	<LI>Next message: <A HREF="000028.html">[Star-users] Default acl
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

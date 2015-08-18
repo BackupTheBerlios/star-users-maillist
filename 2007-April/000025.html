@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] ACL mask not preserved properly
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20ACL%20mask%20not%20preserved%20properly&In-Reply-To=%3C461A8ECE.9040203%40cs.indiana.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000027.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] ACL mask not preserved properly</H1>
+    <B>Rob Henderson</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20ACL%20mask%20not%20preserved%20properly&In-Reply-To=%3C461A8ECE.9040203%40cs.indiana.edu%3E"
+       TITLE="[Star-users] ACL mask not preserved properly">robh at cs.indiana.edu
+       </A><BR>
+    <I>Mon Apr  9 21:06:54 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000027.html">[Star-users] ACL mask not preserved properly
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>[sorry if this is a repost.  I first sent it when I wasn't a member of 
+the list and it appeared to have disappeared so am resending..]
+
+I'm having a problem with star's handling of acl masks that I wanted to 
+ask about.  The problem only happens on solaris (not linux) and it is 
+happening with star-1.5a77.  Of course, we can't rule out operator error 
+or Solaris bugs at this point.  All the gory details follow.
+
+Star Version: 1.5a77.  Also tested with 1.5a76 and the same problem there.
+Platform: Solaris 8/Sparc (I am not able to reproduce the problem on Red 
+Hat EL4).
+Summary: An ACL mask of rwx is not properly handled when the group 
+permission is not rwx.  When the group permission is r-x the mask is 
+changed from rwx to r-x.
+
+This is probably best explained by an example:
+
+1) I have two directories as follows:
+
+# ls -l ../orig
+total 2
+drwxrwx---+  2 root          512 Apr  5 09:36 one/
+drwxr-x---+  2 root          512 Apr  5 09:36 two/
+# getfacl ../orig/one
+
+# file: ../orig/one
+# owner: root
+# group: other
+user::rwx
+user:robh:rwx           #effective:rwx
+group::rwx              #effective:rwx
+mask:rwx
+other:---
+# getfacl ../orig/two
+
+# file: ../orig/two
+# owner: root
+# group: other
+user::rwx
+user:robh:rwx           #effective:rwx
+group::r-x              #effective:r-x
+mask:rwx
+other:---
+
+The important thing to note is the mask of rwx on file &quot;two&quot;.
+
+2) I use star to tar up and then untar these directories as follows:
+
+# star -version
+star: star 1.5a77 (sparc-sun-solaris2.8)
+
+Copyright (C) 1985, 88-90, 92-96, 98, 99, 2000-2007 J\uffffrg Schilling
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+# star -Hexustar -acl -c -C ../orig . | star -xp -acl one two
+star: 1 blocks + 0 bytes (total of 10240 bytes = 10.00k).
+star: 1 blocks + 0 bytes (total of 10240 bytes = 10.00k).
+
+3) The acls are preserved on one but changed on two:
+
+# ls -ld one two
+drwxrwx---+  2 root          512 Apr  5 09:36 one/
+drwxr-x---+  2 root          512 Apr  5 09:36 two/
+# getfacl one
+
+# file: one
+# owner: root
+# group: other
+user::rwx
+user:robh:rwx           #effective:rwx
+group::rwx              #effective:rwx
+mask:rwx
+other:---
+# getfacl two
+
+# file: two
+# owner: root
+# group: other
+user::rwx
+user:robh:rwx           #effective:r-x
+group::r-x              #effective:r-x
+mask:r-x
+other:---
+
+Note that the mask on file two was changed from rwx to r-x.
+
+This exact same test works as expected on Linux (RHEL4) so it is only 
+Solaris that exhibits this problem.  If I create the tar file on the Sun 
+and then extract it on the Linux machine it still fails so it seems like 
+the problem is with the creation of the tar file on the Sun rather than 
+the extract.  I'm trying to move a collection of user home directories 
+from our old Solaris server to the new Linux server and want to preserve 
+ACLs through the move.  Any feedback you can provide would be greatly 
+appreciated.
+
+Thanks,
+
+  --Rob
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000027.html">[Star-users] ACL mask not preserved properly
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#25">[ date ]</a>
+              <a href="thread.html#25">[ thread ]</a>
+              <a href="subject.html#25">[ subject ]</a>
+              <a href="author.html#25">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

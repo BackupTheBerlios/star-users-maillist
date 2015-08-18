@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] timestamp(?) problems with incremental dumps
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C46f060f4.XBj8fncenOtyWjtj%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000061.html">
+   <LINK REL="Next"  HREF="000064.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] timestamp(?) problems with incremental dumps</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20timestamp%28%3F%29%20problems%20with%20incremental%20dumps&In-Reply-To=%3C46f060f4.XBj8fncenOtyWjtj%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] timestamp(?) problems with incremental dumps">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Wed Sep 19 01:36:20 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000061.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+        <LI>Next message: <A HREF="000064.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#62">[ date ]</a>
+              <a href="thread.html#62">[ thread ]</a>
+              <a href="subject.html#62">[ subject ]</a>
+              <a href="author.html#62">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+
+&gt;<i> Up to now, this always was the case (except for the mtime bug with special 
+</I>&gt;<i> files, which is now fixed). Now, as I did test on the faster machine 
+</I>&gt;<i> (multi-core Xeon, Linux), things sometimes look differently:
+</I>&gt;<i>
+</I>&gt;<i> - A file is touched as a timestamp, the snapshot is created, then the dump is 
+</I>&gt;<i>   made with `dumpdate=' pointing to the timestamp file:
+</I>&gt;<i>
+</I>&gt;<i>    Type of this level 3  dump: full
+</I>&gt;<i>    Date of this level 3  dump: Thu Sep 13 18:44:40 2007
+</I>&gt;<i>    Date of last level 2  dump: Thu Sep 13 18:27:17 2007
+</I>&gt;<i>    star: 14266 blocks + 0 bytes (total of 146083840 bytes = 142660.00k).
+</I>&gt;<i>
+</I>&gt;<i> - The dump is restored to a different filesystem:
+</I>&gt;<i>
+</I>&gt;<i>    Dump record  level 3  dump: Thu Sep 13 18:44:40 2007 written
+</I>&gt;<i>    Validating this dump against restored filesystem...
+</I>&gt;<i>    Dump is valid, starting restore.
+</I>&gt;<i>    Removing all in 'star-tmpdir'.
+</I>&gt;<i>    star: 14266 blocks + 0 bytes (total of 146083840 bytes = 142660.00k).
+</I>&gt;<i>
+</I>&gt;<i> - Restored version and snapshot are compared:
+</I>&gt;<i>
+</I>&gt;<i>    diffopts=perm,type,nlink,uid,gid,uname,gname,size,data,rdev,hardlink,
+</I>&gt;<i>    symlink,sympath,sparse,mtime,dir,acl,xattr,fflags
+</I>&gt;<i>
+</I>&gt;<i> (...)
+</I>&gt;<i>    var/log/debug: different size,data,mtime
+</I>&gt;<i>       8568 -rw-r-----   1 root/adm Sep 13 18:27 2007 var/log/debug
+</I>&gt;<i>       8160 -rw-r-----   1 root/adm Sep 13 18:11 2007 var/log/debug
+</I>&gt;<i>
+</I>&gt;<i> The version of 18:27 is from the snapshot and the version of 18:11 is from the 
+</I>&gt;<i> restored version. Note that the level 2 dump is from 18:27:17 (see above).  
+</I>&gt;<i> Theory: during the level 3 dump, the file appeared to star as being older than 
+</I>&gt;<i> 18:27:17, which meant that it was already included in the level 2 dump (but it 
+</I>&gt;<i> in fact was not). Hence it was not included in the level 3 dump and hence, on 
+</I>&gt;<i> restore, the old version (from 18:11) was not updated.
+</I>
+How does the file look on the snapshot?
+
+The problem may be that the filesystem does not sync meta data fast enough.
+
+
+&gt;<i> This looks like typical behavior when the timestamp (later given to star with 
+</I>&gt;<i> `dumpdate=') is made *after* the snapshot is created. But that's not how I do 
+</I>&gt;<i> it. Maybe it has to do with accuracy? The times in /etc/tardumps seem to only 
+</I>&gt;<i> have the accuracy of one second. Then, `sleep 1' between timestamp and snapshot 
+</I>&gt;<i> should help. I am doing more tests; results are still to be expected.
+</I>
+The timestamp on /etc/tardumps is using a one microsecond granularity.
+
+If your filesystem does not give a granularity better than one second, this is a
+problem of the filesystem.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000061.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+	<LI>Next message: <A HREF="000064.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#62">[ date ]</a>
+              <a href="thread.html#62">[ thread ]</a>
+              <a href="subject.html#62">[ subject ]</a>
+              <a href="author.html#62">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

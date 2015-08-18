@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] comparison of star and rsync methods
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20comparison%20of%20star%20and%20rsync%20methods&In-Reply-To=%3C20080314165415.GC2696%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000112.html">
+   <LINK REL="Next"  HREF="000124.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] comparison of star and rsync methods</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20comparison%20of%20star%20and%20rsync%20methods&In-Reply-To=%3C20080314165415.GC2696%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] comparison of star and rsync methods">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Fri Mar 14 17:54:15 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000112.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+        <LI>Next message: <A HREF="000124.html">[Star-users] comparison of star and rsync methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Joerg Schilling- from Tue 2008-03-11:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; But I tried something else, maybe it's interesting:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; - Filesystem A is busy, take snapshot S from it.
+</I>&gt;<i> &gt; - Synchronize filesystem B with S using 'rsync -axH --inplace'.
+</I>&gt;<i> &gt; - Remount B read-only.
+</I>&gt;<i> &gt; - Take an incremental dump from B.
+</I>&gt;<i> &gt; - Restore the incremental dump(s) taken this way to a filesystem C.
+</I>&gt;<i> &gt; - Compare the contents of S with C using diffopts=\!ctime,\!lmtime,\!atime.
+</I>&gt;<i> &gt; - Release S.
+</I>&gt;<i> &gt; - Start over after some time.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; So, in B we keep a kind of &quot;mirror&quot; of A, which has the advantage that we can 
+</I>&gt;<i> &gt; mount it read-only and that it is not a snapshot. B is not changed between 
+</I>&gt;<i> &gt; iterations; all we do with it is one run of rsync before each dump. (With 
+</I>&gt;<i> &gt; rsync 3.0.0 a patch [1] is suggested for this.)
+</I>&gt;<i> 
+</I>&gt;<i> Could you tell us how the speed of a rsync call and an incremental star 
+</I>&gt;<i> dump/restore compare? Which is faster and what is the difference?
+</I>
+Here are some figures.
+
+#  |  rsync S --&gt; V  |  rsync S --&gt; B  |  star B  |  star S  |  approx. size | ratio
+-------------------------------------------------------------------------------
+0  |             85  |             54  |      33  |      57  |    961640.00k | .67
+1  |            600  |            593  |     217  |     349  |   2485870.00k | .58
+2  |             10  |             86  |       1&lt; |       1&lt; |        40.00k |  -
+3  |            765  |            813  |     297  |     439  |   3328160.00k | .57
+4  |              2  |            109  |       1&lt; |       6  |        20.00k |  -
+5  |            743  |            770  |     289  |     428  |   3329230.00k | .58
+
+All times given in seconds. The previous to last column gives how much data 
+had to be transfered (by star). One row corresponds to one run of each method 
+on the same filesystem snapshot S. All filesystems are ext3 on encrypted 
+devices. The snapshot S is on a RAID-1, and all other filesystem are on a 
+RAID-0. The last column gives the ratio of the methods 'rsync S --&gt; V' and 
+'star S' (where it makes sense to compute it).
+
+Note: maybe these figures will change if one of the parameters is changed, 
+e.g., no encryption, different filesystem, etc. I have not investigated this, 
+since it would require a lot more work.
+
+For runs 0 to 3, the methods were invoked in the order given, from left to 
+right. For subsequent runs, the order was kind of reversed: 'star S', then 
+'rsync S --&gt; B', then 'star B', finally 'rsync S --&gt; V'. Why this order was 
+chosen (and not a full reverse order), is that 'star B' depends on 'star S 
+--&gt; B'. This will become clear by an explanation of the methods.
+
+
+METHODS
+
+The different methods are:
+
+rsync S --&gt; V: the snapshot S is kind of copied into an empty directory, 
+making hardlinks to files of a previous such run where appropriate and only 
+transfering changed files. This uses rsyncs --link-dest option. This method 
+is applicable as a backup system of its own. The complete call that I use is:
+   rsync -axH --inplace --link-dest=&quot;$PREVIOUS&quot; &quot;$SOURCE&quot;/ &quot;$DEST&quot;
+What is $DEST in this run will become $PREVIOUS in the next run.
+This method gives copies that are identical in the sense of
+   diffopts=\!ctime,\!lmtime,\!atime,\!nlink 
+I've tested this for some time now.
+
+rsync S --&gt; B: the filesystem B is synchronized with S using 'rsync -axH 
+--del --inplace'.
+
+star B: an incremental dump is taken of filesystem B, after B it has been 
+synchronized with S with the method above.
+
+star S: an incremental dump is taken of the filesystem snapshot S.
+
+
+RUNS
+
+Run 0 is the initial one, meaning there were no previous copies or dumps on 
+the receiving side, in particular meaning that level 0 dumps were done by 
+star.
+
+Run 1 was done after the creation of a many small files (using blogbench). 
+
+Run 2 was done after all these files were deleted. Method 'rsync S --&gt; V' is 
+much faster than 'rsync S --&gt; B', which can be explained by the fact that the 
+second method had to delete a lot of files on B.
+
+Run 3 was again done after the creation of many small files.
+
+Run 4 (now in &quot;reverse&quot; order of the methods) was done after all the small 
+files were deleted.
+
+Run 5 was again done after the creation of many small files.
+
+
+DISCUSSION
+
+Doing 'star S --&gt; B' and then 'star B' is a backup method, but it has a lot 
+of ovehead. It was invented for testing only, because I had problems with the 
+'star S' method. (Differences after restore; I explained that in the other 
+messages. This combined method, however, never gave differences.)
+
+So the real competitors are 'rsync S --&gt; V' and 'star S' (hoping that the 
+problems with the latter can be resolved). Clearly, star is faster than 
+rsync; the star runs only take about 60% of the time of the rsync runs. The 
+big structural difference is that with rsync, one has the backup in a 
+filesystem instead of in a single file (or in few files with incremental 
+dumps). This can be an advantage if one often has to access particular files 
+in the backup. It can also be a disadvantage if one wishes to write the 
+backup to some external medium or push it over the network.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080314/de9e0e3c/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080314/de9e0e3c/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000112.html">[Star-users] timestamp(?) problems with incremental dumps
+</A></li>
+	<LI>Next message: <A HREF="000124.html">[Star-users] comparison of star and rsync methods
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

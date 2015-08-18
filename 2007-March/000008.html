@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] STAR hangs on multi volume partial dump
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20STAR%20hangs%20on%20multi%20volume%20partial%20dump&In-Reply-To=%3C87hct272no.wl%25felix.klee%40inka.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000009.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] STAR hangs on multi volume partial dump</H1>
+    <B>Felix E. Klee</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20STAR%20hangs%20on%20multi%20volume%20partial%20dump&In-Reply-To=%3C87hct272no.wl%25felix.klee%40inka.de%3E"
+       TITLE="[Star-users] STAR hangs on multi volume partial dump">felix.klee at inka.de
+       </A><BR>
+    <I>Sat Mar  3 16:44:11 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000009.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Occasionally, star hangs when running a multi volume partial dump.  Any
+idea what may be the reason for the problem?
+
+Note that I didn't yet try out star-1.5a77-pre3.tar.bz2.  Should I try
+it?
+
+Let me know what additional info you need.
+
+Details:
+
+* The last lines that I see on screen when star hangs (I've waited for
+  several hours and it didn't resume):
+
+  [...]
+  a    9228 -rw-------   1 root/root Feb 27 11:05 2006 home/felix/.thumb
+  nails/normal/c3601936dc7f568f4ce50ccc169f16bb.png
+  a    9074 -rw-------Switching to volume 4.
+  _
+
+* According to &quot;top&quot;, while hanging, star uses around 95% CPU resources
+  and around 2.4% of RAM.  A snapshot of top's output:
+
+  [...]
+    PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+  14948 root      25   0 28664  24m 8660 R 99.2  2.4 148:22.37 star               
+  [...]
+
+* The command that was executed:
+
+  star -c -z bs=2m errctl='/usr/local/lib/backup/tar-backup.errctl' \
+  -vv -M -match-tree \
+  -not pattern='{^home/felix/tmp$}!{^home/felix/tmp-backup$}!{^home/felix/dont-backup$}!{^home/felix/.opera/cache4$}!{^home/felix/.cedega$}!{^home/felix/.mozilla/default/jk58siw4.slt/Cache$}!{^home/felix/.mozilla/firefox/default.g13/Cache$}!{^home/felix/.netscape/cache$}' \
+  -link-dirs -level=3 -multivol tsize=650M -acl \
+  tardumps='/mnt/sda1/tmp-backup/important.2007-Jan-29//important.dumps' -wtardumps \
+  new-volume-script='/usr/local/lib/backup/tar-backup.new-volume-script'  \
+  file='/mnt/sda1/tmp-backup/important.2007-Jan-29//important.2007-Mar-01_12.45.06_01.tgz' \
+  file='/mnt/sda1/tmp-backup/important.2007-Jan-29//important.2007-Mar-01_12.45.06_02.tgz' \
+  [...]
+  file='/mnt/sda1/tmp-backup/important.2007-Jan-29//important.2007-Mar-01_12.45.06_100.tgz' \
+  -C '/' .
+
+* Scripts used by the above command:
+
+  $ cat /usr/local/lib/backup/tar-backup.errctl
+  GROW *
+  $ cat /usr/local/lib/backup/tar-backup.new-volume-script
+  #!/bin/sh
+
+  # Called when a new volume is started.
+
+  echo &quot;Switching to volume $1.&quot;
+
+* Workaround: Adjusting the volume size (&quot;tsize&quot;) has solved the problem
+  in the past.  If I recall correctly, I had the problem with various
+  versions of &quot;star&quot;.
+
+* The star version that I use:
+
+  $ star -version
+  star: star 1.5a76 (i686-pc-linux-gnu)
+
+  Copyright (C) 1985, 88-90, 92-96, 98, 99, 2000-2006 J&#246;rg Schilling
+  This is free software; see the source for copying conditions.  There
+  is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+  PARTICULAR PURPOSE.
+
+* The OS (LINUX) and the file system:
+
+  # uname -a
+  Linux t41 2.6.14.4 #3 Sat Mar 25 11:14:41 CET 2006 i686 unknown 
+  unknown GNU/Linux
+  # tune2fs -l /dev/sda1|less
+  tune2fs 1.38 (30-Jun-2005)
+  Filesystem volume name:   &lt;none&gt;
+  Last mounted on:          &lt;not available&gt;
+  Filesystem UUID:          9ee0a091-1703-4db5-8bcc-2236226297aa
+  Filesystem magic number:  0xEF53
+  Filesystem revision #:    1 (dynamic)
+  Filesystem features:      filetype sparse_super large_file
+  Default mount options:    (none)
+  Filesystem state:         not clean
+  Errors behavior:          Continue
+  Filesystem OS type:       Linux
+  Inode count:              4889248
+  Block count:              9767512
+  Reserved block count:     488375
+  Free blocks:              9114380
+  Free inodes:              4889229
+  First block:              0
+  Block size:               4096
+  Fragment size:            4096
+  Blocks per group:         32768
+  Fragments per group:      32768
+  Inodes per group:         16352
+  Inode blocks per group:   511
+  Filesystem created:       Sat Dec 23 15:36:22 2006
+  Last mount time:          Sat Mar  3 13:42:50 2007
+  Last write time:          Sat Mar  3 13:42:50 2007
+  Mount count:              40
+  Maximum mount count:      35
+  Last checked:             Sat Dec 23 15:36:22 2006
+  Check interval:           15552000 (6 months)
+  Next check after:         Thu Jun 21 16:36:22 2007
+  Reserved blocks uid:      0 (user root)
+  Reserved blocks gid:      0 (group root)
+  First inode:              11
+  Inode size:               128
+  Default directory hash:   tea
+  Directory Hash Seed:      219f7515-cef4-4209-84e5-29da855d5a48
+
+-- 
+Felix E. Klee
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000009.html">[Star-users] STAR hangs on multi volume partial dump
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Problem compiling star on Debian squeeze
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E0457A2.2090607%40prompt.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000194.html">
+   <LINK REL="Next"  HREF="000196.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Problem compiling star on Debian squeeze</H1>
+    <B>Ruud Baart</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E0457A2.2090607%40prompt.nl%3E"
+       TITLE="[Star-users] Problem compiling star on Debian squeeze">r.j.baart at prompt.nl
+       </A><BR>
+    <I>Fri Jun 24 11:23:46 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000194.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+        <LI>Next message: <A HREF="000196.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#195">[ date ]</a>
+              <a href="thread.html#195">[ thread ]</a>
+              <a href="subject.html#195">[ subject ]</a>
+              <a href="author.html#195">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks again. I downloaded the latest collection and compiled a new 
+version of star without problems.
+
+I tried to compile a new version of smake  but that fails. It is not a 
+big issue for me because &quot;Smake release 1.2.1 (i686-pc-linux-gnu)&quot; works 
+for me. But perhaps you like to know this failure.
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at dolphy</A>:/usr/local/src/schily-2011-06-22/smake# /opt/schily/bin/smake
+         ==&gt; MAKING DIRECTORY &quot;OBJ/i686-linux-cc&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;make.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;archconf.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;readfile.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;parse.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;update.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;rules.d&quot;
+         ==&gt; MAKING DEPENDENCIES &quot;memory.d&quot;
+         ==&gt; COMPILING &quot;make.o&quot;
+         ==&gt; COMPILING &quot;archconf.o&quot;
+         ==&gt; COMPILING &quot;readfile.o&quot;
+         ==&gt; COMPILING &quot;parse.o&quot;
+         ==&gt; COMPILING &quot;update.o&quot;
+         ==&gt; COMPILING &quot;rules.o&quot;
+         ==&gt; COMPILING &quot;memory.o&quot;
+         ==&gt; LINKING &quot;OBJ/i686-linux-cc/smake&quot;
+OBJ/i686-linux-cc/make.o: In function `main':
+make.c:(.text+0x2559): undefined reference to `searchfileinpath'
+OBJ/i686-linux-cc/update.o: In function `exp_var':
+update.c:(.text+0x1e45): undefined reference to `strlcpy'
+update.c:(.text+0x1fea): undefined reference to `strlcpy'
+update.c:(.text+0x217e): undefined reference to `strlcpy'
+update.c:(.text+0x21d2): undefined reference to `strlcpy'
+OBJ/i686-linux-cc/update.o: In function `make':
+update.c:(.text+0x2bba): undefined reference to `strlcpy'
+OBJ/i686-linux-cc/update.o:update.c:(.text+0x2bff): more undefined 
+references to `strlcpy' follow
+collect2: ld returned 1 exit status
+/opt/schily/bin/smake: Operation not permitted. *** Code 1 from command 
+line for target 'OBJ/i686-linux-cc/smake'.
+/opt/schily/bin/smake: The following command caused the error:
+echo &quot;  ==&gt; LINKING \&quot;OBJ/i686-linux-cc/smake\&quot;&quot;; gcc -o 
+OBJ/i686-linux-cc/smake OBJ/i686-linux-cc/make.o 
+OBJ/i686-linux-cc/archconf.o OBJ/i686-linux-cc/readfile.o 
+OBJ/i686-linux-cc/parse.o OBJ/i686-linux-cc/update.o 
+OBJ/i686-linux-cc/rules.o OBJ/i686-linux-cc/memory.o        
+-L../libs/i686-linux-cc -L../libs/i686-linux-cc  -L/opt/schily/lib 
+-Wl,-R/opt/schily/lib -Wl,-R/opt/schily/lib  -lschily
+/opt/schily/bin/smake: Couldn't make 'all'.
+
+
+Op 24-6-2011 11:01, Joerg Schilling schreef:
+&gt;<i> Ruud Baart&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">r.j.baart at prompt.nl</A>&gt;  wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i> Indeed. I downloaded
+</I>&gt;&gt;<i> <A HREF="ftp://ftp.berlios.de/pub/star/ALPHA/star-1.5a89.tar.bz2">ftp://ftp.berlios.de/pub/star/ALPHA/star-1.5a89.tar.bz2</A> and I missed the
+</I>&gt;&gt;<i> newer version <A HREF="ftp://ftp.berlios.de/pub/star/star-1.5.1.tar.bz2.">ftp://ftp.berlios.de/pub/star/star-1.5.1.tar.bz2.</A>
+</I>&gt;<i> If you like a newer star source, please have a look at:
+</I>&gt;<i>
+</I>&gt;<i> 	<A HREF="ftp://ftp.berlios.de/pub/schily/">ftp://ftp.berlios.de/pub/schily/</A>
+</I>&gt;<i>
+</I>&gt;<i> this contains a colltection of all software I distribute and is updated
+</I>&gt;<i> frequently.
+</I>&gt;<i>
+</I>&gt;<i> There have been many changes since 1.5.1
+</I>&gt;<i>
+</I>&gt;<i> J&#246;rg
+</I>&gt;<i>
+</I>
+-- 
+
+Regards,
+
+Ruud Baart
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000194.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+	<LI>Next message: <A HREF="000196.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#195">[ date ]</a>
+              <a href="thread.html#195">[ thread ]</a>
+              <a href="subject.html#195">[ subject ]</a>
+              <a href="author.html#195">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

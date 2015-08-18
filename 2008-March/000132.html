@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] refuse to update certain files upon extraction
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20080318155848.GK2261%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000131.html">
+   <LINK REL="Next"  HREF="000133.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] refuse to update certain files upon extraction</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20refuse%20to%20update%20certain%20files%20upon%20extraction&In-Reply-To=%3C20080318155848.GK2261%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] refuse to update certain files upon extraction">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Tue Mar 18 16:58:48 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000131.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+        <LI>Next message: <A HREF="000133.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Lasse Kliemann- from Tue 2008-03-18:
+&gt;<i> * Message by -Joerg Schilling- from Tue 2008-03-18:
+</I>&gt;<i> &gt; Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; * Message by -Joerg Schilling- from Tue 2008-03-18:
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; &gt; The problem is a Linux kernel bug.
+</I>&gt;<i> &gt; &gt; &gt; 
+</I>&gt;<i> &gt; &gt; &gt; Any other backup tool (like e.g. dump/restore) will run into the same problem
+</I>&gt;<i> &gt; &gt; &gt; as Linux did not update the timestamp from the directory 
+</I>&gt;<i> &gt; &gt; &gt; &quot;send-backup-test/log/supervise/&quot;.
+</I>&gt;<i> &gt; &gt; &gt; 
+</I>&gt;<i> &gt; &gt; &gt; You need to send a bug-report against Linux and get a fix for this problem....
+</I>&gt;<i> &gt; &gt;
+</I>&gt;<i> &gt; &gt; I've already prepared a minimal example to prove this, see the attached 
+</I>&gt;<i> &gt; &gt; files. The ctime of `sub' changes the first time that `rename' is run, but 
+</I>&gt;<i> &gt; &gt; not the second. I also tried this on Solaris, and there the ctime is 
+</I>&gt;<i> &gt; &gt; updated after the second run of `rename'.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Do you know whether your original problem was caused by a rename or rather a 
+</I>&gt;<i> &gt; unlink/create chain?
+</I>&gt;<i>  
+</I>&gt;<i> It was caused by a rename, as in the attached rename.c (that's the one from 
+</I>&gt;<i> my old message &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">20080309214556.GK2723 at lasse.mail.plastictre.net</A>&gt; and not the 
+</I>&gt;<i> one I sent minutes ago).
+</I>
+Oh, of course this also includes unlink and create, I think, for the file is
+opened with O_TRUNC and O_CREAT.
+
+By the way, the files you examined show how the problem can be reproduced 
+running runsv[1] and not my rename.c. I came up with the rename idea after 
+looking at the source code of runsv.
+
+[1] <A HREF="http://smarden.org/runit/">http://smarden.org/runit/</A>
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 835 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20080318/32fd0f67/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20080318/32fd0f67/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000131.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+	<LI>Next message: <A HREF="000133.html">[Star-users] refuse to update certain files upon extraction
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#132">[ date ]</a>
+              <a href="thread.html#132">[ thread ]</a>
+              <a href="subject.html#132">[ subject ]</a>
+              <a href="author.html#132">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

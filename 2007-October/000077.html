@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Star single file restores
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Star%20single%20file%20restores&In-Reply-To=%3C4727b2cb.KIro71Wi%2BcamjgAs%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000076.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Star single file restores</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Star%20single%20file%20restores&In-Reply-To=%3C4727b2cb.KIro71Wi%2BcamjgAs%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] Star single file restores">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Tue Oct 30 23:40:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000076.html">[Star-users] Star single file restores
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#77">[ date ]</a>
+              <a href="thread.html#77">[ thread ]</a>
+              <a href="subject.html#77">[ subject ]</a>
+              <a href="author.html#77">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">dan3857 at yahoo.com</A>&gt; wrote:
+
+&gt;<i> Every weekend, I back up 1.1TB, about 10 million files, onto a tape.  Yes, all on one tape.  The backups work great!
+</I>&gt;<i>
+</I>&gt;<i> The problem is that a user will delete one of their files, and I need to restore it.  Scanning the tape from the beginning to the end takes about 4 hours to restore a file.  Using &quot;mt -f /dev/nst0 fsr nblocks&quot; works really fast.  Testing with mt, it takes 5 mins to fsr to the end of the tape.
+</I>&gt;<i>
+</I>&gt;<i> I see in the man page the option for -block-number to show the relative location of each file on the tape.  Using mt to put the tape in the right spot works nicely, but when I use star to start the extract, it says &quot;star: Unknown archive type (neither tar, nor bar/cpio).&quot;
+</I>&gt;<i>
+</I>&gt;<i> I can't find any mention in the man page how to tell star what the starting block number should be.  Is there something else I'm missing?
+</I>
+star prints block numbers based on 512 byte units in this case.
+
+&quot;mt fsr&quot; will forward tape blocks which is 10 kB if you do not specify a 
+different size. You would need to tell star to run in -i mode to find the next 
+file after you did fsf to something slightle before the block you like.
+
+Be careful on Linux, Linux does not behave like UNIX here.
+
+If you run incremental backups, you would need to create a database that tells 
+you on which incremental the desired file is located.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000076.html">[Star-users] Star single file restores
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#77">[ date ]</a>
+              <a href="thread.html#77">[ thread ]</a>
+              <a href="subject.html#77">[ subject ]</a>
+              <a href="author.html#77">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

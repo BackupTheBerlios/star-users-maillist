@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Buffer overflow in name_to_tcb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110613165506.GA2328%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000187.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Buffer overflow in name_to_tcb</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110613165506.GA2328%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] Buffer overflow in name_to_tcb">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Mon Jun 13 18:55:06 CEST 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000187.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Compiled star with CFLAGS=&quot;-D_FORTIFY_SOURCE=2 -O2&quot; on GCC 4.5.3, 
+Glibc 2.13, Linux 2.6.39.1. Then created a file with a long name 
+(100 characters) and tried to pack it up:
+
+$ mkdir test
+$ cd test
+$ touch 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+$ star -c f=../test.tar .
+*** buffer overflow detected ***: /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star terminated
+======= Backtrace: =========
+/usr/lib/libc.so.6(__fortify_fail+0x40)[0xb77a17d0]
+/usr/lib/libc.so.6(+0xe37ea)[0xb779f7ea]
+/usr/lib/libc.so.6(__strcpy_chk+0x3f)[0xb779eb3f]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8070c84]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x80610cf]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8061f71]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x806217e]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x804c14b]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x8051b4b]
+/usr/lib/libc.so.6(__libc_start_main+0xe6)[0xb76d2de6]
+/tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star[0x804a591]
+[ ... snip ... ]
+
+I tracked this down to line 158 in longnames.c, i.e.,
+  strcpy(ptb-&gt;dbuf.t_name, name);
+
+A look in star.h tells that t_name is only NAMSIZ long, which is 100.
+
+So something is not going well here.
+
+The problem may have been there for a long time, but recent GCCs 
+appear to be more strict with FORTIFY_SOURCE. I recently switched 
+from 4.3.x to 4.5.x.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 836 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20110613/6539c728/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20110613/6539c728/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000187.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

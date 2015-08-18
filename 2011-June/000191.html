@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Problem compiling star on Debian squeeze
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E0438BF.9020808%40prompt.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000190.html">
+   <LINK REL="Next"  HREF="000192.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Problem compiling star on Debian squeeze</H1>
+    <B>Ruud Baart</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Problem%20compiling%20star%20on%20Debian%20squeeze&In-Reply-To=%3C4E0438BF.9020808%40prompt.nl%3E"
+       TITLE="[Star-users] Problem compiling star on Debian squeeze">r.j.baart at prompt.nl
+       </A><BR>
+    <I>Fri Jun 24 09:11:59 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000190.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+        <LI>Next message: <A HREF="000192.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#191">[ date ]</a>
+              <a href="thread.html#191">[ thread ]</a>
+              <a href="subject.html#191">[ subject ]</a>
+              <a href="author.html#191">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I have compiled star many times in different Debian systems. After 
+downloading the needed dev-packages and after first compiling smake I 
+usually manage to compile star without problems. On Debian Squeeze (the 
+latest version of Debian) I can't compile star. Any help would be nice.
+
+This is the error:
+
+In file included from avoffset.c:32:
+../include/schily/schily.h:246: error: conflicting types for &#8216;getline&#8217;
+/usr/include/stdio.h:651: note: previous declaration of &#8216;getline&#8217; was here
+
+When I remove the definition of getline in schily.h I get other similar 
+errors. After I have removed all other conflicting declarations, smake 
+fails to compile star because the definitions are not correct.
+
+I attach the output of smake (perhaps the list refuses attachements). 
+This is the result without modifying any include file.
+
+-- 
+
+Regards,
+
+Ruud Baart
+
+
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: smake.out
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20110624/4df2ca8b/attachment.ksh">https://lists.berlios.de/pipermail/star-users/attachments/20110624/4df2ca8b/attachment.ksh</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000190.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+	<LI>Next message: <A HREF="000192.html">[Star-users] Problem compiling star on Debian squeeze
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#191">[ date ]</a>
+              <a href="thread.html#191">[ thread ]</a>
+              <a href="subject.html#191">[ subject ]</a>
+              <a href="author.html#191">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

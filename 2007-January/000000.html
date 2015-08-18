@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] &quot;No new inode number&quot; / &quot;No symbol entry&quot; errors	during restore
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20%22No%20new%20inode%20number%22%20/%20%22No%20symbol%20entry%22%20errors%0A%09during%20restore&In-Reply-To=%3C1167971820.29222.16.camel%40homebase.jenandpatrick.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] &quot;No new inode number&quot; / &quot;No symbol entry&quot; errors	during restore</H1>
+    <B>Patrick Chase</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20%22No%20new%20inode%20number%22%20/%20%22No%20symbol%20entry%22%20errors%0A%09during%20restore&In-Reply-To=%3C1167971820.29222.16.camel%40homebase.jenandpatrick.com%3E"
+       TITLE="[Star-users] &quot;No new inode number&quot; / &quot;No symbol entry&quot; errors	during restore">pchase2 at pacbell.net
+       </A><BR>
+    <I>Fri Jan  5 05:37:00 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000001.html">[Star-users] star tape media error handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello;
+
+I'm using 'star' to make nightly backups from LVM snapshots of a live
+file-system. I have tested using the same contents and both 'xfs' and
+'ext3', with identical results. In the xfs case the filesystem was
+frozen using xfs_freeze prior to making the backup. A dumpdate file was
+created to set the dump time prior to the snapshot. In both cases, I
+receive errors of this form during restore:
+
+------ START OF OUTPUT ------
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> mnt]# star -xpU -no-fsync -restore
+f=/backups/star/homebase/0/home.0 
+star: WARNING: Archive is 'gzip' compressed, trying to use the -z
+option.
+Validating this dump against restored filesystem...
+Dump level 0 on empty filesystem, starting restore.
+Removing all in 'star-tmpdir'.
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.2/grid0.2.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.1/grid0.1.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.0/grid0.0.vmem
+star: 6297496 blocks + 0 bytes (total of 64486359040 bytes =
+62974960.00k).
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> mnt]# star -xpU -no-fsync -restore
+f=/backups/star/homebase/4/home.2 
+star: WARNING: Archive is 'gzip' compressed, trying to use the -z
+option.
+Validating this dump against restored filesystem...
+Dump is valid, starting restore.
+star: Panic: No symbol entry for inode 110305962 (grid0.0.vmem).
+star: Panic: No symbol entry for inode 168632198 (grid0.1.vmem).
+star: Panic: No symbol entry for inode 240325739 (grid0.2.vmem).
+Removing all in 'star-tmpdir'.
+star: WARNING: No new inode number
+for /pchase/vmware/grid1.2/grid1.2.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid1.1/grid1.1.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid1.0/grid1.0.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.0/grid0.0.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.1/grid0.1.vmem
+star: WARNING: No new inode number
+for /pchase/vmware/grid0.2/grid0.2.vmem
+star: 218722 blocks + 0 bytes (total of 2239713280 bytes = 2187220.00k).
+
+------ END OF OUTPUT ------
+
+The backup job was run from cron and I (unfortunately) didn't capture
+its stderr. 
+
+The backup command-line was of the form:
+
+/usr/bin/star -c -z -xdev -sparse -acl -xattr -link-dirs level=$level
+-wtardumps  dumpdate=$tsfile H=exustar f=$outfile -C $fs .
+
+My full backup script (including creation of snapshots and
+initialization of $level, $tsfile, $outfile, and $fs) is available
+privately upon request.
+
+When the files are diff'ed, they are different from the on-disk versions
+at the time of the dump.
+
+The errors appear to be specific to VMware memory images from suspended
+virtual machines - All other files restore correctly. The VMs in
+question were stopped at the time of the backup, and the VMware
+application itself was closed. lsof indicated that the files in question
+were not open by any process at the time of the backup.
+
+I suspect that VMware is manipulating these memory images in some
+strange manner that is causing problems for star. I'm pretty sure that
+they're created via mmap() to begin with and may be sparse.
+
+Some other details:
+
+The host is running Fedora core 6 with all updates. star was installed
+from the fedora-extras repo.
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> tos]# rpm -q star
+star-1.5a75-1
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> tos]# rpm -q glibc
+glibc-2.5-3
+glibc-2.5-3
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> tos]# uname -a
+Linux homebase 2.6.18-1.2868.fc6 #1 SMP Fri Dec 15 17:29:48 EST 2006
+x86_64 x86_64 x86_64 GNU/Linux
+
+[<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">root at homebase</A> tos]# stat /home/pchase/vmware/grid0.0/grid0.0.vmem 
+  File: `/home/pchase/vmware/grid0.0/grid0.0.vmem'
+  Size: 201326592       Blocks: 391856     IO Block: 4096   regular file
+Device: fd03h/64771d    Inode: 146806163   Links: 1
+Access: (0600/-rw-------)  Uid: (  500/  pchase)   Gid: (  500/  pchase)
+Access: 2006-12-31 15:32:10.861681733 -0800
+Modify: 2006-12-31 15:27:06.910553957 -0800
+Change: 2006-12-31 19:55:34.353121060 -0800
+
+Does anybody have any thoughts as to what might be happening here?
+
+Thanks,
+
+Patrick
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000001.html">[Star-users] star tape media error handling
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Buffer overflow in name_to_tcb
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110615195542.GA2210%40lasse.mail.plastictre.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000188.html">
+   <LINK REL="Next"  HREF="000190.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Buffer overflow in name_to_tcb</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Buffer%20overflow%20in%20name_to_tcb&In-Reply-To=%3C20110615195542.GA2210%40lasse.mail.plastictre.net%3E"
+       TITLE="[Star-users] Buffer overflow in name_to_tcb">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Wed Jun 15 21:55:42 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000188.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+        <LI>Next message: <A HREF="000190.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#189">[ date ]</a>
+              <a href="thread.html#189">[ thread ]</a>
+              <a href="subject.html#189">[ subject ]</a>
+              <a href="author.html#189">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Message by -Joerg Schilling- from Mon 2011-06-13:
+&gt;<i> Lasse Kliemann &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">lasse-list-star-users at mail.plastictree.net</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Compiled star with CFLAGS=&quot;-D_FORTIFY_SOURCE=2 -O2&quot; on GCC 4.5.3, 
+</I>&gt;<i> &gt; Glibc 2.13, Linux 2.6.39.1. Then created a file with a long name 
+</I>&gt;<i> &gt; (100 characters) and tried to pack it up:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; $ mkdir test
+</I>&gt;<i> &gt; $ cd test
+</I>&gt;<i> &gt; $ touch 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+</I>&gt;<i> &gt; $ star -c f=../test.tar .
+</I>&gt;<i> &gt; *** buffer overflow detected ***: /tmp/schily-2011-06-05/star/OBJ/i686-linux-cc/star terminated
+</I>
+&gt;<i> &gt; I tracked this down to line 158 in longnames.c, i.e.,
+</I>&gt;<i> &gt;   strcpy(ptb-&gt;dbuf.t_name, name);
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; A look in star.h tells that t_name is only NAMSIZ long, which is 100.
+</I>
+&gt;<i> It seems that you are a victim of a C-compiler bug.
+</I>&gt;<i> 
+</I>&gt;<i> There is nothing real that would allow you tp call that a buffer overflow as 
+</I>&gt;<i> it is 100% legal in the tar standard to put up to 100 chars into the t_name 
+</I>&gt;<i> array.
+</I>
+String length is 100, so strcpy will try to put 101 chars into 
+the t_name array, since it appends a null character.
+
+&gt;<i> In theory I could use strncpy but this would result in a noticable slowdown or 
+</I>&gt;<i> at least performance penalty.
+</I>&gt;<i> 
+</I>&gt;<i> This is why star carefully fills up the tar header in the right order. 
+</I>
+OK, but the protection mechanism has no way of knowing this.
+
+Overstepping of array bounds often is an indication that 
+something is not working out as intended by the programmer. While 
+this is not the case here, the warning is still justified.
+
+&gt;<i> A major problem with recent GCCs is that they under some circumstances ignore 
+</I>&gt;<i> the C standard. The code fragment:
+</I>&gt;<i> 
+</I>&gt;<i> 	(void)write(STDERR_FILENO, &quot;test\n&quot;, 5);
+</I>&gt;<i> 
+</I>&gt;<i> is not expected to create a warning. It however causes a non-avoidable warning 
+</I>&gt;<i> on revent Linux versions.
+</I>
+I get:
+
+$ gcc test.c -Wall -fstack-protector -D_FORTIFY_SOURCE=2 -O2
+test.c:2:6: warning: return type of &#8216;main&#8217; is not &#8216;int&#8217;
+test.c: In function &#8216;main&#8217;:
+test.c:3:1: warning: ignoring return value of &#8216;write&#8217;, declared with attribute warn_unused_result
+
+&gt;<i> Did you have a specific reason to use special compiler options?
+</I>&gt;<i> Array bound checking causes a slow down of the code.
+</I>
+It is a security measure. Roughly 95% of my system is compiled 
+with stack protector and the fortify source feature. For a few 
+exceptions, it has to be switched off, e.g., Glibc needs some 
+special tuning and a few other packages. And for some packages, 
+I have not figured out yet how to pass CFLAGS to the build 
+system. But the vast majority of my packages is compiled with the 
+protection features turned on.
+
+&gt;<i> There is a trick to make over-picky compilers quiet......
+</I>&gt;<i> 
+</I>&gt;<i> change strcpy(ptb-&gt;dbuf.t_name, name); to:
+</I>&gt;<i> 
+</I>&gt;<i> 	strcpy(ptb-&gt;ndbuf.t_name, name);
+</I>&gt;<i> 
+</I>&gt;<i> and try again.....
+</I>
+This works.
+
+Is it intended as a permanent fix?
+
+&gt;<i> BTW: would you be interested to write automated test cases?
+</I>&gt;<i> 
+</I>&gt;<i> I recently wrote a test case that I currently use for SCCS, but I would like to 
+</I>&gt;<i> write a test suite for star too.
+</I>
+A test suite for star would be good. I'm not sure whether I can 
+give valuable contributions since I do not know much of the 
+internals, so I do not know all the corner cases which need to be 
+tested.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 836 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20110615/e06d21ca/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20110615/e06d21ca/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000188.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+	<LI>Next message: <A HREF="000190.html">[Star-users] Buffer overflow in name_to_tcb
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#189">[ date ]</a>
+              <a href="thread.html#189">[ thread ]</a>
+              <a href="subject.html#189">[ subject ]</a>
+              <a href="author.html#189">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

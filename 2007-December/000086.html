@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] unable to complete huge backup
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20unable%20to%20complete%20huge%20backup&In-Reply-To=%3C47611a97.Je3Ot3Dz6thMj2Iu%25Joerg.Schilling%40fokus.fraunhofer.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000085.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] unable to complete huge backup</H1>
+    <B>Joerg Schilling</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20unable%20to%20complete%20huge%20backup&In-Reply-To=%3C47611a97.Je3Ot3Dz6thMj2Iu%25Joerg.Schilling%40fokus.fraunhofer.de%3E"
+       TITLE="[Star-users] unable to complete huge backup">Joerg.Schilling at fokus.fraunhofer.de
+       </A><BR>
+    <I>Thu Dec 13 12:42:15 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000085.html">[Star-users] unable to complete huge backup
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Udo Rader &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">udo.rader at bestsolution.at</A>&gt; wrote:
+
+
+&gt;<i> I just wanted to report back a bit ... 
+</I>&gt;<i>
+</I>&gt;<i> star is working now as expected. The problems I had gave me an
+</I>&gt;<i> opportunity to once more try two other tar tools around ???(bsdtar, pax).
+</I>&gt;<i>
+</I>&gt;<i> Both of the tools took a significant longer time to perform the 120GB
+</I>&gt;<i> backup:
+</I>&gt;<i>
+</I>&gt;<i> bsdtar took almost 11 hours
+</I>&gt;<i> pax took almost 10 hours
+</I>&gt;<i> and star finally takes about 8 hours
+</I>&gt;<i>
+</I>&gt;<i> so yes, star is indeed the fastest tar implementation around :-)
+</I>
+Thank you for this report.
+
+BTW: which 'pax' are you talking off?
+
+
+&gt;<i> Having very limited experience with tape drives, I would however really
+</I>&gt;<i> like to get some more feedback on how to speed up the process even more.
+</I>&gt;<i>
+</I>&gt;<i> So far I have learned that tuning can happen at 3 places:
+</I>&gt;<i>
+</I>&gt;<i> * the block size
+</I>&gt;<i> * the fifo size
+</I>&gt;<i> * bios settings on the tape controller
+</I>&gt;<i>
+</I>&gt;<i> any good pointers on how to set these things?
+</I>
+There are some hints in the man page, is this not sufficient?
+
+
+&gt;<i> My current invocation looks like this:
+</I>&gt;<i>
+</I>&gt;<i> /opt/schily/bin/star \
+</I>&gt;<i> ???  errctl=&quot;WARN|GROW|SHRINK|OPEN|READ|READLINK|MISSLINK *&quot; \
+</I>&gt;<i>   b=4096 \
+</I>&gt;<i>   -fifostats \
+</I>&gt;<i>   fs=32m \
+</I>&gt;<i>   -c \
+</I>&gt;<i>   -acl artype=exustar \
+</I>&gt;<i>   -f /dev/st0 \
+</I>&gt;<i>   ${BACKUPDIR} &gt;&gt;${LOGFILE} 2&gt;&amp;1
+</I>
+It is always better to use -dump (for exustar with extensions always on).
+
+I prefer bs=xx before b= and if your drive/DMA/driver supports 2M, it is OK.
+Note that most tape drives cannot write blocks bigger than the internal RAM 
+size. Also note that you should check whether the drive is in variable block
+size mode by reading the tape back with a bigger block size. Star should write
+blocksize xxx with the first read. If this does not happen, you are in the less
+optimal fixed block mode.
+
+J&#246;rg
+
+-- 
+ EMail:<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">joerg at schily.isdn.cs.tu-berlin.de</A> (home) J&#246;rg Schilling D-13353 Berlin
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">js at cs.tu-berlin.de</A>                (uni)  
+       <A HREF="https://lists.berlios.de/mailman/listinfo/star-users">schilling at fokus.fraunhofer.de</A>     (work) Blog: <A HREF="http://schily.blogspot.com/">http://schily.blogspot.com/</A>
+ URL:  <A HREF="http://cdrecord.berlios.de/old/private/">http://cdrecord.berlios.de/old/private/</A> <A HREF="ftp://ftp.berlios.de/pub/schily">ftp://ftp.berlios.de/pub/schily</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000085.html">[Star-users] unable to complete huge backup
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

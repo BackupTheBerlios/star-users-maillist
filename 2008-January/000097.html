@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] Error 0
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C20080118234055.GA66429%40dgrund.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000096.html">
+   <LINK REL="Next"  HREF="000098.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] Error 0</H1>
+    <B>Daniel Grund</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20Error%200&In-Reply-To=%3C20080118234055.GA66429%40dgrund.de%3E"
+       TITLE="[Star-users] Error 0">publicdiscussion at dgrund.de
+       </A><BR>
+    <I>Sat Jan 19 00:40:55 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000096.html">[Star-users] Error 0
+</A></li>
+        <LI>Next message: <A HREF="000098.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#97">[ date ]</a>
+              <a href="thread.html#97">[ thread ]</a>
+              <a href="subject.html#97">[ subject ]</a>
+              <a href="author.html#97">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 17.01.2008 17:04, Joerg Schilling wrote:
+
+&gt;<i> &gt; Tweaking the command line did not help. I called star under gdb:
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Starting program: /usr/local/bin/star -c -silent -no-statistics -M -multivol new-volume-script=&quot;/root/bin/yacdbak/bin/yacdbak.cdrecord root 1 noburn&quot; VOLHDR=&quot;FreeBSD 7.0-RC1 2008-01-08 14:17+0100 Level 1&quot; -dump level=1 -dumpmeta tardumps=/var/db/yacdbak/root.snapshots -wtardumps -p -match-tree -tsize=133068 -no-fifo -nodump artype=exustar -sparse file=/tmp/secure/yacdbak.image fs-name=/ dumpdate=/tmp/secure/timestamp -dodesc -not pattern=.snap -C &quot;/.snap/backupmount&quot; .
+</I>&gt;<i> &gt; Type of this level 1P dump: partial
+</I>&gt;<i> &gt; Date of this level 1P dump: Tue Jan  8 14:17:16 2008
+</I>&gt;<i> &gt; Date of last level 0P dump: Fri Nov 30 16:44:31 2007
+</I>&gt;<i> &gt; /usr/local/bin/star: Error 0. Error moving extended header '././@PaxHeader'.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Program received signal SIGSEGV, Segmentation fault.
+</I>&gt;<i> &gt; movebytes (fromv=0x28300000, tov=0x28205800, cnt=10240) at movebytes.c:57
+</I>&gt;<i> &gt; 57                                              DO8 (*tol++ = *froml++);
+</I>&gt;<i> &gt; (gdb) bt
+</I>&gt;<i> &gt; #0  movebytes (fromv=0x28300000, tov=0x28205800, cnt=10240) at movebytes.c:57
+</I>&gt;<i> 
+</I>&gt;<i> This is a completely different view than with your last mail.
+</I>&gt;<i> 
+</I>&gt;<i> The last mail makes me belive that there was a cal to move_to_arch() with a 
+</I>&gt;<i> negative size. Now I see 10240.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; #1  0x0806dc13 in move_to_arch (move=0xbfbf2a48, p=0x28205800 &quot;&quot;, amount=10240)
+</I>&gt;<i> &gt;     at movearch.c:74
+</I>&gt;<i> &gt; #2  0x0805d851 in cr_file (info=0xbfbf2c54, func=0x806dbe0 &lt;move_to_arch&gt;,
+</I>&gt;<i> &gt;     arg=0xbfbf2a48, amt=10240, text=0x808ac95 &quot;moving extended header&quot;) at create.c:1321
+</I>&gt;<i> &gt; #3  0x080588f8 in write_xhdr (type=Variable &quot;type&quot; is not available.
+</I>&gt;<i> &gt; ) at xheader.c:344
+</I>&gt;<i> &gt; #4  0x0805917c in info_to_xhdr (info=0xbfbf53b4, ptb=0xbfbf3208) at xheader.c:549
+</I>&gt;<i> &gt; #5  0x08053fbe in put_tcb (ptb=0xbfbf3208, info=0xbfbf53b4) at header.c:1098
+</I>&gt;<i> &gt; #6  0x0805edf4 in createi (
+</I>&gt;<i> &gt;     sname=0xbfbf4fb3 &quot;usr/local/lib/perl5/site_perl/5.8.8/mach/auto&quot;,
+</I>&gt;<i> 
+</I>&gt;<i> How many file name entries has this directory?
+</I>
+$ ls /usr/local/lib/perl5/site_perl/5.8.8/mach/auto | wc -l
+      47
+
+Daniel
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000096.html">[Star-users] Error 0
+</A></li>
+	<LI>Next message: <A HREF="000098.html">[Star-users] Error 0
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#97">[ date ]</a>
+              <a href="thread.html#97">[ thread ]</a>
+              <a href="subject.html#97">[ subject ]</a>
+              <a href="author.html#97">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] filesystem snapshots with Linux (was: missing	files	from incremental backups)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20filesystem%20snapshots%20with%20Linux%20%28was%3A%20missing%0A%09files%09from%20incremental%20backups%29&In-Reply-To=%3C20070719110334.GA2067%40enterprise.starfleet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000049.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] filesystem snapshots with Linux (was: missing	files	from incremental backups)</H1>
+    <B>Lasse Kliemann</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20filesystem%20snapshots%20with%20Linux%20%28was%3A%20missing%0A%09files%09from%20incremental%20backups%29&In-Reply-To=%3C20070719110334.GA2067%40enterprise.starfleet%3E"
+       TITLE="[Star-users] filesystem snapshots with Linux (was: missing	files	from incremental backups)">lasse-list-star-users at mail.plastictree.net
+       </A><BR>
+    <I>Thu Jul 19 13:03:34 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000049.html">[Star-users] empty archives
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>* Joerg Schilling writes:
+ 
+&gt;<i> In any case, there is no backup method that is able to deal with active 
+</I>&gt;<i> filesystems. This is why snapshots have been implemented.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I will use filesystem snapshots then. I am new to the snapshots business and 
+</I>&gt;<i> &gt; noticed that Linux offers several techniques. Do you have any recommendations
+</I>&gt;<i> &gt; which one to use?
+</I>&gt;<i> 
+</I>&gt;<i> I am not sure whether Linux suppots them. The last time I tried to find a 
+</I>&gt;<i> matching technoligy in Linux, there was none.
+</I>&gt;<i> 
+</I>&gt;<i> I know that 
+</I>&gt;<i> 
+</I>&gt;<i> FreeBSD
+</I>&gt;<i> NetApps
+</I>&gt;<i> Solaris
+</I>&gt;<i> 
+</I>&gt;<i> have snapshots.
+</I>
+Linux can do snapshots of logical volumes. They are part of a concept called 
+LVM (logical volume management). This is the first time a came across this, 
+so my knowledge about it is rather basic. One has to create volume groups (at 
+least one) and inside those volume groups, one can create logical volumes.  
+Logical volumes are available under /dev/mapper/&lt;volgroup&gt;-&lt;logvol&gt; and also 
+under /dev/&lt;volgroup&gt;/&lt;logvol&gt;. There are several tutorials out there on how 
+to create these, and I will not replicate them here.
+
+For snapshots, it is important that the volume group in question still has 
+some free space. This space will be used for the snapshot, obviously to 
+compensate for changes made to the volume during the existence of the 
+snapshot. Doing an incremental dump of a logical volume goes as follows:
+
+
+1. Take a timestamp.
+
+  rm -f dumpdate
+  touch dumpdate
+
+Many tutorials out there tell you to *freeze* the filesystem at this time. 
+With recent kernels, this is no longer necessary. On the contrary - it will 
+make the following steps fail! So, do not freeze the filesystem manually.
+
+
+2. Create the snapshot.
+
+  lvcreate -L &quot;${size?}&quot; -s -n snap /dev/&quot;${volgroup?}&quot;/&quot;${volume?}&quot;
+
+Environment variables used:
+size - the size used for the snapshot. The volume group must have at least 
+       that much of free space.
+volgroup - the name of the volume group.
+volume - the name of the logical volume inside of the volume group.
+
+The snapshot itself will be a logical volume called `snap'. If this is not 
+desired, change `snap' to something else in the above command line.
+
+
+3. Mount the snapshot.
+
+  mount -o ro,noatime,nosuid /dev/&quot;${volgroup?}&quot;/snap /mnt/snap
+
+This mounts the snapshot to `/mnt/snap'.
+
+
+4. Do the dump with star.
+
+  star -c -xdev -sparse -acl -link-dirs level=&quot;${level?}&quot; dumpdate=dumpdate \
+  -wtardumps f=level-&quot;${level?}&quot;.star -C /mnt/snap . 
+
+This writes a dump with level `${level}' to the file `level-${level}'.
+
+
+5. Unmount and remove the snapshot.
+
+  umount /mnt/snap
+  lvremove -f /dev/&quot;${volgroup?}&quot;/snap
+
+
+
+That's it. Attached you find a script that puts it all together with some 
+extras. I used this script for testing.
+
+During my tests, I noticed that disk access can become very slow, sometimes 
+close to unresponsive, during the procedure if there is much activity on the 
+logical volume which is dumped. My impression was that this effect is 
+stronger with ext3 than with reiserfs, but this might be a false impression.
+
+
+Lasse
+-------------- next part --------------
+#!/bin/sh
+
+#
+#
+# usage: snapstar &lt;mount_point&gt; &lt;volume_group&gt; &lt;volume&gt; &lt;snap_size&gt; &lt;level&gt;
+#
+# E.g.: to do a level 2 backup of `/dev/vg1/vol1' mounted on `/fs/main/mount'
+# using 500m for the snapshot:
+#
+# snapstar /fs/main/mount vg1 vol1 500m 2
+#
+# There must not be a volume called `snap' in the volume group already!
+#
+# The backups are put in files `level-&lt;level&gt;.star' in the current directory.
+# A file `dumpdate' in the current directory is used.
+# A directory `snap' in the current directory is used to mount the snapshot.
+#
+#
+
+
+:<i> &quot;${5?}&quot; &amp;&amp;
+</I>mount=&quot;${1?}&quot; &amp;&amp;
+volgroup=&quot;${2?}&quot; &amp;&amp;
+volume=&quot;${3?}&quot; &amp;&amp;
+size=&quot;${4?}&quot; &amp;&amp;
+level=&quot;${5?}&quot; &amp;&amp;
+
+case &quot;${level?}&quot; in
+	[0123456789][0123456789]) paddedlevel=&quot;${level?}&quot; ;;
+	[0123456789]) paddedlevel=0&quot;${level?}&quot; ;;
+	*) echo &quot;invalid level: ${level}&quot; ; exit 100 ;;
+esac &amp;&amp;
+
+rm -f dumpdate &amp;&amp;
+touch dumpdate &amp;&amp;
+day=`date +%F` &amp;&amp;
+time=`date +%R` &amp;&amp;
+host=`hostname` &amp;&amp;
+
+lvcreate -L &quot;${size?}&quot; -s -n snap /dev/&quot;${volgroup?}&quot;/&quot;${volume?}&quot; &amp;&amp;
+mkdir -p snap &amp;&amp;
+mount -o ro,noatime,nosuid /dev/&quot;${volgroup?}&quot;/snap snap &amp;&amp;
+
+star -c -xdev -sparse -acl -link-dirs level=&quot;${level?}&quot; dumpdate=dumpdate -wtardumps \
+	VOLHDR=&quot;level ${level?} of ${mount?} on ${host?} of snapshot taken at approx. ${day?} at ${time?}&quot; \
+	-bz \
+	f=level-&quot;${paddedlevel?}&quot;.star fs-name=&quot;${mount?}&quot; -C `pwd`/snap . &amp;&amp;
+
+umount snap &amp;&amp;
+lvremove -f /dev/&quot;${volgroup?}&quot;/snap
+
+case &quot;$?&quot; in
+	0) : ;;
+	*)
+		echo
+		echo &quot;!!! an error occurred; cleaning up !!!&quot;
+		umount snap
+		lvremove -f /dev/&quot;${volgroup?}&quot;/snap
+		exit 111
+		;;
+esac
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20070719/77fa47c6/attachment.pgp">https://lists.berlios.de/pipermail/star-users/attachments/20070719/77fa47c6/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000049.html">[Star-users] empty archives
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#50">[ date ]</a>
+              <a href="thread.html#50">[ thread ]</a>
+              <a href="subject.html#50">[ subject ]</a>
+              <a href="author.html#50">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>

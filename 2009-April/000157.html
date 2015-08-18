@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Star-users] star hangs at pipe read
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/star-users/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20hangs%20at%20pipe%20read&In-Reply-To=%3C49F058B0.8000300%40i-nex.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000148.html">
+   <LINK REL="Next"  HREF="000158.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Star-users] star hangs at pipe read</H1>
+    <B>Udo P&#252;tz</B> 
+    <A HREF="mailto:star-users%40lists.berlios.de?Subject=Re%3A%20%5BStar-users%5D%20star%20hangs%20at%20pipe%20read&In-Reply-To=%3C49F058B0.8000300%40i-nex.de%3E"
+       TITLE="[Star-users] star hangs at pipe read">udo.puetz at i-nex.de
+       </A><BR>
+    <I>Thu Apr 23 14:01:52 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000148.html">[Star-users] star hangs at pipe read
+</A></li>
+        <LI>Next message: <A HREF="000158.html">[Star-users] star hangs at pipe read
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Am 03.04.2009 13:23, schrieb Joerg Schilling:
+&gt;<i> Udo P&#252;tz&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/star-users">udo.puetz at i-nex.de</A>&gt;  wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i> I've got a problem with a server that uses star to backup to a tape
+</I>&gt;&gt;<i> drive. Sometimes all goes well and star finishes, sometimes the two
+</I>&gt;&gt;<i> processes hang indefinitely. From what I found out I think they don't
+</I>&gt;&gt;<i> communicate with each other anymore through the pipes.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> strace -p 31484
+</I>&gt;&gt;<i> Process 31484 attached - interrupt to quit
+</I>&gt;&gt;<i> read(5,&lt;unfinished ...&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> strace -p 31498
+</I>&gt;&gt;<i> Process 31498 attached - interrupt to quit
+</I>&gt;&gt;<i> read(3,&lt;unfinished ...&gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Did I understand it correctly that the 5 and 3 in the read lines refer
+</I>&gt;&gt;<i> to the file descriptors (see below)?
+</I>&gt;&gt;<i> As far as I see it both processes are now waiting for the other to write
+</I>&gt;&gt;<i> something into the pipes.
+</I>&gt;&gt;<i> I dunno what the NODE value means and I also don't know how to debug it
+</I>&gt;&gt;<i> any further.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Can someone shed some light on it or has a solution?
+</I>&gt;&gt;<i> Thanks in advance!
+</I>&gt;&gt;<i> Udo Puetz
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> relevant infos:
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> star -version
+</I>&gt;&gt;<i> star: star 1.5a70 (x86_64-suse-linux)
+</I>&gt;<i>
+</I>&gt;<i> The fix is simple: Don't use extremely outdated versions!
+</I>&gt;<i>
+</I>&gt;<i> This problem was fixed more than 3 years ago.
+</I>
+Hi again,
+after some tests I can confirm that it works with the latest release.
+I took the &quot;old&quot; version because that was the one in SLES. And sticking 
+to distro-provided packages in order to receive automatic updates is 
+_normally_ a good idea.
+Thanks again for your help!
+Regards
+Udo Puetz
+
+&gt;<i> J&#246;rg
+</I>&gt;<i>
+</I>
+
+-- 
+Mit freundlichem Gruss
+
+Udo P&#252;tz
+Support
+
+i-nex Gesellschaft f&#252;r linuxbasierte Netze mbH
+H&#252;ttenstr. 7 - 52068 Aachen
+
+Tel.: +49 (241) 475748-12
+Fax.: +49 (241) 475748-50
+
+Registergericht:  Amtsgericht Aachen
+Handelsregister:  HR B 8117
+Steuernummer:     201/5970/3154
+Umsatzsteuer-ID:  DE 813004671
+Gesch&#228;ftsleitung: Holger Bublitz
+                   Holger Pfeiffer
+                   Kay Zenner
+			
+visit us on the net ... <A HREF="http://www.i-nex.de">http://www.i-nex.de</A>
+			
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/pkcs7-signature
+Size: 3254 bytes
+Desc: S/MIME Cryptographic Signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/star-users/attachments/20090423/3f5081fe/attachment.bin">https://lists.berlios.de/pipermail/star-users/attachments/20090423/3f5081fe/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000148.html">[Star-users] star hangs at pipe read
+</A></li>
+	<LI>Next message: <A HREF="000158.html">[Star-users] star hangs at pipe read
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/star-users">More information about the Star-users
+mailing list</a><br>
+</body></html>
